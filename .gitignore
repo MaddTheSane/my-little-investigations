@@ -29,7 +29,7 @@ ipch/*
 Release/*
 src/Release/*
 *.dll
-*.DS_Store
+**/*.DS_Store
 MyLittleInvestigations.app/*
 *.depend
 *.layout
@@ -48,3 +48,7 @@ MyLittleInvestigations.mpkg/*
 My Little Investigations.dmg
 mli-versions.xml
 *.cscope_file_list
+
+**/*.xccheckout
+**/project.xcworkspace/
+**/xcuserdata/

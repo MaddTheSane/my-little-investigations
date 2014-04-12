@@ -196,8 +196,7 @@ vector<string> GetCaseFilePaths()
 
             FindClose(hFind);
         }
-    #endif
-    #ifdef __OSX
+    #elif defined(__OSX)
         unsigned int caseFileCount = 0;
 
         const char **ppCaseFilePaths = pfnGetCaseFilePathsOSX(&caseFileCount);
@@ -210,6 +209,7 @@ vector<string> GetCaseFilePaths()
             {
                 filePaths.push_back(caseFilePath);
             }
+			free((void*)ppCaseFilePaths[i]);
         }
 
         free(ppCaseFilePaths);
@@ -712,8 +712,7 @@ vector<string> GetSaveFilePathsForCase(string caseUuid)
 
             FindClose(hFind);
         }
-    #endif
-    #ifdef __OSX
+    #elif defined(__OSX)
         unsigned int saveFileCountLocal = 0;
 
         const char **ppSaveFilePaths = pfnGetSaveFilePathsForCaseOSX(caseUuid.c_str(), &saveFileCountLocal);
@@ -726,6 +725,7 @@ vector<string> GetSaveFilePathsForCase(string caseUuid)
             {
                 filePaths.push_back(saveFilePath);
             }
+			free((void*)ppSaveFilePaths[j]);
         }
 
         free(ppSaveFilePaths);
@@ -1258,8 +1258,7 @@ bool LaunchUpdater(string versionsXmlFilePath)
         false /* waitForCompletion */,
 #ifdef __WINDOWS
         true /* asAdmin */
-#endif
-#ifdef __OSX
+#elif defined(__OSX)
         false /* asAdmin */
 #endif
         );

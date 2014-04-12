@@ -119,7 +119,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		558C3ECE18F73F7200DEB259 /* My Little Investigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Little Investigation.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		558C3ECE18F73F7200DEB259 /* My Little Investigations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Little Investigations.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		558C3ED118F73F7200DEB259 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		558C3ED418F73F7200DEB259 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		558C3ED518F73F7200DEB259 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -308,7 +308,6 @@
 		558C401918F7446C00DEB259 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = /Library/Frameworks/SDL2_image.framework; sourceTree = "<absolute>"; };
 		55FC88CC18F75543009BED51 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = /Library/Frameworks/SDL2_mixer.framework; sourceTree = "<absolute>"; };
 		55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = /Library/Frameworks/SDL2_ttf.framework; sourceTree = "<absolute>"; };
-		55FC88D118F75F8E009BED51 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -340,7 +339,7 @@
 		558C3ECF18F73F7200DEB259 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				558C3ECE18F73F7200DEB259 /* My Little Investigation.app */,
+				558C3ECE18F73F7200DEB259 /* My Little Investigations.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -348,7 +347,6 @@
 		558C3ED018F73F7200DEB259 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				55FC88D118F75F8E009BED51 /* Security.framework */,
 				55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */,
 				55FC88CC18F75543009BED51 /* SDL2_mixer.framework */,
 				558C401918F7446C00DEB259 /* SDL2_image.framework */,
@@ -630,7 +628,7 @@
 			);
 			name = mli;
 			productName = mli;
-			productReference = 558C3ECE18F73F7200DEB259 /* My Little Investigation.app */;
+			productReference = 558C3ECE18F73F7200DEB259 /* My Little Investigations.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -841,7 +839,7 @@
 		558C3F0018F73F7200DEB259 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_MODULES_AUTOLINK = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -874,7 +872,7 @@
 					"-lavutil",
 					"-lavformat",
 				);
-				PRODUCT_NAME = "My Little Investigation";
+				PRODUCT_NAME = "My Little Investigations";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -882,7 +880,7 @@
 		558C3F0118F73F7200DEB259 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_MODULES_AUTOLINK = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -915,7 +913,7 @@
 					"-lavutil",
 					"-lavformat",
 				);
-				PRODUCT_NAME = "My Little Investigation";
+				PRODUCT_NAME = "My Little Investigations";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
