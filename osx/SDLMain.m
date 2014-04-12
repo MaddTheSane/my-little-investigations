@@ -402,8 +402,6 @@ int main (int argc, char **argv)
 	NSCasesPath = [pStrCasesPath retain];
 	NSSavesPath = [pStrSavesPath retain];
 	
-	pStrLocalGameApplicationSupportPath = [pStrLocalGameApplicationSupportPath stringByAppendingString:@"/"];
-	
     pLocalApplicationSupportPath = [pStrLocalGameApplicationSupportPath fileSystemRepresentation];
     pCasesPath = [pStrCasesPath fileSystemRepresentation];
     pUserApplicationSupportPath = [pStrUserGameApplicationSupportPath fileSystemRepresentation];

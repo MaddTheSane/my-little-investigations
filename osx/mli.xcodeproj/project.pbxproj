@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		551D57E218F9B5250087AAA0 /* MyLittleInvestigations.plist in Resources */ = {isa = PBXBuildFile; fileRef = 551D57DF18F9B5250087AAA0 /* MyLittleInvestigations.plist */; };
+		551D57E618F9B53E0087AAA0 /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 551D57E418F9B53E0087AAA0 /* COPYING */; };
+		551D57E718F9B53E0087AAA0 /* xdelta3 in Resources */ = {isa = PBXBuildFile; fileRef = 551D57E518F9B53E0087AAA0 /* xdelta3 */; };
 		558C3ED218F73F7200DEB259 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558C3ED118F73F7200DEB259 /* Cocoa.framework */; };
 		558C3F0C18F7407500DEB259 /* ApplicationSupportBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0518F7407500DEB259 /* ApplicationSupportBridge.cpp */; };
 		558C3F0D18F7407500DEB259 /* mli.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 558C3F0718F7407500DEB259 /* mli.iconset */; };
@@ -119,6 +122,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		551D57DF18F9B5250087AAA0 /* MyLittleInvestigations.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MyLittleInvestigations.plist; sourceTree = "<group>"; };
+		551D57E418F9B53E0087AAA0 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
+		551D57E518F9B53E0087AAA0 /* xdelta3 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = xdelta3; sourceTree = "<group>"; };
 		558C3ECE18F73F7200DEB259 /* My Little Investigations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Little Investigations.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		558C3ED118F73F7200DEB259 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		558C3ED418F73F7200DEB259 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -326,6 +332,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		551D57DB18F9B5250087AAA0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				551D57E318F9B53E0087AAA0 /* deltatool */,
+				551D57DF18F9B5250087AAA0 /* MyLittleInvestigations.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		551D57E318F9B53E0087AAA0 /* deltatool */ = {
+			isa = PBXGroup;
+			children = (
+				551D57E418F9B53E0087AAA0 /* COPYING */,
+				551D57E518F9B53E0087AAA0 /* xdelta3 */,
+			);
+			path = deltatool;
+			sourceTree = "<group>";
+		};
 		558C3EC518F73F7200DEB259 = {
 			isa = PBXGroup;
 			children = (
@@ -380,6 +404,7 @@
 				558C3F1118F7410E00DEB259 /* Info.plist */,
 				558C401518F741E200DEB259 /* mli-Prefix.pch */,
 				558C3F0718F7407500DEB259 /* mli.iconset */,
+				551D57DB18F9B5250087AAA0 /* Resources */,
 			);
 			name = osx;
 			sourceTree = "<group>";
@@ -663,6 +688,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				551D57E718F9B53E0087AAA0 /* xdelta3 in Resources */,
+				551D57E618F9B53E0087AAA0 /* COPYING in Resources */,
+				551D57E218F9B5250087AAA0 /* MyLittleInvestigations.plist in Resources */,
 				558C3F0D18F7407500DEB259 /* mli.iconset in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -839,7 +867,6 @@
 		558C3F0018F73F7200DEB259 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_MODULES_AUTOLINK = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -872,6 +899,7 @@
 					"-lavutil",
 					"-lavformat",
 				);
+				PLIST_FILE_OUTPUT_FORMAT = XML;
 				PRODUCT_NAME = "My Little Investigations";
 				WRAPPER_EXTENSION = app;
 			};
@@ -880,7 +908,6 @@
 		558C3F0118F73F7200DEB259 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_MODULES_AUTOLINK = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -913,6 +940,7 @@
 					"-lavutil",
 					"-lavformat",
 				);
+				PLIST_FILE_OUTPUT_FORMAT = XML;
 				PRODUCT_NAME = "My Little Investigations";
 				WRAPPER_EXTENSION = app;
 			};
