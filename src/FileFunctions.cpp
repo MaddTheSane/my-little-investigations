@@ -435,7 +435,7 @@ void WriteNewVersion(Version newVersion)
 #endif
 #ifdef __OSX
     unsigned long propertyListXmlDataLength = 0;
-    char *pPropertyListXmlData = GetPropertyListXMLForVersionStringOSX(GetPropertyListPath().c_str(), ((string)newVersion).c_str(), &propertyListXmlDataLength);
+    char *pPropertyListXmlData = GetPropertyListXMLForVersionStringOSX(GetPropertyListPath(), newVersion, &propertyListXmlDataLength);
 
     if (pPropertyListXmlData != NULL && propertyListXmlDataLength > 0)
     {

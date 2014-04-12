@@ -13,6 +13,6 @@ extern const char *pSavesPath;
 std::vector<std::string> GetSaveFilePathsForCaseOSX(std::string caseUuid);
 std::vector<std::string> GetCaseFilePathsOSX();
 std::string GetVersionStringOSX(std::string PropertyListFilePath);
-char * GetPropertyListXMLForVersionStringOSX(const char *pPropertyListFilePath, const char *pVersionString, unsigned long *pVersionStringLength);
+char * GetPropertyListXMLForVersionStringOSX(std::string pPropertyListFilePath, std::string pVersionString, unsigned long *pVersionStringLength);
 
 #endif
