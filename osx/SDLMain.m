@@ -56,7 +56,7 @@ static NSString *getApplicationName(void)
     NSString *appName = 0;
 
     /* Determine the application name */
-    dict = (const NSDictionary *)CFBundleGetInfoDictionary(CFBundleGetMainBundle());
+    dict = (__bridge const NSDictionary *)CFBundleGetInfoDictionary(CFBundleGetMainBundle());
     if (dict)
         appName = [dict objectForKey: @"CFBundleName"];
 
@@ -164,10 +164,6 @@ static void setApplicationMenu(void)
 
     /* Tell the application object that this is now the application menu */
     [NSApp setAppleMenu:appleMenu];
-
-    /* Finally give up our references to the objects */
-    [appleMenu release];
-    [menuItem release];
 }
 
 /* Create a window menu */
@@ -182,7 +178,6 @@ static void setupWindowMenu(void)
     /* "Minimize" item */
     menuItem = [[NSMenuItem alloc] initWithTitle:@"Minimize" action:@selector(performMiniaturize:) keyEquivalent:@"m"];
     [windowMenu addItem:menuItem];
-    [menuItem release];
 
     /* Put menu into the menubar */
     windowMenuItem = [[NSMenuItem alloc] initWithTitle:@"Window" action:nil keyEquivalent:@""];
@@ -193,44 +188,41 @@ static void setupWindowMenu(void)
     [NSApp setWindowsMenu:windowMenu];
 
     /* Finally give up our references to the objects */
-    [windowMenu release];
-    [windowMenuItem release];
 }
 
 /* Replacement for NSApplicationMain */
 static void CustomApplicationMain (int argc, char **argv)
 {
-    NSAutoreleasePool	*pool = [[NSAutoreleasePool alloc] init];
-    SDLMain				*sdlMain;
+    @autoreleasepool {
+        SDLMain				*sdlMain;
 
-    /* Ensure the application object is initialised */
-    [NSApplication sharedApplication];
+        /* Ensure the application object is initialised */
+        [NSApplication sharedApplication];
 
 #ifdef SDL_USE_CPS
-    {
-        CPSProcessSerNum PSN;
-        /* Tell the dock about us */
-        if (!CPSGetCurrentProcess(&PSN))
-            if (!CPSEnableForegroundOperation(&PSN,0x03,0x3C,0x2C,0x1103))
-                if (!CPSSetFrontProcess(&PSN))
-                    [NSApplication sharedApplication];
-    }
+        {
+            CPSProcessSerNum PSN;
+            /* Tell the dock about us */
+            if (!CPSGetCurrentProcess(&PSN))
+                if (!CPSEnableForegroundOperation(&PSN,0x03,0x3C,0x2C,0x1103))
+                    if (!CPSSetFrontProcess(&PSN))
+                        [NSApplication sharedApplication];
+        }
 #endif /* SDL_USE_CPS */
 
-    /* Set up the menubar */
-    [NSApp setMainMenu:[[NSMenu alloc] init]];
-    setApplicationMenu();
-    setupWindowMenu();
+        /* Set up the menubar */
+        [NSApp setMainMenu:[[NSMenu alloc] init]];
+        setApplicationMenu();
+        setupWindowMenu();
 
-    /* Create SDLMain and make it the app delegate */
-    sdlMain = [[SDLMain alloc] init];
-    [NSApp setDelegate:sdlMain];
+        /* Create SDLMain and make it the app delegate */
+        sdlMain = [[SDLMain alloc] init];
+        [NSApp setDelegate:sdlMain];
 
-    /* Start the main event loop */
-    [NSApp run];
+        /* Start the main event loop */
+        [NSApp run];
 
-    [sdlMain release];
-    [pool release];
+    }
 }
 
 #endif
@@ -360,24 +352,24 @@ static NSString *NSSavesPath;
 /* Main entry point to executable - should *not* be SDL_main! */
 int main (int argc, char **argv)
 {
-    NSAutoreleasePool *pPool = [[NSAutoreleasePool alloc] init];
+    @autoreleasepool {
 
     /* Store the function pointers to our interop functions, first off. */
-    pfnGetCaseFilePathsOSX = GetCaseFilePathsOSX;
-    pfnGetSaveFilePathsForCaseOSX = GetSaveFilePathsForCaseOSX;
-    pfnGetVersionStringOSX = GetVersionStringOSX;
-    pfnGetPropertyListXMLForVersionStringOSX = GetPropertyListXMLForVersionStringOSX;
+        pfnGetCaseFilePathsOSX = GetCaseFilePathsOSX;
+        pfnGetSaveFilePathsForCaseOSX = GetSaveFilePathsForCaseOSX;
+        pfnGetVersionStringOSX = GetVersionStringOSX;
+        pfnGetPropertyListXMLForVersionStringOSX = GetPropertyListXMLForVersionStringOSX;
 
-    /* Create our Application Support folders if they don't exist yet and store the paths */
-    NSString *pStrLocalApplicationSupportPath = [[NSFileManager defaultManager] localApplicationSupportDirectory];
-    NSString *pStrUserApplicationSupportPath = [[NSFileManager defaultManager] userApplicationSupportDirectory];
+        /* Create our Application Support folders if they don't exist yet and store the paths */
+        NSString *pStrLocalApplicationSupportPath = [[NSFileManager defaultManager] localApplicationSupportDirectory];
+        NSString *pStrUserApplicationSupportPath = [[NSFileManager defaultManager] userApplicationSupportDirectory];
 
-    /* Next, create the folders that the executable will need during execution if they don't already exist. */
-    NSString *pStrLocalGameApplicationSupportPath = nil;
-    NSString *pStrCasesPath = nil;
-    NSString *pStrUserGameApplicationSupportPath = nil;
-    NSString *pStrDialogSeenListsPath = nil;
-    NSString *pStrSavesPath = nil;
+        /* Next, create the folders that the executable will need during execution if they don't already exist. */
+        NSString *pStrLocalGameApplicationSupportPath = nil;
+        NSString *pStrCasesPath = nil;
+        NSString *pStrUserGameApplicationSupportPath = nil;
+        NSString *pStrDialogSeenListsPath = nil;
+        NSString *pStrSavesPath = nil;
 
 	pStrLocalGameApplicationSupportPath = pStrLocalApplicationSupportPath;
 	pStrCasesPath = [pStrLocalGameApplicationSupportPath stringByAppendingPathComponent:@"Cases"];
@@ -399,39 +391,39 @@ int main (int argc, char **argv)
 		attributes:nil
 		error:&error];
 
-	NSCasesPath = [pStrCasesPath retain];
-	NSSavesPath = [pStrSavesPath retain];
+	NSCasesPath = pStrCasesPath;
+	NSSavesPath = pStrSavesPath;
 	
-    pLocalApplicationSupportPath = [pStrLocalGameApplicationSupportPath fileSystemRepresentation];
-    pCasesPath = [pStrCasesPath fileSystemRepresentation];
-    pUserApplicationSupportPath = [pStrUserGameApplicationSupportPath fileSystemRepresentation];
-    pDialogSeenListsPath = [pStrDialogSeenListsPath fileSystemRepresentation];
-    pSavesPath = [pStrSavesPath fileSystemRepresentation];
+        pLocalApplicationSupportPath = [pStrLocalGameApplicationSupportPath fileSystemRepresentation];
+        pCasesPath = [pStrCasesPath fileSystemRepresentation];
+        pUserApplicationSupportPath = [pStrUserGameApplicationSupportPath fileSystemRepresentation];
+        pDialogSeenListsPath = [pStrDialogSeenListsPath fileSystemRepresentation];
+        pSavesPath = [pStrSavesPath fileSystemRepresentation];
 
-    /* Copy the arguments into a global variable */
-    /* This is passed if we are launched by double-clicking */
-    if ( argc >= 2 && strncmp (argv[1], "-psn", 4) == 0 ) {
-        gArgv = (char **) SDL_malloc(sizeof (char *) * 2);
-        gArgv[0] = argv[0];
-        gArgv[1] = NULL;
-        gArgc = 1;
-        gFinderLaunch = YES;
-    } else {
-        int i;
-        gArgc = argc;
-        gArgv = (char **) SDL_malloc(sizeof (char *) * (argc+1));
-        for (i = 0; i <= argc; i++)
-            gArgv[i] = argv[i];
-        gFinderLaunch = NO;
-    }
+        /* Copy the arguments into a global variable */
+        /* This is passed if we are launched by double-clicking */
+        if ( argc >= 2 && strncmp (argv[1], "-psn", 4) == 0 ) {
+            gArgv = (char **) SDL_malloc(sizeof (char *) * 2);
+            gArgv[0] = argv[0];
+            gArgv[1] = NULL;
+            gArgc = 1;
+            gFinderLaunch = YES;
+        } else {
+            int i;
+            gArgc = argc;
+            gArgv = (char **) SDL_malloc(sizeof (char *) * (argc+1));
+            for (i = 0; i <= argc; i++)
+                gArgv[i] = argv[i];
+            gFinderLaunch = NO;
+        }
 
 #if SDL_USE_NIB_FILE
-    NSApplicationMain (argc, argv);
+        NSApplicationMain (argc, argv);
 #else
-    CustomApplicationMain (argc, argv);
+        CustomApplicationMain (argc, argv);
 #endif
 
-    [pPool release];
+    }
     return 0;
 }
 
