@@ -461,7 +461,7 @@ const char ** GetCaseFilePathsOSX(unsigned int *pCaseFileCount)
         ppCaseFileList[caseFileIndex++] = strdup([fullCasePath fileSystemRepresentation]);
     }
 
-    *pCaseFileCount = (unsigned int)caseFileCount;
+    *pCaseFileCount = caseFileIndex;
 	[pool drain];
     return ppCaseFileList;
 }
@@ -505,7 +505,7 @@ const char ** GetSaveFilePathsForCaseOSX(const char *pCaseUuid, unsigned int *pS
         ppSaveFilePathList[saveFileIndex++] = strdup([caseSave fileSystemRepresentation]);
     }
 
-    *pSaveFileCount = (unsigned int)saveFileCount;
+    *pSaveFileCount = saveFileIndex;
 	[pool drain];
     return ppSaveFilePathList;
 }
@@ -572,6 +572,8 @@ char * GetPropertyListXMLForVersionStringOSX(const char *pPropertyListFilePath, 
         format:NSPropertyListXMLFormat_v1_0
         errorDescription:&pErrorDesc];
 
+    [pPropertyListDictionaryMutable release];
+    
     if (pData == NULL)
     {
         return NULL;

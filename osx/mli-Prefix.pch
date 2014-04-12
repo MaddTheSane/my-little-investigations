@@ -11,13 +11,8 @@
 
 #ifdef __cplusplus
 extern "C" {
-#endif
 #include <libavcodec/avcodec.h>
-#ifdef __cplusplus
 }
-#endif
-
-#ifdef __cplusplus
 #include <sstream>
 #include <stack>
 #include <vector>
