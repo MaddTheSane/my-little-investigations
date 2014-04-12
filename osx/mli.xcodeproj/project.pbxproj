@@ -365,6 +365,7 @@
 		558C401918F7446C00DEB259 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = /Library/Frameworks/SDL2_image.framework; sourceTree = "<absolute>"; };
 		55B4E53318F9E7EC0000183A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		55B4E53518F9E7F30000183A /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
+		55B4E54A18F9EF420000183A /* game-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "game-Info.plist"; sourceTree = "<group>"; };
 		55E7B7A818F9E1F800FE53C2 /* mliGame */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mliGame; sourceTree = BUILT_PRODUCTS_DIR; };
 		55FC88CC18F75543009BED51 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = /Library/Frameworks/SDL2_mixer.framework; sourceTree = "<absolute>"; };
 		55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = /Library/Frameworks/SDL2_ttf.framework; sourceTree = "<absolute>"; };
@@ -473,6 +474,7 @@
 				558C3F0A18F7407500DEB259 /* SDLMain.h */,
 				558C3F0B18F7407500DEB259 /* SDLMain.mm */,
 				558C3F1118F7410E00DEB259 /* Info.plist */,
+				55B4E54A18F9EF420000183A /* game-Info.plist */,
 				558C401518F741E200DEB259 /* mli-Prefix.pch */,
 				558C3F0718F7407500DEB259 /* mli.iconset */,
 				551D57DB18F9B5250087AAA0 /* Resources */,
@@ -1074,6 +1076,7 @@
 		55E7B7AF18F9E1F800FE53C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
@@ -1095,8 +1098,8 @@
 					"$(inherited)",
 					/opt/local/include,
 				);
+				INFOPLIST_FILE = "game-Info.plist";
 				LIBRARY_SEARCH_PATHS = /opt/local/lib;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = (
 					"-lcryptopp",
 					"-lavcodec",
@@ -1111,6 +1114,7 @@
 		55E7B7B018F9E1F800FE53C2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
@@ -1131,8 +1135,8 @@
 					"$(inherited)",
 					/opt/local/include,
 				);
+				INFOPLIST_FILE = "game-Info.plist";
 				LIBRARY_SEARCH_PATHS = /opt/local/lib;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = (
 					"-lcryptopp",
 					"-lavcodec",

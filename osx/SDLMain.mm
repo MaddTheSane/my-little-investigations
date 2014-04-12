@@ -363,10 +363,8 @@ int main (int argc, char **argv)
 
     /* Next, create the folders that the executable will need during execution if they don't already exist. */
     NSString *pStrLocalGameApplicationSupportPath = nil;
-    NSString *pStrCasesPath = nil;
     NSString *pStrUserGameApplicationSupportPath = nil;
     NSString *pStrDialogSeenListsPath = nil;
-    NSString *pStrSavesPath = nil;
 
     pStrLocalGameApplicationSupportPath = pStrLocalApplicationSupportPath;
     NSCasesPath = [[pStrLocalGameApplicationSupportPath stringByAppendingPathComponent:@"Cases"] retain];
@@ -383,16 +381,16 @@ int main (int argc, char **argv)
 		error:&error];
 
 	[defaultManager
-		createDirectoryAtPath:pStrSavesPath
+		createDirectoryAtPath:NSSavesPath
 		withIntermediateDirectories:YES
 		attributes:nil
 		error:&error];
 
-    pLocalApplicationSupportPath = [pStrLocalGameApplicationSupportPath fileSystemRepresentation];
-    pCasesPath = [pStrCasesPath fileSystemRepresentation];
-    pUserApplicationSupportPath = [pStrUserGameApplicationSupportPath fileSystemRepresentation];
-    pDialogSeenListsPath = [pStrDialogSeenListsPath fileSystemRepresentation];
-    pSavesPath = [pStrSavesPath fileSystemRepresentation];
+    pLocalApplicationSupportPath = strdup([pStrLocalGameApplicationSupportPath fileSystemRepresentation]);
+    pCasesPath = strdup([NSCasesPath fileSystemRepresentation]);
+    pUserApplicationSupportPath = strdup([pStrUserGameApplicationSupportPath fileSystemRepresentation]);
+    pDialogSeenListsPath = strdup([pStrDialogSeenListsPath fileSystemRepresentation]);
+    pSavesPath = strdup([NSSavesPath fileSystemRepresentation]);
 
     /* Copy the arguments into a global variable */
     /* This is passed if we are launched by double-clicking */
