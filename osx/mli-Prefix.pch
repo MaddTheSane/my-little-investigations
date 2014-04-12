@@ -22,6 +22,8 @@ extern "C" {
 #include "Utils.h"
 #endif
 
+#define Comment AIFFComment
 #ifdef __OBJC__
 	#import <Cocoa/Cocoa.h>
 #endif
+#undef Comment

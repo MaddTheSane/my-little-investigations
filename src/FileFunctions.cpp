@@ -201,23 +201,17 @@ vector<string> GetCaseFilePaths()
             FindClose(hFind);
         }
     #elif defined(__OSX)
-        unsigned int caseFileCount = 0;
+        vector<string> ppCaseFilePaths = GetCaseFilePathsOSX();
 
-        const char **ppCaseFilePaths = pfnGetCaseFilePathsOSX(&caseFileCount);
-
-        for (unsigned int i = 0; i < caseFileCount; i++)
+        for (size_t i = 0; i < ppCaseFilePaths.size(); i++)
         {
-            string caseFilePath = string(ppCaseFilePaths[i]);
+            string caseFilePath = ppCaseFilePaths[i];
 
             if (caseFilePath.find(".mlicase") != string::npos)
             {
                 filePaths.push_back(caseFilePath);
             }
-            //Clean up after ourselves
-            free((void*)ppCaseFilePaths[i]);
         }
-
-        free(ppCaseFilePaths);
     #endif
 
     return filePaths;
@@ -396,7 +390,7 @@ Version GetCurrentVersion()
     RegCloseKey(hKey);
 #endif
 #ifdef __OSX
-    versionString = pfnGetVersionStringOSX(GetPropertyListPath().c_str());
+    versionString = GetVersionStringOSX(GetPropertyListPath());
 #endif
 
     if (versionString.length() > 0)
@@ -440,7 +434,7 @@ void WriteNewVersion(Version newVersion)
 #endif
 #ifdef __OSX
     unsigned long propertyListXmlDataLength = 0;
-    char *pPropertyListXmlData = pfnGetPropertyListXMLForVersionStringOSX(GetPropertyListPath().c_str(), ((string)newVersion).c_str(), &propertyListXmlDataLength);
+    char *pPropertyListXmlData = GetPropertyListXMLForVersionStringOSX(GetPropertyListPath().c_str(), ((string)newVersion).c_str(), &propertyListXmlDataLength);
 
     if (pPropertyListXmlData != NULL && propertyListXmlDataLength > 0)
     {
@@ -458,7 +452,7 @@ void WriteNewVersion(Version newVersion)
         newVersion.SaveToXml(&versionWriter);
     }
 
-    delete [] pPropertyListXmlData;
+	free(pPropertyListXmlData);
 #endif
 }
 #endif
@@ -718,23 +712,16 @@ vector<string> GetSaveFilePathsForCase(string caseUuid)
             FindClose(hFind);
         }
     #elif defined(__OSX)
-        unsigned int saveFileCountLocal = 0;
-
-        const char **ppSaveFilePaths = pfnGetSaveFilePathsForCaseOSX(caseUuid.c_str(), &saveFileCountLocal);
-
-        for (unsigned int j = 0; j < saveFileCountLocal; j++)
+        vector<string> tmpPaths = GetSaveFilePathsForCaseOSX(caseUuid);
+        for (unsigned int j = 0; j < tmpPaths.size(); j++)
         {
-            string saveFilePath = string(ppSaveFilePaths[j]);
+            string saveFilePath = tmpPaths[j];
 
             if (saveFilePath.find(".sav") != string::npos)
             {
                 filePaths.push_back(saveFilePath);
             }
-            //Clean up after ourselves
-            free((void*)ppSaveFilePaths[j]);
         }
-
-        free(ppSaveFilePaths);
     #endif
 
     return filePaths;
