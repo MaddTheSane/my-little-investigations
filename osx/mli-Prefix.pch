@@ -1,0 +1,32 @@
+//
+//  Prefix header
+//
+//  The contents of this file are implicitly included at the beginning of every source file.
+//
+
+#include <math.h>
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_ttf.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+#include <libavcodec/avcodec.h>
+#ifdef __cplusplus
+}
+#endif
+
+#ifdef __cplusplus
+#include <sstream>
+#include <stack>
+#include <vector>
+#include <string>
+#include <limits>
+#include "Animation.h"
+#include "Utils.h"
+#endif
+
+#ifdef __OBJC__
+	#import <Cocoa/Cocoa.h>
+#endif

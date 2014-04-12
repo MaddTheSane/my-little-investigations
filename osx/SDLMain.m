@@ -313,8 +313,8 @@ static void CustomApplicationMain (int argc, char **argv)
 - (NSString *)stringByReplacingRange:(NSRange)aRange with:(NSString *)aString
 {
     unsigned int bufferSize;
-    unsigned int selfLen = [self length];
-    unsigned int aStringLen = [aString length];
+    NSUInteger selfLen = [self length];
+    NSUInteger aStringLen = [aString length];
     unichar *buffer;
     NSRange localRange;
     NSString *result;
@@ -443,7 +443,7 @@ const char ** GetCaseFilePathsOSX(unsigned int *pCaseFileCount)
             contentsOfDirectoryAtPath:[NSString stringWithUTF8String:pCasesPath]
             error:&error];
 
-    unsigned int caseFileCount = [pCaseFileList count];
+    NSUInteger caseFileCount = [pCaseFileList count];
     const char **ppCaseFileList = (const char **)malloc((size_t)(caseFileCount * sizeof(const char *)));
 
     unsigned int caseFileIndex = 0;
@@ -483,7 +483,7 @@ const char ** GetSaveFilePathsForCaseOSX(const char *pCaseUuid, unsigned int *pS
             contentsOfDirectoryAtPath:pStrCaseSavesFilePath
             error:&error];
 
-    unsigned int saveFileCount = [pSaveFileList count];
+    NSUInteger saveFileCount = [pSaveFileList count];
     const char **ppSaveFilePathList = (const char **)malloc((size_t)(saveFileCount * sizeof(const char *)));
 
     unsigned int saveFileIndex = 0;
