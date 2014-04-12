@@ -95,7 +95,7 @@ static NSString *getApplicationName(void)
 {
     if (shouldChdir)
     {
-        chdir([[[NSBundle mainBundle] bundlePath] UTF8String]);
+        chdir([[[NSBundle mainBundle] bundlePath] fileSystemRepresentation]);
         chdir("Contents/Resources");
     }
 }
@@ -359,6 +359,7 @@ static NSString *NSSavesPath;
 int main (int argc, char **argv)
 {
     NSAutoreleasePool *pPool = [[NSAutoreleasePool alloc] init];
+    NSFileManager *defaultManager = [NSFileManager defaultManager];
 
     /* Store the function pointers to our interop functions, first off. */
     pfnGetCaseFilePathsOSX = GetCaseFilePathsOSX;
@@ -367,8 +368,8 @@ int main (int argc, char **argv)
     pfnGetPropertyListXMLForVersionStringOSX = GetPropertyListXMLForVersionStringOSX;
 
     /* Create our Application Support folders if they don't exist yet and store the paths */
-    NSString *pStrLocalApplicationSupportPath = [[NSFileManager defaultManager] localApplicationSupportDirectory];
-    NSString *pStrUserApplicationSupportPath = [[NSFileManager defaultManager] userApplicationSupportDirectory];
+    NSString *pStrLocalApplicationSupportPath = [defaultManager localApplicationSupportDirectory];
+    NSString *pStrUserApplicationSupportPath = [defaultManager userApplicationSupportDirectory];
 
     /* Next, create the folders that the executable will need during execution if they don't already exist. */
     NSString *pStrLocalGameApplicationSupportPath = nil;
@@ -385,13 +386,13 @@ int main (int argc, char **argv)
 
 	NSError *error = nil;
 
-	[[NSFileManager defaultManager]
+	[defaultManager
 		createDirectoryAtPath:pStrDialogSeenListsPath
 		withIntermediateDirectories:YES
 		attributes:nil
 		error:&error];
 
-	[[NSFileManager defaultManager]
+	[defaultManager
 		createDirectoryAtPath:pStrSavesPath
 		withIntermediateDirectories:YES
 		attributes:nil
@@ -432,6 +433,7 @@ int main (int argc, char **argv)
 
 const char ** GetCaseFilePathsOSX(unsigned int *pCaseFileCount)
 {
+	NSAutoreleasePool *pool = [NSAutoreleasePool new];
 	NSError *error = nil;
     NSFileManager *defaultManager = [NSFileManager defaultManager];
 
@@ -451,28 +453,35 @@ const char ** GetCaseFilePathsOSX(unsigned int *pCaseFileCount)
         if ([object hasPrefix:@"."]) {
 			continue;
 		}
+		
+		//Have to duplicate the string here because fileSystemRepresentation returns
+        // a pointer in memory that is from inside an NSString object:
+        // this data gets freed when the NSString object is dealloc'd
         NSString *fullCasePath = [NSCasesPath stringByAppendingPathComponent:object];
         ppCaseFileList[caseFileIndex++] = strdup([fullCasePath fileSystemRepresentation]);
     }
 
     *pCaseFileCount = (unsigned int)caseFileCount;
+	[pool drain];
     return ppCaseFileList;
 }
 
 const char ** GetSaveFilePathsForCaseOSX(const char *pCaseUuid, unsigned int *pSaveFileCount)
 {
+	NSAutoreleasePool *pool = [NSAutoreleasePool new];
 	NSError *error = nil;
+	NSFileManager *defaultManager = [NSFileManager defaultManager];
 
 	NSString *currentCaseSavePath = [NSSavesPath stringByAppendingPathComponent:@(pCaseUuid)];
 
-    [[NSFileManager defaultManager]
+    [defaultManager
         createDirectoryAtPath:currentCaseSavePath
         withIntermediateDirectories:YES
         attributes:nil
         error:&error];
 
     NSArray *pSaveFileList =
-        [[NSFileManager defaultManager]
+        [defaultManager
             contentsOfDirectoryAtPath:currentCaseSavePath
             error:&error];
 
@@ -489,11 +498,15 @@ const char ** GetSaveFilePathsForCaseOSX(const char *pCaseUuid, unsigned int *pS
 		}
 		
         NSString *caseSave = [currentCaseSavePath stringByAppendingPathComponent:object];
+		//Have to duplicate the string here because fileSystemRepresentation returns
+        // a pointer in memory that is from inside an NSString object:
+        // this data gets freed when the NSString object is dealloc'd
+
         ppSaveFilePathList[saveFileIndex++] = strdup([caseSave fileSystemRepresentation]);
     }
 
-
     *pSaveFileCount = (unsigned int)saveFileCount;
+	[pool drain];
     return ppSaveFilePathList;
 }
 

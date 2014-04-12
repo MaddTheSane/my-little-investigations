@@ -148,10 +148,10 @@ void LoadFilePathsAndCaseUuids(string executableFilePath)
         tempDirectoryPath = getenv("TMPDIR");
 #endif
 
-		// The file system representation Objective C function seems to omit the
-		// trailing slash unless it's explicit.
-		// stringByAppendingPathComponent has no way of doing this
-		// explicitly, though.
+        // The file system representation Objective C function seems to omit the
+        // trailing slash unless it's explicit.
+        // stringByAppendingPathComponent has no way of doing this
+        // explicitly, though.
         commonAppDataPath = string(pLocalApplicationSupportPath) + "/";
         casesPath = string(pCasesPath) + "/";
         userAppDataPath = string(pUserApplicationSupportPath) + "/";
@@ -213,7 +213,8 @@ vector<string> GetCaseFilePaths()
             {
                 filePaths.push_back(caseFilePath);
             }
-			free((void*)ppCaseFilePaths[i]);
+            //Clean up after ourselves
+            free((void*)ppCaseFilePaths[i]);
         }
 
         free(ppCaseFilePaths);
@@ -729,7 +730,8 @@ vector<string> GetSaveFilePathsForCase(string caseUuid)
             {
                 filePaths.push_back(saveFilePath);
             }
-			free((void*)ppSaveFilePaths[j]);
+            //Clean up after ourselves
+            free((void*)ppSaveFilePaths[j]);
         }
 
         free(ppSaveFilePaths);
