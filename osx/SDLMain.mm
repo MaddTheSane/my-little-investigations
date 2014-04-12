@@ -6,7 +6,7 @@
 */
 
 #include "SDL2/SDL.h"
-#include "SDLMain.h"
+#import "SDLMain.h"
 #include "NSFileManagerDirectoryLocations.h"
 #include "ApplicationSupportBridge.h"
 #include <sys/param.h> /* for MAXPATHLEN */
@@ -18,6 +18,8 @@
 @interface NSApplication(SDL_Missing_Methods)
 - (void)setAppleMenu:(NSMenu *)menu;
 @end
+
+using namespace std;
 
 /* Use this flag to determine whether we use SDLMain.nib or not */
 #define		SDL_USE_NIB_FILE	0
@@ -42,7 +44,7 @@ extern OSErr	CPSSetFrontProcess( CPSProcessSerNum *psn);
 static int    gArgc;
 static char  **gArgv;
 static BOOL   gFinderLaunch;
-static BOOL   gCalledAppMainline = FALSE;
+static BOOL   gCalledAppMainline = NO;
 
 static NSString *getApplicationName(void)
 {

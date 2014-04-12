@@ -278,7 +278,7 @@ bool CheckIfUpdatesExist(string *pVersionsXmlContent)
 
     if (retrievedVersionsXmlContent &&
         retrievedVersionsXmlSignature &&
-        SignatureIsValid((const byte *)versionsXmlContent.c_str(), versionsXmlContent.length(), versionsXmlSignatureHexEncoded))
+        SignatureIsValid((const byte *)versionsXmlContent.c_str(), (unsigned int)versionsXmlContent.length(), versionsXmlSignatureHexEncoded))
     {
         try
         {
