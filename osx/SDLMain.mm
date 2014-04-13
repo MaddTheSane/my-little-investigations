@@ -52,6 +52,7 @@ static NSString *getApplicationName(void)
     NSString *appName = 0;
 
     /* Determine the application name */
+    // TODO: use NSBundle class
     dict = (const NSDictionary *)CFBundleGetInfoDictionary(CFBundleGetMainBundle());
     if (dict)
         appName = [dict objectForKey: @"CFBundleName"];
@@ -349,6 +350,7 @@ static void CustomApplicationMain (int argc, char **argv)
 
 
 static NSString *NSCasesPath;
+static NSString *NSUserCasesPath;
 static NSString *NSSavesPath;
 
 /* Main entry point to executable - should *not* be SDL_main! */
@@ -371,7 +373,7 @@ int main (int argc, char **argv)
     pStrUserGameApplicationSupportPath = [pStrUserApplicationSupportPath stringByAppendingPathComponent:@"My Little Investigations"];
     pStrDialogSeenListsPath = [pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"DialogSeenLists"];
     NSSavesPath = [[pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"Saves"] retain];
-
+    NSUserCasesPath = [[pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"Cases"] retain];
     NSError *error = nil;
 
     [defaultManager
@@ -382,6 +384,12 @@ int main (int argc, char **argv)
 
     [defaultManager
      createDirectoryAtPath:NSSavesPath
+     withIntermediateDirectories:YES
+     attributes:nil
+     error:&error];
+
+    [defaultManager
+     createDirectoryAtPath:NSUserCasesPath
      withIntermediateDirectories:YES
      attributes:nil
      error:&error];
@@ -454,6 +462,21 @@ vector<string> GetCaseFilePathsOSX()
         caseFiles.push_back(string([fullCasePath fileSystemRepresentation]));
     }
 
+    pCaseFileList = [defaultManager
+     contentsOfDirectoryAtPath:NSUserCasesPath
+     error:&error];
+
+    for (NSString *object in pCaseFileList)
+    {
+        //Ignore UNIX hidden files, like OS X's .DS_Store
+        if ([object hasPrefix:@"."]) {
+            continue;
+        }
+
+        NSString *fullCasePath = [NSUserCasesPath stringByAppendingPathComponent:object];
+        caseFiles.push_back(string([fullCasePath fileSystemRepresentation]));
+    }
+
     [pool drain];
     return caseFiles;
 }
@@ -507,7 +530,7 @@ string GetVersionStringOSX(string PropertyListFilePath)
 
     NSData *pPropertyListXML = [[NSFileManager defaultManager] contentsAtPath:pProperyListPath];
     NSDictionary *pPropertyListDictionary =
-    (NSDictionary *)[NSPropertyListSerialization propertyListFromData:pPropertyListXML
+    [NSPropertyListSerialization propertyListFromData:pPropertyListXML
                                                      mutabilityOption:NSPropertyListMutableContainersAndLeaves
                                                                format:&format
                                                      errorDescription:&pErrorDesc];
