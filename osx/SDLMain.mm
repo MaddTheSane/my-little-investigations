@@ -74,7 +74,7 @@ static NSString *getApplicationName(void)
 @interface SDLApplication : NSApplication
 @end
 
-@implementation SDLApplication : NSApplication
+@implementation SDLApplication
 /* Invoked from the Quit menu item */
 - (void)terminate:(id)sender
 {
@@ -450,7 +450,7 @@ vector<string> GetCaseFilePathsOSX()
     NSArray *pCaseFileList = [defaultManager
      contentsOfDirectoryAtPath:NSCasesPath
      error:&error];
-     
+
     vector<string> ppCaseFileList;
 
     for (NSString *pStrCaseFileName in pCaseFileList)
@@ -460,8 +460,8 @@ vector<string> GetCaseFilePathsOSX()
             continue;
         }
 
-        NSString *fullCasePath = [NSCasesPath stringByAppendingPathComponent:pStrCaseFileName];
-		ppCaseFileList.push_back(string([fullCasePath fileSystemRepresentation]));
+        NSString *pStrCaseFilePath = [NSCasesPath stringByAppendingPathComponent:pStrCaseFileName];
+		ppCaseFileList.push_back(string([pStrCaseFilePath fileSystemRepresentation]));
     }
 
     pCaseFileList = [defaultManager
@@ -484,7 +484,6 @@ vector<string> GetCaseFilePathsOSX()
 
 vector<string> GetSaveFilePathsForCaseOSX(string caseUuid)
 {
-    vector<string> filePaths;
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
     NSError *error = nil;
     NSFileManager *defaultManager = [NSFileManager defaultManager];
@@ -500,20 +499,22 @@ vector<string> GetSaveFilePathsForCaseOSX(string caseUuid)
     NSArray *pSaveFileList = [defaultManager
                               contentsOfDirectoryAtPath:currentCaseSavePath
                               error:&error];
-    
-    for (NSString *object in pSaveFileList)
+
+    vector<string> ppSaveFilePathList;
+
+    for (NSString *pStrSaveFileName in pSaveFileList)
     {
-        //Ignore UNIX hidden files, like OS X's .DS_Store
-        if ([object hasPrefix:@"."]) {
+       //Ignore UNIX hidden files, like OS X's .DS_Store
+        if ([pStrSaveFileName hasPrefix:@"."]) {
             continue;
         }
 
-        NSString *caseSave = [currentCaseSavePath stringByAppendingPathComponent:object];
-        filePaths.push_back(string([caseSave fileSystemRepresentation]));
+        NSString *pStrSaveFilePath = [NSSavesPath stringByAppendingPathComponent:pStrSaveFileName];
+		ppSaveFilePathList.push_back(string([pStrSaveFilePath fileSystemRepresentation]));
     }
-    
+
     [pool drain];
-    return filePaths;
+    return ppSaveFilePathList;
 }
 
 string GetVersionStringOSX(string PropertyListFilePath)
