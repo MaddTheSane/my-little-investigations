@@ -79,6 +79,7 @@ tstring StringToTString(string str)
 #include <Security/AuthorizationTags.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <unistd.h>
 #endif
 
 string pathSeparator;
@@ -148,10 +149,10 @@ void LoadFilePathsAndCaseUuids(string executableFilePath)
         tempDirectoryPath = getenv("TMPDIR");
 #endif
 
-		// The file system representation Objective C function seems to omit the
-		// trailing slash unless it's explicit.
-		// stringByAppendingPathComponent has no way of doing this
-		// explicitly, though.
+        // The file system representation Objective C function seems to omit the
+        // trailing slash unless it's explicit.
+        // stringByAppendingPathComponent has no way of doing this
+        // explicitly, though.
         commonAppDataPath = string(pLocalApplicationSupportPath) + "/";
         casesPath = string(pCasesPath) + "/";
         userAppDataPath = string(pUserApplicationSupportPath) + "/";
@@ -201,22 +202,17 @@ vector<string> GetCaseFilePaths()
             FindClose(hFind);
         }
     #elif defined(__OSX)
-        unsigned int caseFileCount = 0;
+        vector<string> ppCaseFilePaths = GetCaseFilePathsOSX();
 
-        const char **ppCaseFilePaths = pfnGetCaseFilePathsOSX(&caseFileCount);
-
-        for (unsigned int i = 0; i < caseFileCount; i++)
+        for (size_t i = 0; i < ppCaseFilePaths.size(); i++)
         {
-            string caseFilePath = string(ppCaseFilePaths[i]);
+            string caseFilePath = ppCaseFilePaths[i];
 
             if (caseFilePath.find(".mlicase") != string::npos)
             {
                 filePaths.push_back(caseFilePath);
             }
-			free((void*)ppCaseFilePaths[i]);
         }
-
-        free(ppCaseFilePaths);
     #endif
 
     return filePaths;
@@ -395,7 +391,7 @@ Version GetCurrentVersion()
     RegCloseKey(hKey);
 #endif
 #ifdef __OSX
-    versionString = pfnGetVersionStringOSX(GetPropertyListPath().c_str());
+    versionString = GetVersionStringOSX(GetPropertyListPath());
 #endif
 
     if (versionString.length() > 0)
@@ -439,7 +435,7 @@ void WriteNewVersion(Version newVersion)
 #endif
 #ifdef __OSX
     unsigned long propertyListXmlDataLength = 0;
-    char *pPropertyListXmlData = pfnGetPropertyListXMLForVersionStringOSX(GetPropertyListPath().c_str(), ((string)newVersion).c_str(), &propertyListXmlDataLength);
+    char *pPropertyListXmlData = GetPropertyListXMLForVersionStringOSX(GetPropertyListPath(), newVersion, &propertyListXmlDataLength);
 
     if (pPropertyListXmlData != NULL && propertyListXmlDataLength > 0)
     {
@@ -457,7 +453,7 @@ void WriteNewVersion(Version newVersion)
         newVersion.SaveToXml(&versionWriter);
     }
 
-    delete [] pPropertyListXmlData;
+	free(pPropertyListXmlData);
 #endif
 }
 #endif
@@ -483,6 +479,7 @@ void SaveConfigurations()
     configWriter.WriteBooleanElement("EnableTutorials", gEnableTutorials);
     configWriter.WriteBooleanElement("EnableHints", gEnableHints);
     configWriter.WriteBooleanElement("EnableFullscreen", gEnableFullscreen);
+    configWriter.WriteBooleanElement("EnableSkippingUnseenDialog", gEnableSkippingUnseenDialog);
 #ifdef ENABLE_DEBUG_MODE
     configWriter.WriteBooleanElement("EnableDebugMode", gEnableDebugMode);
 #endif
@@ -501,6 +498,7 @@ void LoadConfigurations()
             bool enableTutorials = gEnableTutorials;
             bool enableHints = gEnableHints;
             bool enableFullscreen = gEnableFullscreen;
+            bool enableSkippingUnseenDialog = gEnableSkippingUnseenDialog;
 #ifdef ENABLE_DEBUG_MODE
             bool enableDebugMode = gEnableDebugMode;
 #endif
@@ -527,6 +525,11 @@ void LoadConfigurations()
                 if (configReader.ElementExists("EnableFullscreen"))
                 {
                     enableFullscreen = configReader.ReadBooleanElement("EnableFullscreen");
+                }
+
+                if (configReader.ElementExists("EnableSkippingUnseenDialog"))
+                {
+                    enableSkippingUnseenDialog = configReader.ReadBooleanElement("EnableSkippingUnseenDialog");
                 }
 
 #ifdef ENABLE_DEBUG_MODE
@@ -557,6 +560,7 @@ void LoadConfigurations()
             gEnableTutorials = enableTutorials;
             gEnableHints = enableHints;
             gEnableFullscreen = enableFullscreen;
+            gEnableSkippingUnseenDialog = enableSkippingUnseenDialog;
 #ifdef ENABLE_DEBUG_MODE
             gEnableDebugMode = enableDebugMode;
 #endif
@@ -717,22 +721,17 @@ vector<string> GetSaveFilePathsForCase(string caseUuid)
             FindClose(hFind);
         }
     #elif defined(__OSX)
-        unsigned int saveFileCountLocal = 0;
+        vector<string> ppSaveFilePaths = GetSaveFilePathsForCaseOSX(caseUuid);
 
-        const char **ppSaveFilePaths = pfnGetSaveFilePathsForCaseOSX(caseUuid.c_str(), &saveFileCountLocal);
-
-        for (unsigned int j = 0; j < saveFileCountLocal; j++)
+        for (size_t j = 0; j < ppSaveFilePaths.size(); j++)
         {
-            string saveFilePath = string(ppSaveFilePaths[j]);
+            string saveFilePath = ppSaveFilePaths[j];
 
             if (saveFilePath.find(".sav") != string::npos)
             {
                 filePaths.push_back(saveFilePath);
             }
-			free((void*)ppSaveFilePaths[j]);
         }
-
-        free(ppSaveFilePaths);
     #endif
 
     return filePaths;
@@ -1148,7 +1147,7 @@ void LaunchGameExecutable()
     string executablePath = executionPath + "MyLittleInvestigations.exe";
 #endif
 #ifdef __OSX
-    string executablePath = executionPath + "MyLittleInvestigations";
+    string executablePath = executionPath + "mliGame";
 #endif
 
     if (!LaunchExecutable(executablePath.c_str(), vector<string>(), false /* waitForCompletion */, false /* asAdmin */))
