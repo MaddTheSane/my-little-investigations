@@ -30,6 +30,7 @@ Release/*
 src/Release/*
 *.dll
 **/*.DS_Store
+**/._*
 MyLittleInvestigations.app/*
 *.depend
 *.layout

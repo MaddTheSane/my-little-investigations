@@ -1,8 +1,8 @@
 #ifndef APPLICATIONSUPPORTBRIDGE_H
 #define APPLICATIONSUPPORTBRIDGE_H
 
-#include <vector>
 #include <string>
+#include <vector>
 
 extern const char *pLocalApplicationSupportPath;
 extern const char *pCasesPath;

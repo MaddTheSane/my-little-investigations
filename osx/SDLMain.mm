@@ -7,10 +7,12 @@
 
 #include "SDL2/SDL.h"
 #import "SDLMain.h"
-#include "NSFileManagerDirectoryLocations.h"
+#import "NSFileManagerDirectoryLocations.h"
 #include "ApplicationSupportBridge.h"
 #include <sys/param.h> /* for MAXPATHLEN */
 #include <unistd.h>
+
+using namespace std;
 
 /* For some reaon, Apple removed setAppleMenu from the headers in 10.4,
  but the method still is there and works. To avoid warnings, we declare
@@ -18,8 +20,6 @@
 @interface NSApplication(SDL_Missing_Methods)
 - (void)setAppleMenu:(NSMenu *)menu;
 @end
-
-using namespace std;
 
 /* Use this flag to determine whether we use SDLMain.nib or not */
 #define		SDL_USE_NIB_FILE	0
@@ -39,6 +39,7 @@ extern OSErr	CPSGetCurrentProcess( CPSProcessSerNum *psn);
 extern OSErr 	CPSEnableForegroundOperation( CPSProcessSerNum *psn, UInt32 _arg2, UInt32 _arg3, UInt32 _arg4, UInt32 _arg5);
 extern OSErr	CPSSetFrontProcess( CPSProcessSerNum *psn);
 }
+
 #endif /* SDL_USE_CPS */
 
 static int    gArgc;
@@ -442,7 +443,6 @@ int main (int argc, char **argv)
 
 vector<string> GetCaseFilePathsOSX()
 {
-    vector<string> caseFiles;
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
     NSError *error = nil;
     NSFileManager *defaultManager = [NSFileManager defaultManager];
@@ -450,16 +450,18 @@ vector<string> GetCaseFilePathsOSX()
     NSArray *pCaseFileList = [defaultManager
      contentsOfDirectoryAtPath:NSCasesPath
      error:&error];
+     
+    vector<string> ppCaseFileList;
 
-    for (NSString *object in pCaseFileList)
+    for (NSString *pStrCaseFileName in pCaseFileList)
     {
         //Ignore UNIX hidden files, like OS X's .DS_Store
-        if ([object hasPrefix:@"."]) {
+        if ([pStrCaseFileName hasPrefix:@"."]) {
             continue;
         }
 
-        NSString *fullCasePath = [NSCasesPath stringByAppendingPathComponent:object];
-        caseFiles.push_back(string([fullCasePath fileSystemRepresentation]));
+        NSString *fullCasePath = [NSCasesPath stringByAppendingPathComponent:pStrCaseFileName];
+		ppCaseFileList.push_back(string([fullCasePath fileSystemRepresentation]));
     }
 
     pCaseFileList = [defaultManager
@@ -472,13 +474,12 @@ vector<string> GetCaseFilePathsOSX()
         if ([object hasPrefix:@"."]) {
             continue;
         }
-
         NSString *fullCasePath = [NSUserCasesPath stringByAppendingPathComponent:object];
-        caseFiles.push_back(string([fullCasePath fileSystemRepresentation]));
+		ppCaseFileList.push_back(string([fullCasePath fileSystemRepresentation]));
     }
 
     [pool drain];
-    return caseFiles;
+    return ppCaseFileList;
 }
 
 vector<string> GetSaveFilePathsForCaseOSX(string caseUuid)

@@ -721,10 +721,11 @@ vector<string> GetSaveFilePathsForCase(string caseUuid)
             FindClose(hFind);
         }
     #elif defined(__OSX)
-        vector<string> tmpPaths = GetSaveFilePathsForCaseOSX(caseUuid);
-        for (unsigned int j = 0; j < tmpPaths.size(); j++)
+        vector<string> ppSaveFilePaths = GetSaveFilePathsForCaseOSX(caseUuid);
+
+        for (size_t j = 0; j < ppSaveFilePaths.size(); j++)
         {
-            string saveFilePath = tmpPaths[j];
+            string saveFilePath = ppSaveFilePaths[j];
 
             if (saveFilePath.find(".sav") != string::npos)
             {
