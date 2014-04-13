@@ -188,36 +188,35 @@ static void setupWindowMenu(void)
 /* Replacement for NSApplicationMain */
 static void CustomApplicationMain (int argc, char **argv)
 {
-    @autoreleasepool {
-        SDLMain				*sdlMain;
+@autoreleasepool {
+    SDLMain				*sdlMain;
 
-        /* Ensure the application object is initialised */
-        [NSApplication sharedApplication];
+    /* Ensure the application object is initialised */
+    [NSApplication sharedApplication];
 
 #ifdef SDL_USE_CPS
-        {
-            CPSProcessSerNum PSN;
-            /* Tell the dock about us */
-            if (!CPSGetCurrentProcess(&PSN))
-                if (!CPSEnableForegroundOperation(&PSN,0x03,0x3C,0x2C,0x1103))
-                    if (!CPSSetFrontProcess(&PSN))
-                        [NSApplication sharedApplication];
-        }
+    {
+        CPSProcessSerNum PSN;
+        /* Tell the dock about us */
+        if (!CPSGetCurrentProcess(&PSN))
+            if (!CPSEnableForegroundOperation(&PSN,0x03,0x3C,0x2C,0x1103))
+                if (!CPSSetFrontProcess(&PSN))
+                    [NSApplication sharedApplication];
+	}
 #endif /* SDL_USE_CPS */
 
-        /* Set up the menubar */
-        [NSApp setMainMenu:[[NSMenu alloc] init]];
-        setApplicationMenu();
-        setupWindowMenu();
+    /* Set up the menubar */
+    [NSApp setMainMenu:[[NSMenu alloc] init]];
+    setApplicationMenu();
+    setupWindowMenu();
 
-        /* Create SDLMain and make it the app delegate */
-        sdlMain = [[SDLMain alloc] init];
-        [NSApp setDelegate:sdlMain];
+    /* Create SDLMain and make it the app delegate */
+    sdlMain = [[SDLMain alloc] init];
+    [NSApp setDelegate:sdlMain];
 
-        /* Start the main event loop */
-        [NSApp run];
-
-    }
+    /* Start the main event loop */
+    [NSApp run];
+}
 }
 
 #endif
@@ -348,75 +347,74 @@ static NSString *NSSavesPath;
 /* Main entry point to executable - should *not* be SDL_main! */
 int main (int argc, char **argv)
 {
-    @autoreleasepool {
+@autoreleasepool {
+    /* Create our Application Support folders if they don't exist yet and store the paths */
+    NSString *pStrLocalApplicationSupportPath = [[NSFileManager defaultManager] localApplicationSupportDirectory];
+    NSString *pStrUserApplicationSupportPath = [[NSFileManager defaultManager] userApplicationSupportDirectory];
 
-        /* Create our Application Support folders if they don't exist yet and store the paths */
-        NSString *pStrLocalApplicationSupportPath = [[NSFileManager defaultManager] localApplicationSupportDirectory];
-        NSString *pStrUserApplicationSupportPath = [[NSFileManager defaultManager] userApplicationSupportDirectory];
+    /* Next, create the folders that the executable will need during execution if they don't already exist. */
+    NSString *pStrLocalGameApplicationSupportPath;
+    NSString *pStrUserGameApplicationSupportPath;
+    NSString *pStrDialogSeenListsPath;
 
-        /* Next, create the folders that the executable will need during execution if they don't already exist. */
-        NSString *pStrLocalGameApplicationSupportPath = nil;
-        NSString *pStrUserGameApplicationSupportPath = nil;
-        NSString *pStrDialogSeenListsPath = nil;
+    pStrLocalGameApplicationSupportPath = pStrLocalApplicationSupportPath;
+    NSCasesPath = [pStrLocalGameApplicationSupportPath stringByAppendingPathComponent:@"Cases"];
+    pStrUserGameApplicationSupportPath = [pStrUserApplicationSupportPath stringByAppendingPathComponent:@"My Little Investigations"];
+    pStrDialogSeenListsPath = [pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"DialogSeenLists"];
+    NSSavesPath = [pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"Saves"];
+    NSCasesPath =[pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"Cases"];
 
-	pStrLocalGameApplicationSupportPath = pStrLocalApplicationSupportPath;
-	NSCasesPath = [pStrLocalGameApplicationSupportPath stringByAppendingPathComponent:@"Cases"];
-	pStrUserGameApplicationSupportPath = [pStrUserApplicationSupportPath stringByAppendingPathComponent:@"My Little Investigations"];
-	pStrDialogSeenListsPath = [pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"DialogSeenLists"];
-	NSSavesPath = [pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"Saves"];
-        NSCasesPath =[pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"Cases"];
+    NSError *error;
 
-	NSError *error = nil;
+    [[NSFileManager defaultManager]
+     createDirectoryAtPath:pStrDialogSeenListsPath
+     withIntermediateDirectories:YES
+     attributes:nil
+     error:&error];
 
-	[[NSFileManager defaultManager]
-		createDirectoryAtPath:pStrDialogSeenListsPath
-		withIntermediateDirectories:YES
-		attributes:nil
-		error:&error];
+    [[NSFileManager defaultManager]
+     createDirectoryAtPath:NSSavesPath
+     withIntermediateDirectories:YES
+     attributes:nil
+     error:&error];
 
-	[[NSFileManager defaultManager]
-		createDirectoryAtPath:NSSavesPath
-		withIntermediateDirectories:YES
-		attributes:nil
-		error:&error];
-	
-        pLocalApplicationSupportPath = [pStrLocalGameApplicationSupportPath fileSystemRepresentation];
-        pCasesPath = [NSCasesPath fileSystemRepresentation];
-        pUserApplicationSupportPath = [pStrUserGameApplicationSupportPath fileSystemRepresentation];
-        pDialogSeenListsPath = [pStrDialogSeenListsPath fileSystemRepresentation];
-        pSavesPath = [NSSavesPath fileSystemRepresentation];
+    pLocalApplicationSupportPath = [pStrLocalGameApplicationSupportPath fileSystemRepresentation];
+    pCasesPath = [NSCasesPath fileSystemRepresentation];
+    pUserApplicationSupportPath = [pStrUserGameApplicationSupportPath fileSystemRepresentation];
+    pDialogSeenListsPath = [pStrDialogSeenListsPath fileSystemRepresentation];
+    pSavesPath = [NSSavesPath fileSystemRepresentation];
 
-        /* Copy the arguments into a global variable */
-        /* This is passed if we are launched by double-clicking */
-        if ( argc >= 2 && strncmp (argv[1], "-psn", 4) == 0 ) {
-            gArgv = (char **) SDL_malloc(sizeof (char *) * 2);
-            gArgv[0] = argv[0];
-            gArgv[1] = NULL;
-            gArgc = 1;
-            gFinderLaunch = YES;
-        } else {
-            int i;
-            gArgc = argc;
-            gArgv = (char **) SDL_malloc(sizeof (char *) * (argc+1));
-            for (i = 0; i <= argc; i++)
-                gArgv[i] = argv[i];
-            gFinderLaunch = NO;
-        }
+    /* Copy the arguments into a global variable */
+    /* This is passed if we are launched by double-clicking */
+    if ( argc >= 2 && strncmp (argv[1], "-psn", 4) == 0 ) {
+        gArgv = (char **) SDL_malloc(sizeof (char *) * 2);
+        gArgv[0] = argv[0];
+        gArgv[1] = NULL;
+        gArgc = 1;
+        gFinderLaunch = YES;
+    } else {
+        int i;
+        gArgc = argc;
+        gArgv = (char **) SDL_malloc(sizeof (char *) * (argc+1));
+        for (i = 0; i <= argc; i++)
+            gArgv[i] = argv[i];
+        gFinderLaunch = NO;
+    }
 
 #if SDL_USE_NIB_FILE
-        NSApplicationMain (argc, argv);
+    NSApplicationMain (argc, argv);
 #else
-        CustomApplicationMain (argc, argv);
+    CustomApplicationMain (argc, argv);
 #endif
 
-    }
+}
     return 0;
 }
 
 vector<string> GetCaseFilePathsOSX()
 {
     @autoreleasepool {
-    NSError *error = nil;
+    NSError *error;
     NSFileManager *defaultManager = [NSFileManager defaultManager];
 
     NSArray *pCaseFileList = [defaultManager
@@ -458,7 +456,7 @@ vector<string> GetSaveFilePathsForCaseOSX(string caseUuid)
 {
     @autoreleasepool {
     vector<string> filePaths;
-    NSError *error = nil;
+    NSError *error;
     NSFileManager *defaultManager = [NSFileManager defaultManager];
     
     NSString *currentCaseSavePath = [NSSavesPath stringByAppendingPathComponent:@(caseUuid.c_str())];
@@ -490,7 +488,7 @@ vector<string> GetSaveFilePathsForCaseOSX(string caseUuid)
 
 string GetVersionStringOSX(string PropertyListFilePath)
 {
-    NSString *pErrorDesc = nil;
+    NSString *pErrorDesc;
     NSPropertyListFormat format;
     NSFileManager *defaultManager = [NSFileManager defaultManager];
     const char *pPropertyListFilePath = PropertyListFilePath.c_str();
@@ -521,7 +519,7 @@ char *GetPropertyListXMLForVersionStringOSX(string PropertyListFilePath, string 
 {
     *pVersionStringLength = 0;
 
-    NSString *pErrorDesc = nil;
+    NSString *pErrorDesc;
     NSPropertyListFormat format;
     NSFileManager *defaultManager = [NSFileManager defaultManager];
     const char * pPropertyListFilePath = PropertyListFilePath.c_str();
