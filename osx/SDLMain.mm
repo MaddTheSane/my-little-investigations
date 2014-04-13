@@ -392,7 +392,20 @@ int main (int argc, char **argv)
         gArgv[1] = NULL;
         gArgc = 1;
         gFinderLaunch = YES;
+    } else if(argc == 1) {
+        //OS X 10.9 and later does /this/
+        const char *cwd = getcwd(NULL, 0);
+        if (strcmp(cwd, "/") != 0) {
+            goto notMavericks;
+        }
+        
+        gArgv = (char **) SDL_malloc(sizeof (char *) * 2);
+        gArgv[0] = argv[0];
+        gArgv[1] = NULL;
+        gArgc = 1;
+        gFinderLaunch = YES;
     } else {
+    notMavericks:
         int i;
         gArgc = argc;
         gArgv = (char **) SDL_malloc(sizeof (char *) * (argc+1));
