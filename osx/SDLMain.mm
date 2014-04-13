@@ -303,7 +303,6 @@ static void CustomApplicationMain (int argc, char **argv)
 }
 @end
 
-
 @implementation NSString (ReplaceSubString)
 
 - (NSString *)stringByReplacingRange:(NSRange)aRange with:(NSString *)aString
@@ -343,12 +342,9 @@ static void CustomApplicationMain (int argc, char **argv)
 
 @end
 
-
-
 #ifdef main
 #  undef main
 #endif
-
 
 static NSString *NSCasesPath;
 static NSString *NSUserCasesPath;
