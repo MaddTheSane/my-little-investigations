@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		551D57E218F9B5250087AAA0 /* MyLittleInvestigations.plist in Resources */ = {isa = PBXBuildFile; fileRef = 551D57DF18F9B5250087AAA0 /* MyLittleInvestigations.plist */; };
-		551D57E618F9B53E0087AAA0 /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 551D57E418F9B53E0087AAA0 /* COPYING */; };
-		551D57E718F9B53E0087AAA0 /* xdelta3 in Resources */ = {isa = PBXBuildFile; fileRef = 551D57E518F9B53E0087AAA0 /* xdelta3 */; };
 		5533C63D18FB62DB0055B22B /* XmlReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FC018F7413900DEB259 /* XmlReader.cpp */; };
 		5533C63E18FB62DB0055B22B /* XmlWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FC218F7413900DEB259 /* XmlWriter.cpp */; };
 		5533C64918FB62DB0055B22B /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9C18F7413900DEB259 /* tinyxml.cpp */; };
@@ -179,11 +177,11 @@
 		551D57DF18F9B5250087AAA0 /* MyLittleInvestigations.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MyLittleInvestigations.plist; sourceTree = "<group>"; };
 		551D57E418F9B53E0087AAA0 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		551D57E518F9B53E0087AAA0 /* xdelta3 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = xdelta3; sourceTree = "<group>"; };
-		5533C69A18FB62DB0055B22B /* mli copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mli copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5533C69A18FB62DB0055B22B /* My Little Investigations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Little Investigations.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5533C69B18FB62DB0055B22B /* mli copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "mli copy-Info.plist"; path = "/Users/cwbetts/makestuff/my-little-investigations/osx/mli copy-Info.plist"; sourceTree = "<absolute>"; };
 		5533C69E18FB64240055B22B /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
 		5533C6A018FB642D0055B22B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		558C3ECE18F73F7200DEB259 /* My Little Investigations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Little Investigations.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		558C3ECE18F73F7200DEB259 /* My Little Investigations Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Little Investigations Game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		558C3ED118F73F7200DEB259 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		558C3ED418F73F7200DEB259 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		558C3ED518F73F7200DEB259 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -435,8 +433,8 @@
 		558C3ECF18F73F7200DEB259 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				558C3ECE18F73F7200DEB259 /* My Little Investigations.app */,
-				5533C69A18FB62DB0055B22B /* mli copy.app */,
+				558C3ECE18F73F7200DEB259 /* My Little Investigations Game.app */,
+				5533C69A18FB62DB0055B22B /* My Little Investigations.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -730,7 +728,7 @@
 			);
 			name = mliLaunch;
 			productName = mli;
-			productReference = 5533C69A18FB62DB0055B22B /* mli copy.app */;
+			productReference = 5533C69A18FB62DB0055B22B /* My Little Investigations.app */;
 			productType = "com.apple.product-type.application";
 		};
 		558C3ECD18F73F7200DEB259 /* mliGame */ = {
@@ -748,7 +746,7 @@
 			);
 			name = mliGame;
 			productName = mli;
-			productReference = 558C3ECE18F73F7200DEB259 /* My Little Investigations.app */;
+			productReference = 558C3ECE18F73F7200DEB259 /* My Little Investigations Game.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -795,8 +793,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				551D57E718F9B53E0087AAA0 /* xdelta3 in Resources */,
-				551D57E618F9B53E0087AAA0 /* COPYING in Resources */,
 				551D57E218F9B5250087AAA0 /* MyLittleInvestigations.plist in Resources */,
 				558C3F0D18F7407500DEB259 /* mli.iconset in Resources */,
 			);
@@ -961,7 +957,7 @@
 					"-lavformat",
 				);
 				PLIST_FILE_OUTPUT_FORMAT = XML;
-				PRODUCT_NAME = "mli copy";
+				PRODUCT_NAME = "My Little Investigations";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1000,7 +996,7 @@
 					"-lavformat",
 				);
 				PLIST_FILE_OUTPUT_FORMAT = XML;
-				PRODUCT_NAME = "mli copy";
+				PRODUCT_NAME = "My Little Investigations";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1122,7 +1118,7 @@
 					"-lavformat",
 				);
 				PLIST_FILE_OUTPUT_FORMAT = XML;
-				PRODUCT_NAME = "My Little Investigations";
+				PRODUCT_NAME = "My Little Investigations Game";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1161,7 +1157,7 @@
 					"-lavformat",
 				);
 				PLIST_FILE_OUTPUT_FORMAT = XML;
-				PRODUCT_NAME = "My Little Investigations";
+				PRODUCT_NAME = "My Little Investigations Game";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
