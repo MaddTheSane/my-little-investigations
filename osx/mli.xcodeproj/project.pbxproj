@@ -876,6 +876,7 @@
 				GCC_PREFIX_HEADER = "mli-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					TIXML_USE_TICPP,
+					TIXML_USE_STL,
 					"$(inherited)",
 					__OSX,
 					GAME_EXECUTABLE,
@@ -917,6 +918,7 @@
 				GCC_PREFIX_HEADER = "mli-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					TIXML_USE_TICPP,
+					TIXML_USE_STL,
 					"$(inherited)",
 					__OSX,
 					GAME_EXECUTABLE,
