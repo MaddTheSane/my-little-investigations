@@ -54,7 +54,7 @@ static NSString *NSSavesPath;
 static NSString *getApplicationName(void)
 {
     const NSDictionary *dict;
-    NSString *appName = 0;
+    NSString *appName;
 
     /* Determine the application name */
     dict = (__bridge const NSDictionary *)CFBundleGetInfoDictionary(CFBundleGetMainBundle());
@@ -74,10 +74,10 @@ static NSString *getApplicationName(void)
 @end
 #endif
 
-@interface SDLApplication : NSApplication
+@interface SDL2Application : NSApplication
 @end
 
-@implementation SDLApplication
+@implementation SDL2Application
 /* Invoked from the Quit menu item */
 - (void)terminate:(id)sender
 {
@@ -96,8 +96,7 @@ static NSString *getApplicationName(void)
 {
     if (shouldChdir)
     {
-        chdir([[[NSBundle mainBundle] bundlePath] fileSystemRepresentation]);
-        chdir("Contents/Resources");
+        chdir([[[NSBundle mainBundle] resourcePath] fileSystemRepresentation]);
     }
 }
 
@@ -189,38 +188,39 @@ static void setupWindowMenu(void)
     /* Finally give up our references to the objects */
 }
 
+static SDLMain *sdlMain;
+
 /* Replacement for NSApplicationMain */
 static void CustomApplicationMain (int argc, char **argv)
 {
-@autoreleasepool {
-    SDLMain				*sdlMain;
-
-    /* Ensure the application object is initialised */
-    [NSApplication sharedApplication];
+    @autoreleasepool {
+        /* Ensure the application object is initialised */
+        [SDL2Application sharedApplication];
 
 #ifdef SDL_USE_CPS
-    {
-        CPSProcessSerNum PSN;
-        /* Tell the dock about us */
-        if (!CPSGetCurrentProcess(&PSN))
-            if (!CPSEnableForegroundOperation(&PSN,0x03,0x3C,0x2C,0x1103))
-                if (!CPSSetFrontProcess(&PSN))
-                    [SDLApplication sharedApplication];
-    }
+        {
+            CPSProcessSerNum PSN;
+            /* Tell the dock about us */
+            if (!CPSGetCurrentProcess(&PSN))
+                if (!CPSEnableForegroundOperation(&PSN,0x03,0x3C,0x2C,0x1103))
+                    if (!CPSSetFrontProcess(&PSN))
+                        [SDL2Application sharedApplication];
+        }
 #endif /* SDL_USE_CPS */
 
-    /* Set up the menubar */
-    [NSApp setMainMenu:[[NSMenu alloc] init]];
-    setApplicationMenu();
-    setupWindowMenu();
+        /* Set up the menubar */
+        @autoreleasepool {
+            [NSApp setMainMenu:[[NSMenu alloc] init]];
+            setApplicationMenu();
+            setupWindowMenu();
+        }
+        /* Create SDLMain and make it the app delegate */
+        sdlMain = [[SDLMain alloc] init];
+        [NSApp setDelegate:sdlMain];
 
-    /* Create SDLMain and make it the app delegate */
-    sdlMain = [[SDLMain alloc] init];
-    [NSApp setDelegate:sdlMain];
-
-    /* Start the main event loop */
-    [NSApp run];
-}
+        /* Start the main event loop */
+        [NSApp run];
+    }
 }
 
 #endif
@@ -243,28 +243,35 @@ static void CustomApplicationMain (int argc, char **argv)
  */
 - (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename
 {
-    NSFileManager *defaultManager = [NSFileManager defaultManager];
-    //TODO: use SDL2's native file handling, if it has any.
-    /* app has not started, ignore this document. */
-    if (!gFinderLaunch && !gCalledAppMainline)  /* MacOS is passing command line args. */
+    const char *temparg;
+    size_t arglen;
+    char *arg;
+    char **newargv;
+
+    if (!gFinderLaunch)  /* MacOS is passing command line args. */
         return NO;
 
-    BOOL isDir;
-    if (![defaultManager fileExistsAtPath:filename isDirectory:&isDir] || isDir) {
+    if (gCalledAppMainline)  /* app has started, ignore this document. */
+        return NO;
+
+    temparg = [filename UTF8String];
+    arglen = SDL_strlen(temparg) + 1;
+    arg = (char *) SDL_malloc(arglen);
+    if (arg == NULL)
+        return NO;
+
+    newargv = (char **) realloc(gArgv, sizeof (char *) * (gArgc + 2));
+    if (newargv == NULL)
+    {
+        SDL_free(arg);
         return NO;
     }
+    gArgv = newargv;
 
-    // move the opened case file to the user's case directory
-    if ([[filename pathExtension] compare:@"mlicase" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-        NSString *userCaseFile = [NSUserCasesPath stringByAppendingPathComponent:[filename lastPathComponent]];
-        if ([defaultManager fileExistsAtPath:userCaseFile]) {
-            NSRunAlertPanel(@"Existing Case Found", @"There is already a case with the UUID \"%@\" in your user folder.\nYou need to delete it manually if you wish to replace it", nil, nil, nil, [[filename lastPathComponent] stringByDeletingPathExtension]);
-            return NO;
-        }
-        return [defaultManager copyItemAtPath:filename toPath:userCaseFile error:NULL];
-    }
-    
-    return NO;
+    SDL_strlcpy(arg, temparg, arglen);
+    gArgv[gArgc++] = arg;
+    gArgv[gArgc] = NULL;
+    return YES;
 }
 
 
@@ -336,167 +343,161 @@ static void CustomApplicationMain (int argc, char **argv)
 /* Main entry point to executable - should *not* be SDL_main! */
 int main (int argc, char **argv)
 {
-    NSAutoreleasePool *pPool = [[NSAutoreleasePool alloc] init];
-    NSFileManager *defaultManager = [NSFileManager defaultManager];
+    @autoreleasepool {
+        NSFileManager *defaultManager = [NSFileManager defaultManager];
 
-    /* Create our Application Support folders if they don't exist yet and store the paths */
-    NSString *pStrLocalApplicationSupportPath;
-    {
-        NSAutoreleasePool *innerPool = [[NSAutoreleasePool alloc] init];
-        pStrLocalApplicationSupportPath = [[defaultManager localApplicationSupportDirectory] retain];
-        [innerPool drain];
-    }
-    NSString *pStrUserApplicationSupportPath = [defaultManager userApplicationSupportDirectory];
-
-    /* Next, create the folders that the executable will need during execution if they don't already exist. */
-    NSString *pStrLocalGameApplicationSupportPath = [pStrLocalApplicationSupportPath autorelease];
-    NSString *pStrUserGameApplicationSupportPath = [pStrUserApplicationSupportPath stringByAppendingPathComponent:@"My Little Investigations"];
-    NSString *pStrDialogSeenListsPath = [pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"DialogSeenLists"];
-
-    NSCasesPath = [[pStrLocalGameApplicationSupportPath stringByAppendingPathComponent:@"Cases"] retain];
-    NSSavesPath = [[pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"Saves"] retain];
-    NSUserCasesPath = [[pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"Cases"] retain];
-
-    NSError *error;
-
-    [defaultManager
-     createDirectoryAtPath:pStrDialogSeenListsPath
-     withIntermediateDirectories:YES
-     attributes:nil
-     error:&error];
-
-    [defaultManager
-     createDirectoryAtPath:NSSavesPath
-     withIntermediateDirectories:YES
-     attributes:nil
-     error:&error];
-
-    [defaultManager
-     createDirectoryAtPath:NSUserCasesPath
-     withIntermediateDirectories:YES
-     attributes:nil
-     error:&error];
-
-    pLocalApplicationSupportPath = [pStrLocalGameApplicationSupportPath fileSystemRepresentation];
-    pCasesPath = [NSCasesPath fileSystemRepresentation];
-    pUserApplicationSupportPath = [pStrUserGameApplicationSupportPath fileSystemRepresentation];
-    pDialogSeenListsPath = [pStrDialogSeenListsPath fileSystemRepresentation];
-    pSavesPath = [NSSavesPath fileSystemRepresentation];
-
-    /* Copy the arguments into a global variable */
-    /* This is passed if we are launched by double-clicking */
-    if ( argc >= 2 && strncmp (argv[1], "-psn", 4) == 0 ) {
-        gArgv = (char **) SDL_malloc(sizeof (char *) * 2);
-        gArgv[0] = argv[0];
-        gArgv[1] = NULL;
-        gArgc = 1;
-        gFinderLaunch = YES;
-    } else if(argc == 1) {
-        //OS X 10.9 and later does /this/
-        const char *cwd = getcwd(NULL, 0);
-        if (strcmp(cwd, "/") != 0) {
-            goto notMavericks;
+        /* Create our Application Support folders if they don't exist yet and store the paths */
+        NSString *pStrLocalApplicationSupportPath;
+        @autoreleasepool {
+            pStrLocalApplicationSupportPath = [defaultManager localApplicationSupportDirectory];
         }
-        
-        gArgv = (char **) SDL_malloc(sizeof (char *) * 2);
-        gArgv[0] = argv[0];
-        gArgv[1] = NULL;
-        gArgc = 1;
-        gFinderLaunch = YES;
-    } else {
-    notMavericks:
-        int i;
-        gArgc = argc;
-        gArgv = (char **) SDL_malloc(sizeof (char *) * (argc+1));
-        for (i = 0; i <= argc; i++)
-            gArgv[i] = argv[i];
-        gFinderLaunch = NO;
-    }
+        NSString *pStrUserApplicationSupportPath = [defaultManager userApplicationSupportDirectory];
+
+        /* Next, create the folders that the executable will need during execution if they don't already exist. */
+        NSString *pStrLocalGameApplicationSupportPath = pStrLocalApplicationSupportPath;
+        NSString *pStrUserGameApplicationSupportPath = [pStrUserApplicationSupportPath stringByAppendingPathComponent:@"My Little Investigations"];
+        NSString *pStrDialogSeenListsPath = [pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"DialogSeenLists"];
+
+        NSCasesPath = [pStrLocalGameApplicationSupportPath stringByAppendingPathComponent:@"Cases"];
+        NSSavesPath = [pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"Saves"];
+        NSUserCasesPath = [pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"Cases"];
+
+        NSError *error;
+
+        [defaultManager
+         createDirectoryAtPath:pStrDialogSeenListsPath
+         withIntermediateDirectories:YES
+         attributes:nil
+         error:&error];
+
+        [defaultManager
+         createDirectoryAtPath:NSSavesPath
+         withIntermediateDirectories:YES
+         attributes:nil
+         error:&error];
+
+        [defaultManager
+         createDirectoryAtPath:NSUserCasesPath
+         withIntermediateDirectories:YES
+         attributes:nil
+         error:&error];
+
+        pLocalApplicationSupportPath = [pStrLocalGameApplicationSupportPath fileSystemRepresentation];
+        pCasesPath = [NSCasesPath fileSystemRepresentation];
+        pUserApplicationSupportPath = [pStrUserGameApplicationSupportPath fileSystemRepresentation];
+        pDialogSeenListsPath = [pStrDialogSeenListsPath fileSystemRepresentation];
+        pSavesPath = [NSSavesPath fileSystemRepresentation];
+
+        /* Copy the arguments into a global variable */
+        /* This is passed if we are launched by double-clicking */
+        if ( argc >= 2 && strncmp (argv[1], "-psn", 4) == 0 ) {
+            gArgv = (char **) SDL_malloc(sizeof (char *) * 2);
+            gArgv[0] = argv[0];
+            gArgv[1] = NULL;
+            gArgc = 1;
+            gFinderLaunch = YES;
+        } else if(argc == 1) {
+            //OS X 10.9 and later does /this/
+            const char *cwd = getcwd(NULL, 0);
+            if (strcmp(cwd, "/") != 0) {
+                goto notMavericks;
+            }
+
+            gArgv = (char **) SDL_malloc(sizeof (char *) * 2);
+            gArgv[0] = argv[0];
+            gArgv[1] = NULL;
+            gArgc = 1;
+            gFinderLaunch = YES;
+        } else {
+        notMavericks:
+            int i;
+            gArgc = argc;
+            gArgv = (char **) SDL_malloc(sizeof (char *) * (argc+1));
+            for (i = 0; i <= argc; i++)
+                gArgv[i] = argv[i];
+            gFinderLaunch = NO;
+        }
 
 #if SDL_USE_NIB_FILE
-    NSApplicationMain (argc, argv);
+        NSApplicationMain (argc, argv);
 #else
-    CustomApplicationMain (argc, argv);
+        CustomApplicationMain (argc, argv);
 #endif
-
-}
+    }
     return 0;
 }
 
 vector<string> GetCaseFilePathsOSX()
 {
     @autoreleasepool {
-    NSError *error;
-    NSFileManager *defaultManager = [NSFileManager defaultManager];
+        NSError *error;
+        NSFileManager *defaultManager = [NSFileManager defaultManager];
 
-    NSArray *pCaseFileList = [defaultManager
-     contentsOfDirectoryAtPath:NSCasesPath
-     error:&error];
+        NSArray *pCaseFileList = [defaultManager
+                                  contentsOfDirectoryAtPath:NSCasesPath
+                                  error:&error];
 
-    vector<string> ppCaseFileList;
+        vector<string> ppCaseFileList;
 
-    for (NSString *pStrCaseFileName in pCaseFileList)
-    {
-        //Ignore UNIX hidden files, like OS X's .DS_Store
-        if ([pStrCaseFileName hasPrefix:@"."]) {
-            continue;
+        for (NSString *pStrCaseFileName in pCaseFileList) {
+            //Ignore UNIX hidden files, like OS X's .DS_Store
+            if ([pStrCaseFileName hasPrefix:@"."]) {
+                continue;
+            }
+
+            NSString *pStrCaseFilePath = [NSCasesPath stringByAppendingPathComponent:pStrCaseFileName];
+            ppCaseFileList.push_back(string([pStrCaseFilePath fileSystemRepresentation]));
         }
 
-        NSString *pStrCaseFilePath = [NSCasesPath stringByAppendingPathComponent:pStrCaseFileName];
-		ppCaseFileList.push_back(string([pStrCaseFilePath fileSystemRepresentation]));
-    }
-
-    pCaseFileList = [defaultManager
-     contentsOfDirectoryAtPath:NSUserCasesPath
-     error:&error];
-
-    for (NSString *object in pCaseFileList)
-    {
-        //Ignore UNIX hidden files, like OS X's .DS_Store
-        if ([object hasPrefix:@"."]) {
-            continue;
+        pCaseFileList = [defaultManager
+                         contentsOfDirectoryAtPath:NSUserCasesPath
+                         error:&error];
+        
+        for (NSString *object in pCaseFileList) {
+            //Ignore UNIX hidden files, like OS X's .DS_Store
+            if ([object hasPrefix:@"."]) {
+                continue;
+            }
+            NSString *fullCasePath = [NSUserCasesPath stringByAppendingPathComponent:object];
+            ppCaseFileList.push_back(string([fullCasePath fileSystemRepresentation]));
         }
-        NSString *fullCasePath = [NSUserCasesPath stringByAppendingPathComponent:object];
-		ppCaseFileList.push_back(string([fullCasePath fileSystemRepresentation]));
-    }
 
-    return ppCaseFileList;
+        return ppCaseFileList;
     }
 }
 
 vector<string> GetSaveFilePathsForCaseOSX(string caseUuid)
 {
-    NSAutoreleasePool *pool = [NSAutoreleasePool new];
-    NSError *error = nil;
-    NSFileManager *defaultManager = [NSFileManager defaultManager];
-    
-    NSString *currentCaseSavePath = [NSSavesPath stringByAppendingPathComponent:@(caseUuid.c_str())];
-    
-    [defaultManager
-     createDirectoryAtPath:currentCaseSavePath
-     withIntermediateDirectories:YES
-     attributes:nil
-     error:&error];
-    
-    NSArray *pSaveFileList = [defaultManager
-                              contentsOfDirectoryAtPath:currentCaseSavePath
-                              error:&error];
+    @autoreleasepool {
+        NSError *error = nil;
+        NSFileManager *defaultManager = [NSFileManager defaultManager];
 
-    vector<string> ppSaveFilePathList;
+        NSString *currentCaseSavePath = [NSSavesPath stringByAppendingPathComponent:@(caseUuid.c_str())];
 
-    for (NSString *pStrSaveFileName in pSaveFileList)
-    {
-       //Ignore UNIX hidden files, like OS X's .DS_Store
-        if ([pStrSaveFileName hasPrefix:@"."]) {
-            continue;
+        [defaultManager
+         createDirectoryAtPath:currentCaseSavePath
+         withIntermediateDirectories:YES
+         attributes:nil
+         error:&error];
+        
+        NSArray *pSaveFileList = [defaultManager
+                                  contentsOfDirectoryAtPath:currentCaseSavePath
+                                  error:&error];
+
+        vector<string> ppSaveFilePathList;
+
+        for (NSString *pStrSaveFileName in pSaveFileList) {
+            //Ignore UNIX hidden files, like OS X's .DS_Store
+            if ([pStrSaveFileName hasPrefix:@"."]) {
+                continue;
+            }
+            
+            NSString *pStrSaveFilePath = [NSSavesPath stringByAppendingPathComponent:pStrSaveFileName];
+            ppSaveFilePathList.push_back(string([pStrSaveFilePath fileSystemRepresentation]));
         }
 
-        NSString *pStrSaveFilePath = [NSSavesPath stringByAppendingPathComponent:pStrSaveFileName];
-		ppSaveFilePathList.push_back(string([pStrSaveFilePath fileSystemRepresentation]));
+        return ppSaveFilePathList;
     }
-
-    [pool drain];
-    return ppSaveFilePathList;
 }
 
 string GetGameExecutable()
@@ -510,79 +511,78 @@ string GetGameExecutable()
 
 string GetVersionStringOSX(string PropertyListFilePath)
 {
-    NSString *pErrorDesc;
-    NSPropertyListFormat format;
-    NSFileManager *defaultManager = [NSFileManager defaultManager];
-    const char *pPropertyListFilePath = PropertyListFilePath.c_str();
-    NSString *pProperyListPath = [defaultManager stringWithFileSystemRepresentation:pPropertyListFilePath length:strlen(pPropertyListFilePath)];
+    @autoreleasepool {
+        NSString *pErrorDesc;
+        NSPropertyListFormat format;
+        NSFileManager *defaultManager = [NSFileManager defaultManager];
+        const char *pPropertyListFilePath = PropertyListFilePath.c_str();
+        NSString *pProperyListPath = [defaultManager stringWithFileSystemRepresentation:pPropertyListFilePath length:strlen(pPropertyListFilePath)];
 
-    if (![defaultManager fileExistsAtPath:pProperyListPath])
-    {
-        return string();
+        if (![defaultManager fileExistsAtPath:pProperyListPath]) {
+            return string();
+        }
+
+        NSData *pPropertyListXML = [[NSFileManager defaultManager] contentsAtPath:pProperyListPath];
+        NSDictionary *pPropertyListDictionary =
+        [NSPropertyListSerialization propertyListFromData:pPropertyListXML
+                                         mutabilityOption:NSPropertyListMutableContainersAndLeaves
+                                                   format:&format
+                                         errorDescription:&pErrorDesc];
+
+        if (pPropertyListDictionary == NULL) {
+            return string();
+        }
+
+        NSString *pVersionString = [pPropertyListDictionary objectForKey:@"VersionString"];
+        return [pVersionString UTF8String];
     }
-
-    NSData *pPropertyListXML = [[NSFileManager defaultManager] contentsAtPath:pProperyListPath];
-    NSDictionary *pPropertyListDictionary =
-    [NSPropertyListSerialization propertyListFromData:pPropertyListXML
-                                                     mutabilityOption:NSPropertyListMutableContainersAndLeaves
-                                                               format:&format
-                                                     errorDescription:&pErrorDesc];
-
-    if (pPropertyListDictionary == NULL)
-    {
-        return string();
-    }
-
-    NSString *pVersionString = [pPropertyListDictionary objectForKey:@"VersionString"];
-    return [pVersionString UTF8String];
 }
 
 char *GetPropertyListXMLForVersionStringOSX(string PropertyListFilePath, string pVersionString, unsigned long *pVersionStringLength)
 {
-    *pVersionStringLength = 0;
+    @autoreleasepool {
+        *pVersionStringLength = 0;
 
-    NSString *pErrorDesc;
-    NSPropertyListFormat format;
-    NSFileManager *defaultManager = [NSFileManager defaultManager];
-    const char * pPropertyListFilePath = PropertyListFilePath.c_str();
-    NSString *ProperyListPath = [defaultManager stringWithFileSystemRepresentation:pPropertyListFilePath length:strlen(pPropertyListFilePath)];
-	
-    if (![[NSFileManager defaultManager] fileExistsAtPath:ProperyListPath])
-    {
-        return NULL;
+        NSString *pErrorDesc;
+        NSPropertyListFormat format;
+        NSFileManager *defaultManager = [NSFileManager defaultManager];
+        const char * pPropertyListFilePath = PropertyListFilePath.c_str();
+        NSString *ProperyListPath = [defaultManager stringWithFileSystemRepresentation:pPropertyListFilePath length:strlen(pPropertyListFilePath)];
+
+        if (![[NSFileManager defaultManager] fileExistsAtPath:ProperyListPath]) {
+            return NULL;
+        }
+
+        NSData *pPropertyListXML = [NSData dataWithContentsOfFile:ProperyListPath];
+        NSDictionary *pPropertyListDictionary =
+        [NSPropertyListSerialization propertyListFromData:pPropertyListXML
+                                         mutabilityOption:NSPropertyListMutableContainersAndLeaves
+                                                   format:&format
+                                         errorDescription:&pErrorDesc];
+
+        if (pPropertyListDictionary == NULL) {
+            return NULL;
+        }
+
+        NSMutableDictionary *pPropertyListDictionaryMutable = [pPropertyListDictionary mutableCopy];
+        
+        [pPropertyListDictionaryMutable setObject:@(pVersionString.c_str()) forKey:@"VersionString"];
+
+        NSData *pData = [NSPropertyListSerialization
+                         dataFromPropertyList:(id)pPropertyListDictionaryMutable
+                         format:NSPropertyListXMLFormat_v1_0
+                         errorDescription:&pErrorDesc];
+
+        if (pData == NULL) {
+            return NULL;
+        }
+
+        unsigned long dataLength = [pData length];
+
+        char *pCharData = (char *)malloc(dataLength * sizeof(char));
+        [pData getBytes:(void *)pCharData length:dataLength];
+
+        *pVersionStringLength = dataLength;
+        return pCharData;
     }
-
-    NSData *pPropertyListXML = [NSData dataWithContentsOfFile:ProperyListPath];
-    NSDictionary *pPropertyListDictionary =
-        (NSDictionary *)[NSPropertyListSerialization propertyListFromData:pPropertyListXML
-            mutabilityOption:NSPropertyListMutableContainersAndLeaves
-            format:&format
-            errorDescription:&pErrorDesc];
-
-    if (pPropertyListDictionary == NULL)
-    {
-        return NULL;
-    }
-
-    NSMutableDictionary *pPropertyListDictionaryMutable = [pPropertyListDictionary mutableCopy];
-
-    [pPropertyListDictionaryMutable setObject:@(pVersionString.c_str()) forKey:@"VersionString"];
-
-    NSData *pData = [NSPropertyListSerialization
-        dataFromPropertyList:(id)pPropertyListDictionaryMutable
-        format:NSPropertyListXMLFormat_v1_0
-        errorDescription:&pErrorDesc];
-
-    if (pData == NULL)
-    {
-        return NULL;
-    }
-
-    unsigned long dataLength = [pData length];
-
-    char *pCharData = (char *)malloc(dataLength * sizeof(char));
-    [pData getBytes:(void *)pCharData length:dataLength];
-
-    *pVersionStringLength = dataLength;
-    return pCharData;
 }
