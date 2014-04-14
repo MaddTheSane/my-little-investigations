@@ -57,8 +57,7 @@ static NSString *getApplicationName(void)
     NSString *appName = 0;
 
     /* Determine the application name */
-    // TODO: use NSBundle class
-    dict = (const NSDictionary *)CFBundleGetInfoDictionary(CFBundleGetMainBundle());
+    dict = (__bridge const NSDictionary *)CFBundleGetInfoDictionary(CFBundleGetMainBundle());
     if (dict)
         appName = [dict objectForKey: @"CFBundleName"];
 
@@ -164,10 +163,6 @@ static void setApplicationMenu(void)
 
     /* Tell the application object that this is now the application menu */
     [NSApp setAppleMenu:appleMenu];
-
-    /* Finally give up our references to the objects */
-    [appleMenu release];
-    [menuItem release];
 }
 
 /* Create a window menu */
@@ -182,7 +177,6 @@ static void setupWindowMenu(void)
     /* "Minimize" item */
     menuItem = [[NSMenuItem alloc] initWithTitle:@"Minimize" action:@selector(performMiniaturize:) keyEquivalent:@"m"];
     [windowMenu addItem:menuItem];
-    [menuItem release];
 
     /* Put menu into the menubar */
     windowMenuItem = [[NSMenuItem alloc] initWithTitle:@"Window" action:nil keyEquivalent:@""];
@@ -193,18 +187,16 @@ static void setupWindowMenu(void)
     [NSApp setWindowsMenu:windowMenu];
 
     /* Finally give up our references to the objects */
-    [windowMenu release];
-    [windowMenuItem release];
 }
 
 /* Replacement for NSApplicationMain */
 static void CustomApplicationMain (int argc, char **argv)
 {
-    NSAutoreleasePool	*pool = [[NSAutoreleasePool alloc] init];
+@autoreleasepool {
     SDLMain				*sdlMain;
 
     /* Ensure the application object is initialised */
-    [SDLApplication sharedApplication];
+    [NSApplication sharedApplication];
 
 #ifdef SDL_USE_CPS
     {
@@ -218,7 +210,7 @@ static void CustomApplicationMain (int argc, char **argv)
 #endif /* SDL_USE_CPS */
 
     /* Set up the menubar */
-    [NSApp setMainMenu:[[[NSMenu alloc] init] autorelease]];
+    [NSApp setMainMenu:[[NSMenu alloc] init]];
     setApplicationMenu();
     setupWindowMenu();
 
@@ -228,9 +220,7 @@ static void CustomApplicationMain (int argc, char **argv)
 
     /* Start the main event loop */
     [NSApp run];
-
-    [sdlMain release];
-    [pool release];
+}
 }
 
 #endif
@@ -366,7 +356,8 @@ int main (int argc, char **argv)
     NSCasesPath = [[pStrLocalGameApplicationSupportPath stringByAppendingPathComponent:@"Cases"] retain];
     NSSavesPath = [[pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"Saves"] retain];
     NSUserCasesPath = [[pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"Cases"] retain];
-    NSError *error = nil;
+
+    NSError *error;
 
     [defaultManager
      createDirectoryAtPath:pStrDialogSeenListsPath
@@ -428,14 +419,14 @@ int main (int argc, char **argv)
     CustomApplicationMain (argc, argv);
 #endif
 
-    [pPool release];
+}
     return 0;
 }
 
 vector<string> GetCaseFilePathsOSX()
 {
-    NSAutoreleasePool *pool = [NSAutoreleasePool new];
-    NSError *error = nil;
+    @autoreleasepool {
+    NSError *error;
     NSFileManager *defaultManager = [NSFileManager defaultManager];
 
     NSArray *pCaseFileList = [defaultManager
@@ -469,8 +460,8 @@ vector<string> GetCaseFilePathsOSX()
 		ppCaseFileList.push_back(string([fullCasePath fileSystemRepresentation]));
     }
 
-    [pool drain];
     return ppCaseFileList;
+    }
 }
 
 vector<string> GetSaveFilePathsForCaseOSX(string caseUuid)
@@ -519,7 +510,7 @@ string GetGameExecutable()
 
 string GetVersionStringOSX(string PropertyListFilePath)
 {
-    NSString *pErrorDesc = nil;
+    NSString *pErrorDesc;
     NSPropertyListFormat format;
     NSFileManager *defaultManager = [NSFileManager defaultManager];
     const char *pPropertyListFilePath = PropertyListFilePath.c_str();
@@ -550,7 +541,7 @@ char *GetPropertyListXMLForVersionStringOSX(string PropertyListFilePath, string 
 {
     *pVersionStringLength = 0;
 
-    NSString *pErrorDesc = nil;
+    NSString *pErrorDesc;
     NSPropertyListFormat format;
     NSFileManager *defaultManager = [NSFileManager defaultManager];
     const char * pPropertyListFilePath = PropertyListFilePath.c_str();
@@ -582,8 +573,6 @@ char *GetPropertyListXMLForVersionStringOSX(string PropertyListFilePath, string 
         format:NSPropertyListXMLFormat_v1_0
         errorDescription:&pErrorDesc];
 
-    [pPropertyListDictionaryMutable release];
-    
     if (pData == NULL)
     {
         return NULL;
