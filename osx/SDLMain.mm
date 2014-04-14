@@ -213,7 +213,7 @@ static void CustomApplicationMain (int argc, char **argv)
         if (!CPSGetCurrentProcess(&PSN))
             if (!CPSEnableForegroundOperation(&PSN,0x03,0x3C,0x2C,0x1103))
                 if (!CPSSetFrontProcess(&PSN))
-                    [NSApplication sharedApplication];
+                    [SDLApplication sharedApplication];
     }
 #endif /* SDL_USE_CPS */
 
@@ -345,18 +345,20 @@ int main (int argc, char **argv)
     NSFileManager *defaultManager = [NSFileManager defaultManager];
 
     /* Create our Application Support folders if they don't exist yet and store the paths */
-    NSString *pStrLocalApplicationSupportPath = [defaultManager localApplicationSupportDirectory];
+    NSString *pStrLocalApplicationSupportPath;
+    {
+        NSAutoreleasePool *innerPool = [[NSAutoreleasePool alloc] init];
+        pStrLocalApplicationSupportPath = [[defaultManager localApplicationSupportDirectory] retain];
+        [innerPool drain];
+    }
     NSString *pStrUserApplicationSupportPath = [defaultManager userApplicationSupportDirectory];
 
     /* Next, create the folders that the executable will need during execution if they don't already exist. */
-    NSString *pStrLocalGameApplicationSupportPath = nil;
-    NSString *pStrUserGameApplicationSupportPath = nil;
-    NSString *pStrDialogSeenListsPath = nil;
+    NSString *pStrLocalGameApplicationSupportPath = [pStrLocalApplicationSupportPath autorelease];
+    NSString *pStrUserGameApplicationSupportPath = [pStrUserApplicationSupportPath stringByAppendingPathComponent:@"My Little Investigations"];
+    NSString *pStrDialogSeenListsPath = [pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"DialogSeenLists"];
 
-    pStrLocalGameApplicationSupportPath = pStrLocalApplicationSupportPath;
     NSCasesPath = [[pStrLocalGameApplicationSupportPath stringByAppendingPathComponent:@"Cases"] retain];
-    pStrUserGameApplicationSupportPath = [pStrUserApplicationSupportPath stringByAppendingPathComponent:@"My Little Investigations"];
-    pStrDialogSeenListsPath = [pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"DialogSeenLists"];
     NSSavesPath = [[pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"Saves"] retain];
     NSUserCasesPath = [[pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"Cases"] retain];
     NSError *error = nil;
@@ -379,11 +381,11 @@ int main (int argc, char **argv)
      attributes:nil
      error:&error];
 
-    pLocalApplicationSupportPath = strdup([pStrLocalGameApplicationSupportPath fileSystemRepresentation]);
-    pCasesPath = strdup([NSCasesPath fileSystemRepresentation]);
-    pUserApplicationSupportPath = strdup([pStrUserGameApplicationSupportPath fileSystemRepresentation]);
-    pDialogSeenListsPath = strdup([pStrDialogSeenListsPath fileSystemRepresentation]);
-    pSavesPath = strdup([NSSavesPath fileSystemRepresentation]);
+    pLocalApplicationSupportPath = [pStrLocalGameApplicationSupportPath fileSystemRepresentation];
+    pCasesPath = [NSCasesPath fileSystemRepresentation];
+    pUserApplicationSupportPath = [pStrUserGameApplicationSupportPath fileSystemRepresentation];
+    pDialogSeenListsPath = [pStrDialogSeenListsPath fileSystemRepresentation];
+    pSavesPath = [NSSavesPath fileSystemRepresentation];
 
     /* Copy the arguments into a global variable */
     /* This is passed if we are launched by double-clicking */

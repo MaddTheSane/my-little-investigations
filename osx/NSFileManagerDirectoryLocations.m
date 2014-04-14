@@ -158,7 +158,46 @@ NSString * const DirectoryLocationDomain = @"DirectoryLocationDomain";
 //
 - (NSString *)localApplicationSupportDirectory
 {
+	//Load resources from the game bundle.
+#ifdef GAME_EXECUTABLE
+	//We are the game bundle
 	return [[NSBundle mainBundle] resourcePath];
+#else
+	//Find the game bundle.
+	NSBundle *mainbundle = [NSBundle mainBundle];
+	//First, look in our resources directory
+	NSArray *dirArray = [self
+	 contentsOfDirectoryAtPath:[mainbundle resourcePath]
+						 error:NULL];
+	if (dirArray) {
+		for (NSString *subContent in dirArray) {
+			NSBundle *theBundle = [NSBundle bundleWithPath:subContent];
+			if (theBundle && [[theBundle bundleIdentifier] isEqualToString:@"com.EquestrianDreamers.MyLittleInvestigations"]) {
+				//Yay, we found it!
+				return [theBundle resourcePath];
+			}
+		}
+	}
+	
+	//We haven't found it yet, so we'll search the same directory that the app is in first
+	dirArray = [self contentsOfDirectoryAtPath:[[mainbundle bundlePath] stringByDeletingLastPathComponent] error:NULL];
+	for (NSString *subContent in dirArray) {
+		NSBundle *theBundle = [NSBundle bundleWithPath:subContent];
+		if (theBundle && [[theBundle bundleIdentifier] isEqualToString:@"com.EquestrianDreamers.MyLittleInvestigations"]) {
+			//Yay, we found it!
+			return [theBundle resourcePath];
+		}
+	}
+
+	//last-ditch effort!
+	NSString *locateBundleExpensively = [[NSBundle bundleWithIdentifier:@"com.EquestrianDreamers.MyLittleInvestigations"] resourcePath];
+	if (locateBundleExpensively) {
+		return locateBundleExpensively;
+	}
+	
+	//We could not find it!
+	return nil;
+#endif
 }
 
 @end

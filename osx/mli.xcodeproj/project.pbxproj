@@ -29,7 +29,6 @@
 		5533C68C18FB62DB0055B22B /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; };
 		5533C68E18FB62DB0055B22B /* xdelta3 in Resources */ = {isa = PBXBuildFile; fileRef = 551D57E518F9B53E0087AAA0 /* xdelta3 */; };
 		5533C68F18FB62DB0055B22B /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 551D57E418F9B53E0087AAA0 /* COPYING */; };
-		5533C69018FB62DB0055B22B /* MyLittleInvestigations.plist in Resources */ = {isa = PBXBuildFile; fileRef = 551D57DF18F9B5250087AAA0 /* MyLittleInvestigations.plist */; };
 		5533C69118FB62DB0055B22B /* mli.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 558C3F0718F7407500DEB259 /* mli.iconset */; };
 		5533C69318FB62DB0055B22B /* SDL2_ttf.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; };
 		5533C69418FB62DB0055B22B /* SDL2_mixer.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CC18F75543009BED51 /* SDL2_mixer.framework */; };
@@ -38,6 +37,7 @@
 		5533C69F18FB64240055B22B /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5533C69E18FB64240055B22B /* libcurl.dylib */; };
 		5533C6A118FB642D0055B22B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5533C6A018FB642D0055B22B /* Security.framework */; };
 		553F941418FB667300527E2D /* ticpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9718F7413900DEB259 /* ticpp.cpp */; };
+		5562B30D18FC44CE00373B26 /* My Little Investigations Game.app in Resources */ = {isa = PBXBuildFile; fileRef = 558C3ECE18F73F7200DEB259 /* My Little Investigations Game.app */; };
 		558C3ED218F73F7200DEB259 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558C3ED118F73F7200DEB259 /* Cocoa.framework */; };
 		558C3F0C18F7407500DEB259 /* ApplicationSupportBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0518F7407500DEB259 /* ApplicationSupportBridge.cpp */; };
 		558C3F0D18F7407500DEB259 /* mli.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 558C3F0718F7407500DEB259 /* mli.iconset */; };
@@ -782,9 +782,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5562B30D18FC44CE00373B26 /* My Little Investigations Game.app in Resources */,
 				5533C68E18FB62DB0055B22B /* xdelta3 in Resources */,
 				5533C68F18FB62DB0055B22B /* COPYING in Resources */,
-				5533C69018FB62DB0055B22B /* MyLittleInvestigations.plist in Resources */,
 				5533C69118FB62DB0055B22B /* mli.iconset in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
