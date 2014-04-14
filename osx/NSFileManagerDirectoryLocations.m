@@ -150,31 +150,25 @@ NSString * const DirectoryLocationDomain = @"DirectoryLocationDomain";
 	return result;
 }
 
-//
-// localApplicationSupportDirectory
-//
-// Returns the path to the localApplicationSupportDirectory (creating it if it doesn't
-// exist).
-//
-- (NSString *)localApplicationSupportDirectory
+- (NSBundle *)gameBundle
 {
 	//Load resources from the game bundle.
 #ifdef GAME_EXECUTABLE
 	//We are the game bundle
-	return [[NSBundle mainBundle] resourcePath];
+	return [NSBundle mainBundle];
 #else
 	//Find the game bundle.
 	NSBundle *mainbundle = [NSBundle mainBundle];
 	//First, look in our resources directory
 	NSArray *dirArray = [self
-	 contentsOfDirectoryAtPath:[mainbundle resourcePath]
+						 contentsOfDirectoryAtPath:[mainbundle resourcePath]
 						 error:NULL];
 	if (dirArray) {
 		for (NSString *subContent in dirArray) {
 			NSBundle *theBundle = [NSBundle bundleWithPath:subContent];
 			if (theBundle && [[theBundle bundleIdentifier] isEqualToString:@"com.EquestrianDreamers.MyLittleInvestigations"]) {
 				//Yay, we found it!
-				return [theBundle resourcePath];
+				return theBundle;
 			}
 		}
 	}
@@ -185,12 +179,12 @@ NSString * const DirectoryLocationDomain = @"DirectoryLocationDomain";
 		NSBundle *theBundle = [NSBundle bundleWithPath:subContent];
 		if (theBundle && [[theBundle bundleIdentifier] isEqualToString:@"com.EquestrianDreamers.MyLittleInvestigations"]) {
 			//Yay, we found it!
-			return [theBundle resourcePath];
+			return theBundle;
 		}
 	}
-
+	
 	//last-ditch effort!
-	NSString *locateBundleExpensively = [[NSBundle bundleWithIdentifier:@"com.EquestrianDreamers.MyLittleInvestigations"] resourcePath];
+	NSBundle *locateBundleExpensively = [NSBundle bundleWithIdentifier:@"com.EquestrianDreamers.MyLittleInvestigations"];
 	if (locateBundleExpensively) {
 		return locateBundleExpensively;
 	}
@@ -198,6 +192,18 @@ NSString * const DirectoryLocationDomain = @"DirectoryLocationDomain";
 	//We could not find it!
 	return nil;
 #endif
+
+}
+
+//
+// localApplicationSupportDirectory
+//
+// Returns the path to the localApplicationSupportDirectory (creating it if it doesn't
+// exist).
+//
+- (NSString *)localApplicationSupportDirectory
+{
+	return [[self gameBundle] resourcePath];
 }
 
 @end

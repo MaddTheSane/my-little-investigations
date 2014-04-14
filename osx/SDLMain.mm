@@ -253,14 +253,19 @@ static void CustomApplicationMain (int argc, char **argv)
  */
 - (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename
 {
+    NSFileManager *defaultManager = [NSFileManager defaultManager];
     //TODO: use SDL2's native file handling, if it has any.
     /* app has not started, ignore this document. */
     if (!gFinderLaunch && !gCalledAppMainline)  /* MacOS is passing command line args. */
         return NO;
 
+    BOOL isDir;
+    if (![defaultManager fileExistsAtPath:filename isDirectory:&isDir] || isDir) {
+        return NO;
+    }
+
     // move the opened case file to the user's case directory
     if ([[filename pathExtension] compare:@"mlicase" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-        NSFileManager *defaultManager = [NSFileManager defaultManager];
         NSString *userCaseFile = [NSUserCasesPath stringByAppendingPathComponent:[filename lastPathComponent]];
         if ([defaultManager fileExistsAtPath:userCaseFile]) {
             NSRunAlertPanel(@"Existing Case Found", @"There is already a case with the UUID \"%@\" in your user folder.\nYou need to delete it manually if you wish to replace it", nil, nil, nil, [[filename lastPathComponent] stringByDeletingPathExtension]);
@@ -501,6 +506,15 @@ vector<string> GetSaveFilePathsForCaseOSX(string caseUuid)
 
     [pool drain];
     return ppSaveFilePathList;
+}
+
+string GetGameExecutable()
+{
+    @autoreleasepool {
+        NSString *exePath = [[[NSFileManager defaultManager] gameBundle] executablePath];
+        
+        return [exePath fileSystemRepresentation];
+    }
 }
 
 string GetVersionStringOSX(string PropertyListFilePath)

@@ -1147,7 +1147,7 @@ void LaunchGameExecutable()
     string executablePath = executionPath + "MyLittleInvestigations.exe";
 #endif
 #ifdef __OSX
-    string executablePath = executionPath + "mliGame";
+    string executablePath = GetGameExecutable();
 #endif
 
     if (!LaunchExecutable(executablePath.c_str(), vector<string>(), false /* waitForCompletion */, false /* asAdmin */))
