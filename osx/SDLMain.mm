@@ -26,6 +26,8 @@ using namespace std;
 
 /* Use this flag to determine whether we use CPS (docking) or not */
 #define		SDL_USE_CPS		1
+#undef SDL_USE_CPS
+
 #ifdef SDL_USE_CPS
 /* Portions of CPS.h */
 typedef struct CPSProcessSerNum
