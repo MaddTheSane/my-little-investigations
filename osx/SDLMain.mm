@@ -47,6 +47,10 @@ static char  **gArgv;
 static BOOL   gFinderLaunch;
 static BOOL   gCalledAppMainline = NO;
 
+static NSString *NSCasesPath;
+static NSString *NSUserCasesPath;
+static NSString *NSSavesPath;
+
 static NSString *getApplicationName(void)
 {
     const NSDictionary *dict;
@@ -249,35 +253,23 @@ static void CustomApplicationMain (int argc, char **argv)
  */
 - (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename
 {
-    const char *temparg;
-    size_t arglen;
-    char *arg;
-    char **newargv;
-
-    if (!gFinderLaunch)  /* MacOS is passing command line args. */
+    //TODO: use SDL2's native file handling, if it has any.
+    /* app has not started, ignore this document. */
+    if (!gFinderLaunch && !gCalledAppMainline)  /* MacOS is passing command line args. */
         return NO;
 
-    if (gCalledAppMainline)  /* app has started, ignore this document. */
-        return NO;
-
-    temparg = [filename UTF8String];
-    arglen = SDL_strlen(temparg) + 1;
-    arg = (char *) SDL_malloc(arglen);
-    if (arg == NULL)
-        return NO;
-
-    newargv = (char **) realloc(gArgv, sizeof (char *) * (gArgc + 2));
-    if (newargv == NULL)
-    {
-        SDL_free(arg);
-        return NO;
+    // move the opened case file to the user's case directory
+    if ([[filename pathExtension] compare:@"mlicase" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+        NSFileManager *defaultManager = [NSFileManager defaultManager];
+        NSString *userCaseFile = [NSUserCasesPath stringByAppendingPathComponent:[filename lastPathComponent]];
+        if ([defaultManager fileExistsAtPath:userCaseFile]) {
+            NSRunAlertPanel(@"Existing Case Found", @"There is already a case with the UUID \"%@\" in your user folder.\nYou need to delete it manually if you wish to replace it", nil, nil, nil, [[filename lastPathComponent] stringByDeletingPathExtension]);
+            return NO;
+        }
+        return [defaultManager copyItemAtPath:filename toPath:userCaseFile error:NULL];
     }
-    gArgv = newargv;
-
-    SDL_strlcpy(arg, temparg, arglen);
-    gArgv[gArgc++] = arg;
-    gArgv[gArgc] = NULL;
-    return YES;
+    
+    return NO;
 }
 
 
@@ -345,10 +337,6 @@ static void CustomApplicationMain (int argc, char **argv)
 #ifdef main
 #  undef main
 #endif
-
-static NSString *NSCasesPath;
-static NSString *NSUserCasesPath;
-static NSString *NSSavesPath;
 
 /* Main entry point to executable - should *not* be SDL_main! */
 int main (int argc, char **argv)
