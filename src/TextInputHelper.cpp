@@ -32,7 +32,7 @@
 #include "Font.h"
 
 string TextInputHelper::currentText = "";
-unsigned int TextInputHelper::caretPosition = 0;
+size_t TextInputHelper::caretPosition = 0;
 bool TextInputHelper::isCaretShowing = true;
 int TextInputHelper::timeBeforeCaretToggle = 0;
 
@@ -132,7 +132,7 @@ void TextInputHelper::Reset()
     userHasCanceled = false;
 }
 
-bool TextInputHelper::SetNewText(string newText, unsigned int newCaretPosition)
+bool TextInputHelper::SetNewText(string newText, size_t newCaretPosition)
 {
     // If we have a max pixel width and the new text will push us past that width,
     // then we won't do anything.

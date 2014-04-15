@@ -686,7 +686,7 @@ void SelectionScreen::OnSelectorSelectionChanged(Selector *pSender, SelectorItem
                 string fileName = GetSaveFolderPathForCase(lastCaseUuid);
 
                 char buf[16] = { '\0' };
-                sprintf(buf, "%d", pSender->GetSection(0)->GetCount());
+                sprintf(buf, "%zu", pSender->GetSection(0)->GetCount());
 
                 saveName = "Save " + string(buf);
                 filePath = fileName;

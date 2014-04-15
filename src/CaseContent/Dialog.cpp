@@ -256,7 +256,7 @@ Dialog * Dialog::CreateForString(string dialogText, string filePath, int timeBef
             if (curTextWidth + curStringWidth <= allowedWidth)
             {
                 string stringToPrependOnNext;
-                stringToTest = pDialog->ParseEvents(fullString.length() + curstring.length(), stringToTest, &stringToPrependOnNext);
+                stringToTest = pDialog->ParseEvents((int)(fullString.length() + curstring.length()), stringToTest, &stringToPrependOnNext);
                 curstring += stringToTest;
                 curTextWidth += curStringWidth;
                 wordList.pop_front();
@@ -284,7 +284,7 @@ Dialog * Dialog::CreateForString(string dialogText, string filePath, int timeBef
 
     if (delayBeforeContinuing >= 0)
     {
-        pDialog->AddPausePosition(fullString.length(), delayBeforeContinuing);
+        pDialog->AddPausePosition((int)fullString.length(), delayBeforeContinuing);
     }
 
     if (filePath.length() > 0)
@@ -1024,7 +1024,7 @@ void Dialog::Finish(bool shouldPlaySfx)
         dialogEventIteratorSet = true;
     }
 
-    curTextPosition = GetText().length();
+    curTextPosition = (int)GetText().length();
 
     if (pCurrentDialogEvent != NULL)
     {
@@ -1133,8 +1133,8 @@ string Dialog::ParseEvents(int lineOffset, string stringToParse, string *pString
 
     while (parsedString.find('{') != string::npos && parsedString.find('}') != string::npos)
     {
-        int eventStart = parsedString.find('{');
-        int eventEnd = parsedString.find('}');
+        int eventStart = (int)parsedString.find('{');
+        int eventEnd = (int)parsedString.find('}');
 
         deque<string> eventComponents = split(parsedString.substr(eventStart + 1, eventEnd - eventStart - 1), ':');
         string replacementText = "";

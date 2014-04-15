@@ -84,9 +84,9 @@ bool GeometricPolygon::Contains(Vector2 point)
     // If it passes through an odd number of edges, then the point
     // is inside the polygon; otherwise, it's outside.
     bool oddNumberOfCrossings = false;
-    int lastIndex = points.size() - 1;
+    size_t lastIndex = points.size() - 1;
 
-    for (unsigned int index = 0; index < points.size(); index++)
+    for (size_t index = 0; index < points.size(); index++)
     {
         // For the edge that we're currently on, the ray can only
         // potentially pass through it if the y-coordinates of the
