@@ -55,11 +55,10 @@ static NSString *NSSavesPath;
 
 static NSString *getApplicationName(void)
 {
-    const NSDictionary *dict;
+    NSDictionary *dict = [[NSBundle mainBundle] infoDictionary];
     NSString *appName;
 
     /* Determine the application name */
-    dict = (__bridge const NSDictionary *)CFBundleGetInfoDictionary(CFBundleGetMainBundle());
     if (dict)
         appName = [dict objectForKey: @"CFBundleName"];
 
@@ -135,6 +134,7 @@ static void setApplicationMenu(void)
     NSMenuItem *menuItem;
     NSString *title;
     NSString *appName = getApplicationName();
+
     appleMenu = [[NSMenu alloc] initWithTitle:@""];
 
     /* Add menu items */
