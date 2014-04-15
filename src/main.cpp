@@ -53,15 +53,15 @@
 #include <string>
 #include <math.h>
 
+#include <cryptopp/sha.h>
+
 using namespace std;
 
 #ifdef GAME_EXECUTABLE
 string title = "My Little Investigations";
-#endif
-#ifdef UPDATER
+#elif defined(UPDATER)
 string title = "My Little Investigations Updater";
-#endif
-#ifdef LAUNCHER
+#elif defined(LAUNCHER)
 string title = "My Little Investigations Launcher";
 #endif
 

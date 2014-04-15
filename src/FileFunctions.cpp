@@ -71,8 +71,7 @@ tstring StringToTString(string str)
 
     return tstr;
 }
-#endif
-#ifdef __OSX
+#elif defined(__OSX)
 #include "../osx/ApplicationSupportBridge.h"
 
 #include <Security/Authorization.h>
@@ -80,6 +79,8 @@ tstring StringToTString(string str)
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+#else
+#error Unknown or unsupported architecture
 #endif
 
 string pathSeparator;
@@ -140,8 +141,7 @@ void LoadFilePathsAndCaseUuids(string executableFilePath)
             if (ftyp == INVALID_FILE_ATTRIBUTES) CreateDirectory(szPath, NULL);
             savesPath = TStringToString(tstring(szPath));
         }
-    #endif
-    #ifdef __OSX
+    #elif defined(__OSX)
         pathSeparator = "/";
         otherPathSeparator = "\\";
 
@@ -158,6 +158,8 @@ void LoadFilePathsAndCaseUuids(string executableFilePath)
         userAppDataPath = string(pUserApplicationSupportPath) + "/";
         dialogSeenListsPath = string(pDialogSeenListsPath) + "/";
         savesPath = string(pSavesPath) + "/";
+	#else
+	#error Unknown or unsupported architecture
     #endif
 
     executableFilePath = ConvertSeparatorsInPath(executableFilePath);
@@ -389,9 +391,10 @@ Version GetCurrentVersion()
     }
 
     RegCloseKey(hKey);
-#endif
-#ifdef __OSX
+#elif defined(__OSX)
     versionString = GetVersionStringOSX(GetPropertyListPath());
+#else
+#error Unknown or unsupported architecture
 #endif
 
     if (versionString.length() > 0)
@@ -432,8 +435,7 @@ void WriteNewVersion(Version newVersion)
     }
 
     RegCloseKey(hKey);
-#endif
-#ifdef __OSX
+#elif defined(__OSX)
     unsigned long propertyListXmlDataLength = 0;
     char *pPropertyListXmlData = GetPropertyListXMLForVersionStringOSX(GetPropertyListPath(), newVersion, &propertyListXmlDataLength);
 
@@ -454,6 +456,8 @@ void WriteNewVersion(Version newVersion)
     }
 
 	free(pPropertyListXmlData);
+#else
+#error Unknown or unsupported architecture
 #endif
 }
 #endif
@@ -1055,8 +1059,7 @@ bool LaunchExecutable(const char *pExecutablePath, vector<string> commandLineArg
 
         success = ShellExecuteEx(&shExecInfo);
     }
-#endif
-#ifdef __OSX
+#elif defined(__OSX)
     if (asAdmin)
     {
         if (authorizationRef != NULL)
@@ -1136,6 +1139,8 @@ bool LaunchExecutable(const char *pExecutablePath, vector<string> commandLineArg
             }
         }
     }
+#else
+#error Unknown or unsupported architecture
 #endif
 
     return success;
@@ -1145,9 +1150,10 @@ void LaunchGameExecutable()
 {
 #ifdef __WINDOWS
     string executablePath = executionPath + "MyLittleInvestigations.exe";
-#endif
-#ifdef __OSX
+#elif defined(__OSX)
     string executablePath = GetGameExecutable();
+#else
+#error Unknown or unsupported architecture
 #endif
 
     if (!LaunchExecutable(executablePath.c_str(), vector<string>(), false /* waitForCompletion */, false /* asAdmin */))
@@ -1174,8 +1180,7 @@ bool ApplyDeltaFile(string oldFilePath, string deltaFilePath, string newFilePath
     commandLineArguments.push_back(oldFilePath);
     commandLineArguments.push_back(deltaFilePath);
     commandLineArguments.push_back(newFilePath);
-#endif
-#ifdef __OSX
+#elif defined(__OSX)
     string executablePath = GetUpdaterHelperFilePath();
 
     vector<string> commandLineArguments;
@@ -1184,6 +1189,8 @@ bool ApplyDeltaFile(string oldFilePath, string deltaFilePath, string newFilePath
     commandLineArguments.push_back(oldFilePath);
     commandLineArguments.push_back(deltaFilePath);
     commandLineArguments.push_back(newFilePath);
+#else
+#error Unknown or unsupported architecture
 #endif
 
     // On Windows, we can launch the entire update application in admin mode, so we don't need to run the update executable in admin mode.
@@ -1195,9 +1202,11 @@ bool ApplyDeltaFile(string oldFilePath, string deltaFilePath, string newFilePath
             true /* waitForCompletion */,
 #ifdef __WINDOWS
             false /* asAdmin */
-#endif
-#ifdef __OSX
+#elif defined(__OSX)
             true /* asAdmin */
+#else
+#warning Unknown or unsupported architecture
+			false
 #endif
             );
 
@@ -1208,8 +1217,7 @@ bool RemoveFile(string filePath)
 {
 #ifdef __WINDOWS
     return remove(filePath.c_str()) == 0;
-#endif
-#ifdef __OSX
+#elif defined(__OSX)
     string executablePath = GetUpdaterHelperFilePath();
 
     vector<string> commandLineArguments;
@@ -1225,8 +1233,7 @@ bool RenameFile(string oldFilePath, string newFilePath)
 {
 #ifdef __WINDOWS
     return rename(oldFilePath.c_str(), newFilePath.c_str()) == 0;
-#endif
-#ifdef __OSX
+#elif defined(__OSX)
     string executablePath = GetUpdaterHelperFilePath();
 
     vector<string> commandLineArguments;
@@ -1236,6 +1243,8 @@ bool RenameFile(string oldFilePath, string newFilePath)
     commandLineArguments.push_back(newFilePath);
 
     return LaunchExecutable(executablePath.c_str(), commandLineArguments, true /* waitForCompletion */, true /* asAdmin */);
+#else
+#error Unknown or unsupported architecture
 #endif
 }
 #endif
@@ -1244,9 +1253,10 @@ bool LaunchUpdater(string versionsXmlFilePath)
 {
 #ifdef __WINDOWS
     string executablePath = executionPath + "MyLittleInvestigationsUpdater.exe";
-#endif
-#ifdef __OSX
+#elif defined(__OSX)
     string executablePath = executionPath + "MyLittleInvestigationsUpdater";
+#else
+#error Unknown or unsupported architecture
 #endif
 
     vector<string> commandLineArguments;
@@ -1263,6 +1273,9 @@ bool LaunchUpdater(string versionsXmlFilePath)
         true /* asAdmin */
 #elif defined(__OSX)
         false /* asAdmin */
+#else
+#warning Unknown or unsupported architecture
+		false
 #endif
         );
 }

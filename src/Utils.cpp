@@ -35,6 +35,7 @@
 
 #include <cryptopp/hex.h>
 #include <cryptopp/rsa.h>
+#include <cryptopp/sha.h>
 
 using namespace CryptoPP;
 
@@ -66,7 +67,7 @@ deque<string> split(const string &s, char delim)
     return split(s, delim, tokens);
 }
 
-string UuidFromSHA256Hash(byte hash[CryptoPP::SHA256::DIGESTSIZE])
+string UuidFromSHA256Hash(byte hash[])
 {
     string uuid = "";
 
@@ -329,9 +330,10 @@ bool CheckIfUpdatesExist(string *pVersionsXmlContent)
                         {
                         #ifdef __WINDOWS
                             deltaSize = versionReader.ReadIntElement("DeltaSizeWindows");
-                        #endif
-                        #ifdef __OSX
+                        #elif defined(__OSX)
                             deltaSize = versionReader.ReadIntElement("DeltaSizeOSX");
+						#else
+						#error Unknown or unsupported architecture
                         #endif
                         }
                     }

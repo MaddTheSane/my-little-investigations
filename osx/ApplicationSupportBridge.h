@@ -4,11 +4,13 @@
 #include <string>
 #include <vector>
 
-extern const char *pLocalApplicationSupportPath;
-extern const char *pCasesPath;
-extern const char *pUserApplicationSupportPath;
-extern const char *pDialogSeenListsPath;
-extern const char *pSavesPath;
+using namespace std;
+
+extern string pLocalApplicationSupportPath;
+extern string pCasesPath;
+extern string pUserApplicationSupportPath;
+extern string pDialogSeenListsPath;
+extern string pSavesPath;
 
 std::vector<std::string> GetCaseFilePathsOSX();
 std::vector<std::string> GetSaveFilePathsForCaseOSX(std::string caseUuid);

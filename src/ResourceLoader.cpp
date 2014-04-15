@@ -31,6 +31,8 @@
 #include "mli_audio.h"
 #include "CaseInformation/Case.h"
 
+#include <cryptopp/sha.h>
+
 ResourceLoader * ResourceLoader::pInstance = NULL;
 
 void ResourceLoader::LoadImageStep::Execute()
@@ -419,7 +421,7 @@ void * ResourceLoader::LoadFileToMemory(string relativeFilePath, unsigned int *p
     return p;
 }
 
-void ResourceLoader::HashFile(string relativeFilePath, byte hash[CryptoPP::SHA256::DIGESTSIZE])
+void ResourceLoader::HashFile(string relativeFilePath, byte hash[])
 {
     void *p = NULL;
     unsigned int fileSize = 0;
