@@ -59,7 +59,7 @@ static NSString *getApplicationName(void)
 
     /* Determine the application name */
     if (dict)
-        appName = [dict objectForKey: @"CFBundleName"];
+        appName = dict[@"CFBundleName"];
 
     if (![appName length])
         appName = [[NSProcessInfo processInfo] processName];
@@ -532,7 +532,7 @@ string GetVersionStringOSX(string PropertyListFilePath)
             return string();
         }
 
-        NSString *pVersionString = [pPropertyListDictionary objectForKey:@"VersionString"];
+        NSString *pVersionString = pPropertyListDictionary[@"VersionString"];
         return [pVersionString UTF8String];
     }
 }
@@ -565,7 +565,7 @@ char *GetPropertyListXMLForVersionStringOSX(string PropertyListFilePath, string 
 
         NSMutableDictionary *pPropertyListDictionaryMutable = [pPropertyListDictionary mutableCopy];
         
-        [pPropertyListDictionaryMutable setObject:@(pVersionString.c_str()) forKey:@"VersionString"];
+        pPropertyListDictionaryMutable[@"VersionString"] = @(pVersionString.c_str());
 
         NSData *pData = [NSPropertyListSerialization
                          dataFromPropertyList:(id)pPropertyListDictionaryMutable

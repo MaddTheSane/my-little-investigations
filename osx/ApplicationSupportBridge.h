@@ -12,10 +12,10 @@ extern string pUserApplicationSupportPath;
 extern string pDialogSeenListsPath;
 extern string pSavesPath;
 
-std::vector<std::string> GetCaseFilePathsOSX();
-std::vector<std::string> GetSaveFilePathsForCaseOSX(std::string caseUuid);
-std::string GetVersionStringOSX(std::string PropertyListFilePath);
-char * GetPropertyListXMLForVersionStringOSX(std::string pPropertyListFilePath, std::string pVersionString, unsigned long *pVersionStringLength);
-std::string GetGameExecutable();
+vector<string> GetCaseFilePathsOSX();
+vector<string> GetSaveFilePathsForCaseOSX(string caseUuid);
+string GetVersionStringOSX(string PropertyListFilePath);
+char * GetPropertyListXMLForVersionStringOSX(string pPropertyListFilePath, string pVersionString, unsigned long *pVersionStringLength);
+string GetGameExecutable();
 
 #endif
