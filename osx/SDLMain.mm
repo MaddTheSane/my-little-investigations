@@ -12,8 +12,6 @@
 #include <sys/param.h> /* for MAXPATHLEN */
 #include <unistd.h>
 
-using namespace std;
-
 /* For some reaon, Apple removed setAppleMenu from the headers in 10.4,
  but the method still is there and works. To avoid warnings, we declare
  it ourselves here. */
@@ -26,7 +24,8 @@ using namespace std;
 
 /* Use this flag to determine whether we use CPS (docking) or not */
 #define		SDL_USE_CPS		1
-#undef SDL_USE_CPS
+/* ...except for the fact that it's deprecated */
+#undef		SDL_USE_CPS
 
 #ifdef SDL_USE_CPS
 /* Portions of CPS.h */
@@ -186,8 +185,6 @@ static void setupWindowMenu(void)
 
     /* Tell the application object that this is now the window menu */
     [NSApp setWindowsMenu:windowMenu];
-
-    /* Finally give up our references to the objects */
 }
 
 static SDLMain *sdlMain;
