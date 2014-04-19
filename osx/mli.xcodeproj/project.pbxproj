@@ -731,9 +731,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5533C63318FB62DB0055B22B /* mliLaunch */ = {
+		5533C63318FB62DB0055B22B /* MLI Launch */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5533C69718FB62DB0055B22B /* Build configuration list for PBXNativeTarget "mliLaunch" */;
+			buildConfigurationList = 5533C69718FB62DB0055B22B /* Build configuration list for PBXNativeTarget "MLI Launch" */;
 			buildPhases = (
 				5533C63418FB62DB0055B22B /* Sources */,
 				5533C68718FB62DB0055B22B /* Frameworks */,
@@ -745,14 +745,14 @@
 			dependencies = (
 				5533C69D18FB64150055B22B /* PBXTargetDependency */,
 			);
-			name = mliLaunch;
+			name = "MLI Launch";
 			productName = mli;
 			productReference = 5533C69A18FB62DB0055B22B /* My Little Investigations.app */;
 			productType = "com.apple.product-type.application";
 		};
-		558C3ECD18F73F7200DEB259 /* mliGame */ = {
+		558C3ECD18F73F7200DEB259 /* MLI Game */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 558C3EFF18F73F7200DEB259 /* Build configuration list for PBXNativeTarget "mliGame" */;
+			buildConfigurationList = 558C3EFF18F73F7200DEB259 /* Build configuration list for PBXNativeTarget "MLI Game" */;
 			buildPhases = (
 				558C3ECA18F73F7200DEB259 /* Sources */,
 				558C3ECB18F73F7200DEB259 /* Frameworks */,
@@ -763,7 +763,7 @@
 			);
 			dependencies = (
 			);
-			name = mliGame;
+			name = "MLI Game";
 			productName = mli;
 			productReference = 558C3ECE18F73F7200DEB259 /* My Little Investigations Game.app */;
 			productType = "com.apple.product-type.application";
@@ -790,8 +790,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5533C63318FB62DB0055B22B /* mliLaunch */,
-				558C3ECD18F73F7200DEB259 /* mliGame */,
+				5533C63318FB62DB0055B22B /* MLI Launch */,
+				558C3ECD18F73F7200DEB259 /* MLI Game */,
 			);
 		};
 /* End PBXProject section */
@@ -940,7 +940,7 @@
 /* Begin PBXTargetDependency section */
 		5533C69D18FB64150055B22B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 558C3ECD18F73F7200DEB259 /* mliGame */;
+			target = 558C3ECD18F73F7200DEB259 /* MLI Game */;
 			targetProxy = 5533C69C18FB64150055B22B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1042,6 +1042,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "Thumbs.db $(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -1088,6 +1089,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
+				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "Thumbs.db $(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1189,7 +1191,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5533C69718FB62DB0055B22B /* Build configuration list for PBXNativeTarget "mliLaunch" */ = {
+		5533C69718FB62DB0055B22B /* Build configuration list for PBXNativeTarget "MLI Launch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5533C69818FB62DB0055B22B /* Debug */,
@@ -1207,7 +1209,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		558C3EFF18F73F7200DEB259 /* Build configuration list for PBXNativeTarget "mliGame" */ = {
+		558C3EFF18F73F7200DEB259 /* Build configuration list for PBXNativeTarget "MLI Game" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				558C3F0018F73F7200DEB259 /* Debug */,
