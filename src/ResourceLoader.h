@@ -41,9 +41,10 @@
 
 #include "Image.h"
 #include "miniz.h"
+#include "ticpp/ticpp.h"
+using namespace ticpp;
 
 #include <map>
-#include <vector>
 #include <deque>
 
 extern "C"
@@ -52,6 +53,7 @@ extern "C"
 }
 
 typedef unsigned char byte;
+
 class ArchiveSource;
 
 const int IOContextBufferSize = 32768;

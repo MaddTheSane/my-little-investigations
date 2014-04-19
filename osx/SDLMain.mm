@@ -418,9 +418,9 @@ int main (int argc, char **argv)
         }
 
 #if SDL_USE_NIB_FILE
-        NSApplicationMain (argc, argv);
+    NSApplicationMain (argc, argv);
 #else
-        CustomApplicationMain (argc, argv);
+    CustomApplicationMain (argc, argv);
 #endif
     }
     return 0;

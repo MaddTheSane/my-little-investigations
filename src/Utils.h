@@ -33,12 +33,11 @@
 #include "Version.h"
 
 #include <string>
-#include <sstream>
 #include <deque>
 
-using namespace std;
-
 typedef unsigned char byte;
+
+using namespace std;
 
 #ifndef GAME_EXECUTABLE
 typedef int (*PFNPROGRESSCALLBACK)(void *, double, double, double, double);

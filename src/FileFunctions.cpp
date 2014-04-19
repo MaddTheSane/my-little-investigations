@@ -76,9 +76,9 @@ tstring StringToTString(string str)
 
 #include <Security/Authorization.h>
 #include <Security/AuthorizationTags.h>
-#include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <unistd.h>
 #elif __unix
 #include <dirent.h>
 #include <pwd.h>
