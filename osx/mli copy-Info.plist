@@ -26,7 +26,7 @@
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
-	<string>${EXECUTABLE_FILE}</string>
+	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
 	<string>mli</string>
 	<key>CFBundleIdentifier</key>

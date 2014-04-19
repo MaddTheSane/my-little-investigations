@@ -7,7 +7,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>My Little Investigations</string>
 	<key>CFBundleExecutable</key>
-	<string>${EXECUTABLE_FILE}</string>
+	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
 	<string>mli</string>
 	<key>CFBundleIdentifier</key>
