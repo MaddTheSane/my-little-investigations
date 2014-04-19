@@ -568,7 +568,7 @@ char *GetPropertyListXMLForVersionStringOSX(string PropertyListFilePath, string 
         pPropertyListDictionaryMutable[@"VersionString"] = @(pVersionString.c_str());
 
         NSData *pData = [NSPropertyListSerialization
-                         dataFromPropertyList:(id)pPropertyListDictionaryMutable
+                         dataFromPropertyList:pPropertyListDictionaryMutable
                          format:NSPropertyListXMLFormat_v1_0
                          errorDescription:&pErrorDesc];
 
