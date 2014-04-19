@@ -81,7 +81,7 @@
 		558C3FE318F7413900DEB259 /* enums.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F5318F7413900DEB259 /* enums.cpp */; };
 		558C3FE418F7413900DEB259 /* EventProviders.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F5A18F7413900DEB259 /* EventProviders.cpp */; };
 		558C3FE518F7413900DEB259 /* FileFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6118F7413900DEB259 /* FileFunctions.cpp */; };
-		558C3FE618F7413900DEB259 /* Font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6318F7413900DEB259 /* Font.cpp */; };
+		558C3FE618F7413900DEB259 /* MLIFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6318F7413900DEB259 /* MLIFont.cpp */; };
 		558C3FE718F7413900DEB259 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6518F7413900DEB259 /* Game.cpp */; };
 		558C3FE818F7413900DEB259 /* globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6718F7413900DEB259 /* globals.cpp */; };
 		558C3FE918F7413900DEB259 /* HeightMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6918F7413900DEB259 /* HeightMap.cpp */; };
@@ -279,8 +279,8 @@
 		558C3F6018F7413900DEB259 /* SelectorEventProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectorEventProvider.h; sourceTree = "<group>"; };
 		558C3F6118F7413900DEB259 /* FileFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileFunctions.cpp; sourceTree = "<group>"; usesTabs = 0; };
 		558C3F6218F7413900DEB259 /* FileFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileFunctions.h; sourceTree = "<group>"; usesTabs = 0; };
-		558C3F6318F7413900DEB259 /* Font.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Font.cpp; sourceTree = "<group>"; usesTabs = 0; };
-		558C3F6418F7413900DEB259 /* Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; usesTabs = 0; };
+		558C3F6318F7413900DEB259 /* MLIFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MLIFont.cpp; sourceTree = "<group>"; usesTabs = 0; };
+		558C3F6418F7413900DEB259 /* MLIFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLIFont.h; sourceTree = "<group>"; usesTabs = 0; };
 		558C3F6518F7413900DEB259 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; usesTabs = 0; };
 		558C3F6618F7413900DEB259 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; usesTabs = 0; };
 		558C3F6718F7413900DEB259 /* globals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = globals.cpp; sourceTree = "<group>"; usesTabs = 0; };
@@ -524,8 +524,8 @@
 				558C3F5518F7413900DEB259 /* Events */,
 				558C3F6118F7413900DEB259 /* FileFunctions.cpp */,
 				558C3F6218F7413900DEB259 /* FileFunctions.h */,
-				558C3F6318F7413900DEB259 /* Font.cpp */,
-				558C3F6418F7413900DEB259 /* Font.h */,
+				558C3F6318F7413900DEB259 /* MLIFont.cpp */,
+				558C3F6418F7413900DEB259 /* MLIFont.h */,
 				558C3F6518F7413900DEB259 /* Game.cpp */,
 				558C3F6618F7413900DEB259 /* Game.h */,
 				558C3F6718F7413900DEB259 /* globals.cpp */,
@@ -908,7 +908,7 @@
 				558C400C18F7413900DEB259 /* SkipArrow.cpp in Sources */,
 				558C400D18F7413900DEB259 /* Slider.cpp in Sources */,
 				558C401218F7413900DEB259 /* Video.cpp in Sources */,
-				558C3FE618F7413900DEB259 /* Font.cpp in Sources */,
+				558C3FE618F7413900DEB259 /* MLIFont.cpp in Sources */,
 				558C400018F7413900DEB259 /* tinystr.cpp in Sources */,
 				558C3FE018F7413900DEB259 /* Color.cpp in Sources */,
 				558C3FE818F7413900DEB259 /* globals.cpp in Sources */,

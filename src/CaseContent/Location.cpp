@@ -37,7 +37,7 @@
 #include "../TransitionRequest.h"
 #include "../CaseInformation/Case.h"
 #include "../CaseInformation/CommonCaseResources.h"
-#include "../Screens/Screen.h"
+#include "../Screens/MLIScreen.h"
 #include <algorithm>
 #include <limits>
 #include <math.h>

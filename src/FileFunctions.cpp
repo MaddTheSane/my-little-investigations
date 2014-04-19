@@ -76,11 +76,55 @@ tstring StringToTString(string str)
 
 #include <Security/Authorization.h>
 #include <Security/AuthorizationTags.h>
+#include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#elif __unix
+#include <dirent.h>
+#include <pwd.h>
 #include <unistd.h>
-#else
-#error Unknown or unsupported architecture
+#include <sys/stat.h>
+#include <sys/wait.h>
+
+bool Exists(string path)
+{
+    struct stat st;
+    return stat(path.c_str(), &st) != -1;
+}
+
+void MakeDirIfNotExists(string path)
+{
+    if(!Exists(path))
+    {
+        mkdir(path.c_str(), 0755);
+    }
+}
+
+struct Dir_Autoclean
+{
+    DIR* dir;
+
+    Dir_Autoclean(std::string path) : dir ( opendir(path.c_str()) ) {}
+    Dir_Autoclean(const char* path) : dir ( opendir(path) ) {}
+
+    ~Dir_Autoclean() { if ( dir ) closedir(dir); }
+
+    operator void*() const { return dir; }
+};
+
+struct String_Hax : std::string
+{
+    String_Hax ( const char* s ) : std::string(s) {}
+    String_Hax ( const std::string& s ) : std::string(s) {}
+    operator bool() const { return true; }
+};
+
+#define FOR_EACH_FILE(name,dirpath) \
+     if (Dir_Autoclean dir = dirpath ) \
+         while(dirent *ep = readdir (dir.dir)) \
+             if ( String_Hax name = std::string(dirpath) + ep->d_name )
+
+string graphicalSudo = "xdg-su ";
 #endif
 
 string pathSeparator;
@@ -100,7 +144,7 @@ string tempDirectoryPath;
 
 void LoadFilePathsAndCaseUuids(string executableFilePath)
 {
-    #ifdef __WINDOWS
+#ifdef __WINDOWS
         pathSeparator = "\\";
         otherPathSeparator = "/";
 
@@ -158,9 +202,46 @@ void LoadFilePathsAndCaseUuids(string executableFilePath)
         userAppDataPath = string(pUserApplicationSupportPath) + "/";
         dialogSeenListsPath = string(pDialogSeenListsPath) + "/";
         savesPath = string(pSavesPath) + "/";
-	#else
-	#error Unknown or unsupported architecture
-    #endif
+#elif __unix
+        pathSeparator = "/";
+        otherPathSeparator = "\\";
+
+#ifndef GAME_EXECUTABLE
+        const char* tmp = getenv("TMPDIR");
+        // If TMPDIR isn't set, assume the temporary directory is "/tmp".
+        if(!tmp)
+        {
+            tmp = "/tmp";
+        }
+
+        tempDirectoryPath = string(tmp) + "/";
+#endif
+        string homedir = getenv("HOME");
+        commonAppDataPath = "/usr/share/MyLittleInvestigations/";
+        casesPath = commonAppDataPath + "Cases/";
+        userAppDataPath = homedir + "/.MyLittleInvestigations/";
+        MakeDirIfNotExists(userAppDataPath);
+        dialogSeenListsPath = userAppDataPath + "DialogSeenLists/";
+        MakeDirIfNotExists(dialogSeenListsPath);
+        savesPath = userAppDataPath + "Saves/";
+        MakeDirIfNotExists(savesPath);
+        graphicalSudo = "xdg-su";
+        const char* desktopEnvironment = getenv("XDG_CURRENT_DESKTOP");
+        if (desktopEnvironment != NULL)
+        {
+            string de(desktopEnvironment);
+            if (de == "GNOME")
+            {
+                graphicalSudo = "gksudo ";
+            }
+            else if (de == "KDE")
+            {
+                graphicalSudo = "kdesu ";
+            }
+        }
+#else
+#error NOT IMPLEMENTED
+#endif
 
     executableFilePath = ConvertSeparatorsInPath(executableFilePath);
     executionPath = executableFilePath.substr(0, executableFilePath.find_last_of(pathSeparator)) + pathSeparator;
@@ -187,7 +268,7 @@ vector<string> GetCaseFilePaths()
 {
     vector<string> filePaths;
 
-    #ifdef __WINDOWS
+#ifdef __WINDOWS
         tstring tstrPath = StringToTString(casesPath) + tstring(TEXT("*.mlicase"));
 
         WIN32_FIND_DATA ffd;
@@ -215,7 +296,17 @@ vector<string> GetCaseFilePaths()
                 filePaths.push_back(caseFilePath);
             }
         }
-    #endif
+#elif __unix
+        FOR_EACH_FILE(caseFilePath,casesPath)
+        {
+            if (caseFilePath.find(".mlicase") != string::npos)
+            {
+                filePaths.push_back(caseFilePath);
+            }
+        }
+#else
+#error NOT IMPLEMENTED
+#endif
 
     return filePaths;
 }
@@ -391,10 +482,22 @@ Version GetCurrentVersion()
     }
 
     RegCloseKey(hKey);
-#elif defined(__OSX)
+#elif __OSX
     versionString = GetVersionStringOSX(GetPropertyListPath());
+#elif __unix
+    string versionFilePath = commonAppDataPath + string(".version");
+    if(Exists(versionFilePath))
+    {
+        ifstream versionFile (versionFilePath.c_str());
+        if (versionFile.is_open() && !versionFile.eof())
+        {
+            versionFile >> versionString;
+        }
+
+        versionFile.close();
+    }
 #else
-#error Unknown or unsupported architecture
+#error NOT IMPLEMENTED
 #endif
 
     if (versionString.length() > 0)
@@ -455,9 +558,22 @@ void WriteNewVersion(Version newVersion)
         newVersion.SaveToXml(&versionWriter);
     }
 
-	free(pPropertyListXmlData);
+    delete [] pPropertyListXmlData;
+#elif __unix
+    string versionFilePath = commonAppDataPath + string(".version");
+    ofstream versionFile (versionFilePath.c_str());
+    if(versionFile.is_open())
+    {
+        versionFile << (string)newVersion;
+        versionFile.close();
+    }
+    else
+    {
+        XmlWriter versionWriter(GetVersionFilePath().c_str());
+        newVersion.SaveToXml(&versionWriter);
+    }
 #else
-#error Unknown or unsupported architecture
+#error NOT IMPLEMENTED
 #endif
 }
 #endif
@@ -697,14 +813,18 @@ bool SaveFileExistsForCase(string caseUuid)
 
 string GetSaveFolderPathForCase(string caseUuid)
 {
-    return savesPath + caseUuid + pathSeparator;
+    string path = savesPath + caseUuid + pathSeparator;
+#ifdef __unix
+    MakeDirIfNotExists(path);
+#endif
+    return path;
 }
 
 vector<string> GetSaveFilePathsForCase(string caseUuid)
 {
     vector<string> filePaths;
 
-    #ifdef __WINDOWS
+#ifdef __WINDOWS
         string caseSavesPath = savesPath + caseUuid + pathSeparator;
         tstring tstrPath = StringToTString(caseSavesPath);
         DWORD ftyp = GetFileAttributes(tstrPath.c_str());
@@ -736,7 +856,17 @@ vector<string> GetSaveFilePathsForCase(string caseUuid)
                 filePaths.push_back(saveFilePath);
             }
         }
-    #endif
+#elif __unix
+        FOR_EACH_FILE(saveFilePath, GetSaveFolderPathForCase(caseUuid))
+        {
+            if (saveFilePath.find(".sav") != string::npos)
+            {
+                filePaths.push_back(saveFilePath);
+            }
+        }
+#else
+#error NOT IMPLEMENTED
+#endif
 
     return filePaths;
 }
@@ -1139,8 +1269,46 @@ bool LaunchExecutable(const char *pExecutablePath, vector<string> commandLineArg
             }
         }
     }
+#elif __unix
+    pid_t pid = fork();
+    ostringstream result;
+    for (typename vector<string>::const_iterator i = commandLineArguments.begin(); i != commandLineArguments.end(); i++)
+    {
+        if (i != commandLineArguments.begin())
+        {
+            result << " ";
+        }
+
+        result << *i;
+    }
+
+    string args = result.str();
+    switch (pid)
+    {
+        case 0:
+            if (asAdmin)
+            {
+                execl(strcat(const_cast<char *>(graphicalSudo.c_str()), pExecutablePath), args.c_str(), (char*) NULL);
+            }
+            else
+            {
+                execl(pExecutablePath, args.c_str(), (char*) NULL);
+            }
+            exit(1);
+        default:
+            if(waitForCompletion)
+            {
+                int status;
+                waitpid(pid, &status, 0);
+                success = status == 0;
+            }
+            else
+            {
+                success = true;
+            }
+    }
 #else
-#error Unknown or unsupported architecture
+#error NOT IMPLEMENTED
 #endif
 
     return success;
@@ -1150,10 +1318,10 @@ void LaunchGameExecutable()
 {
 #ifdef __WINDOWS
     string executablePath = executionPath + "MyLittleInvestigations.exe";
-#elif defined(__OSX)
-    string executablePath = GetGameExecutable();
+#elif defined(__OSX) || defined(__unix)
+    string executablePath = executionPath + "MyLittleInvestigations";
 #else
-#error Unknown or unsupported architecture
+#error NOT IMPLEMENTED
 #endif
 
     if (!LaunchExecutable(executablePath.c_str(), vector<string>(), false /* waitForCompletion */, false /* asAdmin */))
@@ -1189,18 +1357,30 @@ bool ApplyDeltaFile(string oldFilePath, string deltaFilePath, string newFilePath
     commandLineArguments.push_back(oldFilePath);
     commandLineArguments.push_back(deltaFilePath);
     commandLineArguments.push_back(newFilePath);
+#elif __unix
+    string executablePath = "xdelta3";
+
+    vector<string> commandLineArguments;
+
+    commandLineArguments.push_back("-f");
+    commandLineArguments.push_back("-d");
+    commandLineArguments.push_back("-s");
+    commandLineArguments.push_back(oldFilePath);
+    commandLineArguments.push_back(deltaFilePath);
+    commandLineArguments.push_back(newFilePath);
 #else
-#error Unknown or unsupported architecture
+#error NOT IMPLEMENTED
 #endif
 
     // On Windows, we can launch the entire update application in admin mode, so we don't need to run the update executable in admin mode.
     // On OS X, however, we do need to run the update helper in admin mode.
+    // On Unix, we can launch the entire update application in admin mode, so we don't need to run the update executable in admin mode.
     bool success =
         LaunchExecutable(
             executablePath.c_str(),
             commandLineArguments,
             true /* waitForCompletion */,
-#ifdef __WINDOWS
+#if defined(__WINDOWS) || defined(__unix)
             false /* asAdmin */
 #elif defined(__OSX)
             true /* asAdmin */
@@ -1215,7 +1395,7 @@ bool ApplyDeltaFile(string oldFilePath, string deltaFilePath, string newFilePath
 
 bool RemoveFile(string filePath)
 {
-#ifdef __WINDOWS
+#if defined(__WINDOWS) || defined(__unix)
     return remove(filePath.c_str()) == 0;
 #elif defined(__OSX)
     string executablePath = GetUpdaterHelperFilePath();
@@ -1226,12 +1406,14 @@ bool RemoveFile(string filePath)
     commandLineArguments.push_back(filePath);
 
     return LaunchExecutable(executablePath.c_str(), commandLineArguments, true /* waitForCompletion */, true /* asAdmin */);
+#else
+#error NOT IMPLEMENTED
 #endif
 }
 
 bool RenameFile(string oldFilePath, string newFilePath)
 {
-#ifdef __WINDOWS
+#if defined(__WINDOWS) || defined(__unix)
     return rename(oldFilePath.c_str(), newFilePath.c_str()) == 0;
 #elif defined(__OSX)
     string executablePath = GetUpdaterHelperFilePath();
@@ -1244,7 +1426,7 @@ bool RenameFile(string oldFilePath, string newFilePath)
 
     return LaunchExecutable(executablePath.c_str(), commandLineArguments, true /* waitForCompletion */, true /* asAdmin */);
 #else
-#error Unknown or unsupported architecture
+#error NOT IMPLEMENTED
 #endif
 }
 #endif
@@ -1253,23 +1435,31 @@ bool LaunchUpdater(string versionsXmlFilePath)
 {
 #ifdef __WINDOWS
     string executablePath = executionPath + "MyLittleInvestigationsUpdater.exe";
-#elif defined(__OSX)
+#elif defined(__OSX) || defined(__unix)
     string executablePath = executionPath + "MyLittleInvestigationsUpdater";
 #else
-#error Unknown or unsupported architecture
+#error NOT IMPLEMENTED
 #endif
 
     vector<string> commandLineArguments;
     commandLineArguments.push_back(versionsXmlFilePath);
+#ifdef __unix
+    // If we're on Unix, we need to pass the current user id to the updater so it can drop root privileges
+    // before launching the game.
+    std::stringstream out;
+    out << getuid();
+    commandLineArguments.push_back(out.str());
+#endif
 
     // On Windows, we can launch the entire update application in admin mode.
     // On OS X, however, we need to instead launch it in standard mode and then acquire rights to run
     // the update applications as root.
+    // On Unix, we can launch the entire update application in admin mode.
     return LaunchExecutable(
         executablePath.c_str(),
         commandLineArguments,
         false /* waitForCompletion */,
-#ifdef __WINDOWS
+#if defined(__WINDOWS) || defined(__unix)
         true /* asAdmin */
 #elif defined(__OSX)
         false /* asAdmin */

@@ -187,7 +187,7 @@ void CheckForUpdatesScreen::ScheduledRemove::Complete()
     RemoveFile(stagingFilePath);
 }
 
-CheckForUpdatesScreen::CheckForUpdatesScreen(Font *pTextDisplayFont)
+CheckForUpdatesScreen::CheckForUpdatesScreen(MLIFont *pTextDisplayFont)
 {
     this->pTextDisplayFont = pTextDisplayFont;
 
@@ -215,7 +215,7 @@ void CheckForUpdatesScreen::UnloadResources()
 
 void CheckForUpdatesScreen::Init()
 {
-    Screen::Init();
+    MLIScreen::Init();
 
     drawnOnce = false;
     currentState = StateCheckingForUpdates;
@@ -322,8 +322,10 @@ void CheckForUpdatesScreen::CheckForUpdates()
                         fileName = versionReader.ReadTextElement("FileNameWindows");
                     #elif defined(__OSX)
                         fileName = versionReader.ReadTextElement("FileNameOSX");
-					#else
-					#error Unknown or unsupported architecture
+                    #elif __unix
+                        fileName = versionReader.ReadTextElement("FileNameUnix");
+                    #else
+                    #error NOT IMPLEMENTED
                     #endif
                     }
 
@@ -344,8 +346,10 @@ void CheckForUpdatesScreen::CheckForUpdates()
                             deltaSize = versionReader.ReadIntElement("DeltaSizeWindows");
                         #elif defined(__OSX)
                             deltaSize = versionReader.ReadIntElement("DeltaSizeOSX");
-						#else
-						#error Unknown or unsupported architecture
+                        #elif __unix
+                            fileName = versionReader.ReadTextElement("DeltaSizeUnix");
+                        #else
+                        #error NOT IMPLEMENTED
                         #endif
                         }
                     }
@@ -364,8 +368,10 @@ void CheckForUpdatesScreen::CheckForUpdates()
                             deltaLocation = versionReader.ReadTextElement("DeltaLocationWindows");
                         #elif defined(__OSX)
                             deltaLocation = versionReader.ReadTextElement("DeltaLocationOSX");
-						#else
-						#error Unknown or unsupported architecture
+                        #elif __unix
+                            deltaLocation = versionReader.ReadTextElement("DeltaLocationUnix");
+                        #else
+                        #error NOT IMPLEMENTED
                         #endif
                         }
                     }
@@ -384,8 +390,10 @@ void CheckForUpdatesScreen::CheckForUpdates()
                             signature = versionReader.ReadTextElement("SignatureWindows");
                         #elif defined(__OSX)
                             signature = versionReader.ReadTextElement("SignatureOSX");
-						#else
-						#error Unknown or unsupported architecture
+                        #elif __unix
+                            signature = versionReader.ReadTextElement("SignatureUnix");
+                        #else
+                        #error NOT IMPLEMENTED
                         #endif
                         }
                     }

@@ -294,7 +294,6 @@ bool CheckIfUpdatesExist(string *pVersionsXmlContent)
             {
                 versionReader.StartElement("VersionNumber");
                 Version newVersion(&versionReader);
-
                 if (gVersion < newVersion)
                 {
                     if (newVersion > newestVersion)
@@ -332,8 +331,10 @@ bool CheckIfUpdatesExist(string *pVersionsXmlContent)
                             deltaSize = versionReader.ReadIntElement("DeltaSizeWindows");
                         #elif defined(__OSX)
                             deltaSize = versionReader.ReadIntElement("DeltaSizeOSX");
-						#else
-						#error Unknown or unsupported architecture
+                        #elif __unix
+                            deltaSize = versionReader.ReadIntElement("DeltaSizeUnix");
+                        #else
+                        #error NOT IMPLEMENTED
                         #endif
                         }
                     }
