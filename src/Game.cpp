@@ -231,13 +231,24 @@ bool Game::CreateAndInit()
 #endif
 #endif
 
-    gpRenderer = SDL_CreateRenderer(gpWindow, -1, SDL_RENDERER_ACCELERATED);
+    gpRenderer = SDL_CreateRenderer(gpWindow, -1, 0);
 
     // Ditto for the renderer.
     if (gpRenderer == NULL)
     {
         return false;
     }
+
+    // And for the renderer info, too.
+    SDL_RendererInfo rendererInfo;
+
+    if (SDL_GetRendererInfo(gpRenderer, &rendererInfo) < 0)
+    {
+        return false;
+    }
+
+    gMaxTextureWidth = rendererInfo.max_texture_width;
+    gMaxTextureHeight = rendererInfo.max_texture_height;
 
 #ifdef GAME_EXECUTABLE
     // Initialize audio subsystems.
@@ -294,7 +305,7 @@ void Game::PrepareMenuMode()
     screenFromIdMap[CASE_SELECTION_SCREEN_ID]->LoadResources();
 }
 
-void Game::SetOverlayById(string overlayId)
+void Game::SetOverlayById(const string &overlayId)
 {
     pOverlayScreen = screenFromIdMap[overlayId];
     pOverlayScreen->Init();

@@ -47,13 +47,13 @@ public:
 
     static void NotifyKeyDown(SDL_Keycode keycode);
     static void NotifyKeyUp(SDL_Keycode keycode);
-    static void NotifyTextInput(string newText);
+    static void NotifyTextInput(const string &newText);
     static void Update(int delta);
     static void Reset();
 
     static string GetCurrentText() { return currentText; }
-    static void SetCurrentText(string currentText) { TextInputHelper::currentText = currentText; caretPosition = currentText.length(); }
-    static size_t GetCaretPosition() { return caretPosition; }
+    static void SetCurrentText(const string &currentText) { TextInputHelper::currentText = currentText; caretPosition = currentText.length(); }
+    static unsigned int GetCaretPosition() { return caretPosition; }
     static bool GetIsCaretShowing() { return isCaretShowing; }
     static void SetMaxPixelWidth(int pixelWidth, MLIFont *pFontToCheckAgainst) { maxPixelWidth = pixelWidth; TextInputHelper::pFontToCheckAgainst = pFontToCheckAgainst; }
 
@@ -61,7 +61,7 @@ public:
     static bool GetUserHasCanceled() { return userHasCanceled; }
 
 private:
-    static bool SetNewText(string newText, size_t newCaretPosition);
+    static bool SetNewText(const string &newText, size_t newCaretPosition);
     static void HandleSpecialKey(SDL_Keycode keycode);
     static void ResetCaret();
 
