@@ -53,7 +53,7 @@ public:
 
     static string GetCurrentText() { return currentText; }
     static void SetCurrentText(const string &currentText) { TextInputHelper::currentText = currentText; caretPosition = currentText.length(); }
-    static unsigned int GetCaretPosition() { return caretPosition; }
+    static size_t GetCaretPosition() { return caretPosition; }
     static bool GetIsCaretShowing() { return isCaretShowing; }
     static void SetMaxPixelWidth(int pixelWidth, MLIFont *pFontToCheckAgainst) { maxPixelWidth = pixelWidth; TextInputHelper::pFontToCheckAgainst = pFontToCheckAgainst; }
 

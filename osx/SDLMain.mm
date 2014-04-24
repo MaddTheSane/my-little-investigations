@@ -23,11 +23,10 @@
 #define		SDL_USE_NIB_FILE	0
 
 /* Use this flag to determine whether we use CPS (docking) or not */
-#define		SDL_USE_CPS		1
-/* ...except for the fact that it's deprecated */
-#undef		SDL_USE_CPS
+/* CPS is deprecated now, so avoid using it */
+#define		SDL_USE_CPS		0
 
-#ifdef SDL_USE_CPS
+#if SDL_USE_CPS
 /* Portions of CPS.h */
 typedef struct CPSProcessSerNum
 {
@@ -196,7 +195,7 @@ static void CustomApplicationMain (int argc, char **argv)
         /* Ensure the application object is initialised */
         [SDL2Application sharedApplication];
 
-#ifdef SDL_USE_CPS
+#if SDL_USE_CPS
         {
             CPSProcessSerNum PSN;
             /* Tell the dock about us */
@@ -487,7 +486,8 @@ vector<string> GetSaveFilePathsForCaseOSX(string caseUuid)
 
         for (NSString *pStrSaveFileName in pSaveFileList) {
             //Ignore UNIX hidden files, like OS X's .DS_Store
-            if ([pStrSaveFileName hasPrefix:@"."]) {
+            if ([pStrSaveFileName hasPrefix:@"."])
+			{
                 continue;
             }
             
@@ -510,78 +510,63 @@ string GetGameExecutable()
 
 string GetVersionStringOSX(string PropertyListFilePath)
 {
-    @autoreleasepool {
-        NSString *pErrorDesc;
-        NSPropertyListFormat format;
-        NSFileManager *defaultManager = [NSFileManager defaultManager];
-        const char *pPropertyListFilePath = PropertyListFilePath.c_str();
-        NSString *pProperyListPath = [defaultManager stringWithFileSystemRepresentation:pPropertyListFilePath length:strlen(pPropertyListFilePath)];
-
-        if (![defaultManager fileExistsAtPath:pProperyListPath]) {
-            return string();
-        }
-
-        NSData *pPropertyListXML = [[NSFileManager defaultManager] contentsAtPath:pProperyListPath];
-        NSDictionary *pPropertyListDictionary =
-        [NSPropertyListSerialization propertyListFromData:pPropertyListXML
-                                         mutabilityOption:NSPropertyListMutableContainersAndLeaves
-                                                   format:&format
-                                         errorDescription:&pErrorDesc];
-
-        if (pPropertyListDictionary == NULL) {
-            return string();
-        }
-
-        NSString *pVersionString = pPropertyListDictionary[@"VersionString"];
-        return [pVersionString UTF8String];
+    NSFileManager *defaultManager = [NSFileManager defaultManager];
+    NSString *pProperyListPath = [defaultManager stringWithFileSystemRepresentation:PropertyListFilePath.c_str() length: PropertyListFilePath.size()];
+    
+    if (![defaultManager fileExistsAtPath:pProperyListPath])
+    {
+        return string();
     }
+    
+    NSDictionary *pPropertyListDictionary =
+    [NSDictionary dictionaryWithContentsOfFile:pProperyListPath];
+    
+    if (pPropertyListDictionary == NULL) {
+        return string();
+    }
+    
+    NSString *pVersionString = pPropertyListDictionary[@"VersionString"];
+    return [pVersionString UTF8String];
 }
 
 char *GetPropertyListXMLForVersionStringOSX(string PropertyListFilePath, string pVersionString, unsigned long *pVersionStringLength)
 {
-    @autoreleasepool {
-        *pVersionStringLength = 0;
+    *pVersionStringLength = 0;
 
-        NSString *pErrorDesc;
-        NSPropertyListFormat format;
-        NSFileManager *defaultManager = [NSFileManager defaultManager];
-        const char * pPropertyListFilePath = PropertyListFilePath.c_str();
-        NSString *ProperyListPath = [defaultManager stringWithFileSystemRepresentation:pPropertyListFilePath length:strlen(pPropertyListFilePath)];
+    NSFileManager *defaultManager = [NSFileManager defaultManager];
+    NSString *pErrorDesc = nil;
+    NSString *pProperyListPath = [defaultManager stringWithFileSystemRepresentation:PropertyListFilePath.c_str() length: PropertyListFilePath.size()];
 
-        if (![[NSFileManager defaultManager] fileExistsAtPath:ProperyListPath]) {
-            return NULL;
-        }
-
-        NSData *pPropertyListXML = [NSData dataWithContentsOfFile:ProperyListPath];
-        NSDictionary *pPropertyListDictionary =
-        [NSPropertyListSerialization propertyListFromData:pPropertyListXML
-                                         mutabilityOption:NSPropertyListMutableContainersAndLeaves
-                                                   format:&format
-                                         errorDescription:&pErrorDesc];
-
-        if (pPropertyListDictionary == NULL) {
-            return NULL;
-        }
-
-        NSMutableDictionary *pPropertyListDictionaryMutable = [pPropertyListDictionary mutableCopy];
-        
-        pPropertyListDictionaryMutable[@"VersionString"] = @(pVersionString.c_str());
-
-        NSData *pData = [NSPropertyListSerialization
-                         dataFromPropertyList:pPropertyListDictionaryMutable
-                         format:NSPropertyListXMLFormat_v1_0
-                         errorDescription:&pErrorDesc];
-
-        if (pData == NULL) {
-            return NULL;
-        }
-
-        unsigned long dataLength = [pData length];
-
-        char *pCharData = (char *)malloc(dataLength * sizeof(char));
-        [pData getBytes:(void *)pCharData length:dataLength];
-
-        *pVersionStringLength = dataLength;
-        return pCharData;
+    if (![defaultManager fileExistsAtPath:pProperyListPath])
+    {
+        return NULL;
     }
+
+    NSMutableDictionary *pPropertyListDictionaryMutable =
+        [NSMutableDictionary dictionaryWithContentsOfFile:pProperyListPath];
+
+    if (pPropertyListDictionaryMutable == NULL)
+    {
+        return NULL;
+    }
+
+    pPropertyListDictionaryMutable[@"VersionString"] = @(pVersionString.c_str());
+
+    NSData *pData = [NSPropertyListSerialization
+        dataFromPropertyList:pPropertyListDictionaryMutable
+        format:NSPropertyListXMLFormat_v1_0
+        errorDescription:&pErrorDesc];
+
+    if (pData == NULL)
+    {
+        return NULL;
+    }
+
+    NSUInteger dataLength = [pData length];
+
+    char *pCharData = (char *)malloc(dataLength * sizeof(char));
+    [pData getBytes:(void *)pCharData length:dataLength];
+
+    *pVersionStringLength = dataLength;
+    return pCharData;
 }
