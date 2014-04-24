@@ -196,7 +196,7 @@
 		558C3EF018F73F7200DEB259 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		558C3F0518F7407500DEB259 /* ApplicationSupportBridge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ApplicationSupportBridge.cpp; sourceTree = "<group>"; };
 		558C3F0618F7407500DEB259 /* ApplicationSupportBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationSupportBridge.h; sourceTree = "<group>"; };
-		558C3F0718F7407500DEB259 /* mli.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = mli.iconset; path = ../mli.iconset; sourceTree = "<group>"; };
+		558C3F0718F7407500DEB259 /* mli.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = mli.iconset; sourceTree = "<group>"; };
 		558C3F0818F7407500DEB259 /* NSFileManagerDirectoryLocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSFileManagerDirectoryLocations.h; sourceTree = "<group>"; };
 		558C3F0918F7407500DEB259 /* NSFileManagerDirectoryLocations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSFileManagerDirectoryLocations.m; sourceTree = "<group>"; };
 		558C3F0A18F7407500DEB259 /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLMain.h; sourceTree = "<group>"; };

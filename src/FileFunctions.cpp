@@ -434,6 +434,12 @@ bool CopyCaseFileToCaseFolder(const string &caseFilePath, const string &caseUuid
 }
 #endif
 
+string ConvertSeparatorsInPath(const string &path)
+{
+    string path1 = path;
+    return ConvertSeparatorsInPath(path1);
+}
+
 string ConvertSeparatorsInPath(string &path)
 {
     while (path.find_first_of(otherPathSeparator) != string::npos)
