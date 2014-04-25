@@ -13,7 +13,6 @@
 		5533C64918FB62DB0055B22B /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9C18F7413900DEB259 /* tinyxml.cpp */; };
 		5533C64F18FB62DB0055B22B /* SDLMain.mm in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0B18F7407500DEB259 /* SDLMain.mm */; };
 		5533C65218FB62DB0055B22B /* FileFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6118F7413900DEB259 /* FileFunctions.cpp */; };
-		5533C65818FB62DB0055B22B /* ApplicationSupportBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0518F7407500DEB259 /* ApplicationSupportBridge.cpp */; };
 		5533C65D18FB62DB0055B22B /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9F18F7413900DEB259 /* tinyxmlparser.cpp */; };
 		5533C66318FB62DB0055B22B /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9E18F7413900DEB259 /* tinyxmlerror.cpp */; };
 		5533C66618FB62DB0055B22B /* NSFileManagerDirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0918F7407500DEB259 /* NSFileManagerDirectoryLocations.m */; };
@@ -43,7 +42,6 @@
 		5562B31718FC4FD200373B26 /* Cases in Resources */ = {isa = PBXBuildFile; fileRef = 5562B31618FC4FD200373B26 /* Cases */; };
 		5562B31818FC545E00373B26 /* MyLittleInvestigations.plist in Resources */ = {isa = PBXBuildFile; fileRef = 551D57DF18F9B5250087AAA0 /* MyLittleInvestigations.plist */; };
 		558C3ED218F73F7200DEB259 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558C3ED118F73F7200DEB259 /* Cocoa.framework */; };
-		558C3F0C18F7407500DEB259 /* ApplicationSupportBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0518F7407500DEB259 /* ApplicationSupportBridge.cpp */; };
 		558C3F0D18F7407500DEB259 /* mli.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 558C3F0718F7407500DEB259 /* mli.iconset */; };
 		558C3F0E18F7407500DEB259 /* NSFileManagerDirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0918F7407500DEB259 /* NSFileManagerDirectoryLocations.m */; };
 		558C3F0F18F7407500DEB259 /* SDLMain.mm in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0B18F7407500DEB259 /* SDLMain.mm */; };
@@ -194,7 +192,6 @@
 		558C3ED518F73F7200DEB259 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		558C3ED618F73F7200DEB259 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		558C3EF018F73F7200DEB259 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		558C3F0518F7407500DEB259 /* ApplicationSupportBridge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ApplicationSupportBridge.cpp; sourceTree = "<group>"; };
 		558C3F0618F7407500DEB259 /* ApplicationSupportBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationSupportBridge.h; sourceTree = "<group>"; };
 		558C3F0718F7407500DEB259 /* mli.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = mli.iconset; sourceTree = "<group>"; };
 		558C3F0818F7407500DEB259 /* NSFileManagerDirectoryLocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSFileManagerDirectoryLocations.h; sourceTree = "<group>"; };
@@ -491,7 +488,6 @@
 			isa = PBXGroup;
 			children = (
 				558C3F0618F7407500DEB259 /* ApplicationSupportBridge.h */,
-				558C3F0518F7407500DEB259 /* ApplicationSupportBridge.cpp */,
 				558C3F0818F7407500DEB259 /* NSFileManagerDirectoryLocations.h */,
 				558C3F0918F7407500DEB259 /* NSFileManagerDirectoryLocations.m */,
 				558C3F0A18F7407500DEB259 /* SDLMain.h */,
@@ -834,7 +830,6 @@
 				5533C64F18FB62DB0055B22B /* SDLMain.mm in Sources */,
 				5533C65218FB62DB0055B22B /* FileFunctions.cpp in Sources */,
 				553F941418FB667300527E2D /* ticpp.cpp in Sources */,
-				5533C65818FB62DB0055B22B /* ApplicationSupportBridge.cpp in Sources */,
 				5533C65D18FB62DB0055B22B /* tinyxmlparser.cpp in Sources */,
 				5533C66318FB62DB0055B22B /* tinyxmlerror.cpp in Sources */,
 				5533C66618FB62DB0055B22B /* NSFileManagerDirectoryLocations.m in Sources */,
@@ -885,7 +880,6 @@
 				558C3FF618F7413900DEB259 /* CheckForUpdatesScreen.cpp in Sources */,
 				558C3FDA18F7413900DEB259 /* FieldCutsceneManager.cpp in Sources */,
 				558C3FFA18F7413900DEB259 /* SelectionScreen.cpp in Sources */,
-				558C3F0C18F7407500DEB259 /* ApplicationSupportBridge.cpp in Sources */,
 				558C3FCF18F7413900DEB259 /* Notification.cpp in Sources */,
 				558C3FD018F7413900DEB259 /* ZoomedView.cpp in Sources */,
 				558C400B18F7413900DEB259 /* Selector.cpp in Sources */,
