@@ -144,69 +144,52 @@ string tempDirectoryPath;
 
 void LoadFilePathsAndCaseUuids(string executableFilePath)
 {
+    //Handle OS X differently than the other architectures.
+    //At least for now...
 #ifdef __WINDOWS
         pathSeparator = "\\";
         otherPathSeparator = "/";
+#else
+        pathSeparator = "/";
+        otherPathSeparator = "\\";
+#endif
+    
+#ifdef __OSX
+    // The file system representation Objective C function seems to omit the
+    // trailing slash unless it's explicit.
+    // stringByAppendingPathComponent has no way of doing this
+    // explicitly, though.
+    commonAppDataPath = pLocalApplicationSupportPath + "/";
+    casesPath = pCasesPath + "/";
+    userAppDataPath = pUserApplicationSupportPath + "/";
+    dialogSeenListsPath = pDialogSeenListsPath + "/";
+    savesPath = pSavesPath + "/";
+#else
+    char *appPath = SDL_GetBasePath();
+    if (!appPath) {
+        //TODO: error dialog
+        abort();
+    }
+    char *userPath = SDL_GetPrefPath("Equestria Dreamers", "My Little Investigations");
+    
+    commonAppDataPath = string(appPath) + "/";
+    casesPath = commonAppDataPath + "Cases/";
+    userAppDataPath = string(userPath) + "/";
+    dialogSeenListsPath = userAppDataPath + "DialogSeenLists/";
+    savesPath = userAppDataPath + "Saves/";
+
+    SDL_free(appPath);
+    SDL_free(userPath);
+#endif
 
 #ifndef GAME_EXECUTABLE
+#ifdef __WINDOWS
         TCHAR szTempPath[MAX_PATH] = { 0 };
         DWORD tempPathLength = GetTempPath(MAX_PATH, szTempPath);
         tempDirectoryPath = TStringToString(tstring(szTempPath, tempPathLength));
-#endif
-
-        TCHAR szPath[MAX_PATH] = { 0 };
-        if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_COMMON_APPDATA, NULL, 0, szPath)))
-        {
-            PathAppend(szPath, TEXT("\\My Little Investigations\\"));
-            commonAppDataPath = TStringToString(tstring(szPath));
-
-            PathAppend(szPath, TEXT("Cases\\"));
-            casesPath = TStringToString(tstring(szPath));
-        }
-
-        if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, szPath)))
-        {
-            PathAppend(szPath, TEXT("\\My Little Investigations\\"));
-            DWORD ftyp = GetFileAttributes(szPath);
-            if (ftyp == INVALID_FILE_ATTRIBUTES) CreateDirectory(szPath, NULL);
-            userAppDataPath = TStringToString(tstring(szPath));
-
-            PathAppend(szPath, TEXT("DialogSeenLists\\"));
-            ftyp = GetFileAttributes(szPath);
-            if (ftyp == INVALID_FILE_ATTRIBUTES) CreateDirectory(szPath, NULL);
-            dialogSeenListsPath = TStringToString(tstring(szPath));
-        }
-
-        if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, szPath)))
-        {
-            PathAppend(szPath, TEXT("\\My Little Investigations\\"));
-            PathAppend(szPath, TEXT("Saves\\"));
-            DWORD ftyp = GetFileAttributes(szPath);
-            if (ftyp == INVALID_FILE_ATTRIBUTES) CreateDirectory(szPath, NULL);
-            savesPath = TStringToString(tstring(szPath));
-        }
 #elif __OSX
-        pathSeparator = "/";
-        otherPathSeparator = "\\";
-
-#ifndef GAME_EXECUTABLE
         tempDirectoryPath = getenv("TMPDIR");
-#endif
-
-        // The file system representation Objective C function seems to omit the
-        // trailing slash unless it's explicit.
-        // stringByAppendingPathComponent has no way of doing this
-        // explicitly, though.
-        commonAppDataPath = string(pLocalApplicationSupportPath) + "/";
-        casesPath = string(pCasesPath) + "/";
-        userAppDataPath = string(pUserApplicationSupportPath) + "/";
-        dialogSeenListsPath = string(pDialogSeenListsPath) + "/";
-        savesPath = string(pSavesPath) + "/";
 #elif __unix
-        pathSeparator = "/";
-        otherPathSeparator = "\\";
-
-#ifndef GAME_EXECUTABLE
         const char* tmp = getenv("TMPDIR");
         // If TMPDIR isn't set, assume the temporary directory is "/tmp".
         if(!tmp)
@@ -215,32 +198,9 @@ void LoadFilePathsAndCaseUuids(string executableFilePath)
         }
 
         tempDirectoryPath = string(tmp) + "/";
-#endif
-        string homedir = getenv("HOME");
-        commonAppDataPath = "/usr/share/MyLittleInvestigations/";
-        casesPath = commonAppDataPath + "Cases/";
-        userAppDataPath = homedir + "/.MyLittleInvestigations/";
-        MakeDirIfNotExists(userAppDataPath);
-        dialogSeenListsPath = userAppDataPath + "DialogSeenLists/";
-        MakeDirIfNotExists(dialogSeenListsPath);
-        savesPath = userAppDataPath + "Saves/";
-        MakeDirIfNotExists(savesPath);
-        graphicalSudo = "xdg-su";
-        const char* desktopEnvironment = getenv("XDG_CURRENT_DESKTOP");
-        if (desktopEnvironment != NULL)
-        {
-            string de(desktopEnvironment);
-            if (de == "GNOME")
-            {
-                graphicalSudo = "gksudo ";
-            }
-            else if (de == "KDE")
-            {
-                graphicalSudo = "kdesu ";
-            }
-        }
 #else
 #error NOT IMPLEMENTED
+#endif
 #endif
 
     executableFilePath = ConvertSeparatorsInPath(executableFilePath);
