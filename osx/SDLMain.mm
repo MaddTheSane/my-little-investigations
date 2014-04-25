@@ -341,12 +341,14 @@ static void CustomApplicationMain (int argc, char **argv)
 /* Main entry point to executable - should *not* be SDL_main! */
 int main (int argc, char **argv)
 {
-    @autoreleasepool {
+    @autoreleasepool
+    {
         NSFileManager *defaultManager = [NSFileManager defaultManager];
 
         /* Create our Application Support folders if they don't exist yet and store the paths */
         NSString *pStrLocalApplicationSupportPath;
-        @autoreleasepool {
+        @autoreleasepool
+        {
             pStrLocalApplicationSupportPath = [defaultManager localApplicationSupportDirectory];
         }
         NSString *pStrUserApplicationSupportPath = [defaultManager userApplicationSupportDirectory];
@@ -388,16 +390,20 @@ int main (int argc, char **argv)
 
         /* Copy the arguments into a global variable */
         /* This is passed if we are launched by double-clicking */
-        if ( argc >= 2 && strncmp (argv[1], "-psn", 4) == 0 ) {
+        if ( argc >= 2 && strncmp (argv[1], "-psn", 4) == 0 )
+        {
             gArgv = (char **) SDL_malloc(sizeof (char *) * 2);
             gArgv[0] = argv[0];
             gArgv[1] = NULL;
             gArgc = 1;
             gFinderLaunch = YES;
-        } else if(argc == 1) {
+        }
+        else if(argc == 1)
+        {
             //OS X 10.9 and later does /this/
             const char *cwd = getcwd(NULL, 0);
-            if (strcmp(cwd, "/") != 0) {
+            if (strcmp(cwd, "/") != 0)
+            {
                 goto notMavericks;
             }
 
@@ -406,7 +412,9 @@ int main (int argc, char **argv)
             gArgv[1] = NULL;
             gArgc = 1;
             gFinderLaunch = YES;
-        } else {
+        }
+        else
+        {
         notMavericks:
             int i;
             gArgc = argc;
@@ -437,9 +445,11 @@ vector<string> GetCaseFilePathsOSX()
 
         vector<string> ppCaseFileList;
 
-        for (NSString *pStrCaseFileName in pCaseFileList) {
+        for (NSString *pStrCaseFileName in pCaseFileList)
+        {
             //Ignore UNIX hidden files, like OS X's .DS_Store
-            if ([pStrCaseFileName hasPrefix:@"."]) {
+            if ([pStrCaseFileName hasPrefix:@"."])
+            {
                 continue;
             }
 
@@ -451,9 +461,11 @@ vector<string> GetCaseFilePathsOSX()
                          contentsOfDirectoryAtPath:NSUserCasesPath
                          error:&error];
         
-        for (NSString *object in pCaseFileList) {
+        for (NSString *object in pCaseFileList)
+        {
             //Ignore UNIX hidden files, like OS X's .DS_Store
-            if ([object hasPrefix:@"."]) {
+            if ([object hasPrefix:@"."])
+            {
                 continue;
             }
             NSString *fullCasePath = [NSUserCasesPath stringByAppendingPathComponent:object];
@@ -484,7 +496,8 @@ vector<string> GetSaveFilePathsForCaseOSX(string caseUuid)
 
         vector<string> ppSaveFilePathList;
 
-        for (NSString *pStrSaveFileName in pSaveFileList) {
+        for (NSString *pStrSaveFileName in pSaveFileList)
+        {
             //Ignore UNIX hidden files, like OS X's .DS_Store
             if ([pStrSaveFileName hasPrefix:@"."])
 			{
