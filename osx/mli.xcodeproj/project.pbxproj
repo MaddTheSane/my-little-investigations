@@ -11,7 +11,7 @@
 		5533C63D18FB62DB0055B22B /* XmlReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FC018F7413900DEB259 /* XmlReader.cpp */; };
 		5533C63E18FB62DB0055B22B /* XmlWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FC218F7413900DEB259 /* XmlWriter.cpp */; };
 		5533C64918FB62DB0055B22B /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9C18F7413900DEB259 /* tinyxml.cpp */; };
-		5533C64F18FB62DB0055B22B /* SDLMain.mm in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0B18F7407500DEB259 /* SDLMain.mm */; };
+		5533C64F18FB62DB0055B22B /* OSXMain.mm in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0B18F7407500DEB259 /* OSXMain.mm */; };
 		5533C65218FB62DB0055B22B /* FileFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6118F7413900DEB259 /* FileFunctions.cpp */; };
 		5533C65D18FB62DB0055B22B /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9F18F7413900DEB259 /* tinyxmlparser.cpp */; };
 		5533C66318FB62DB0055B22B /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9E18F7413900DEB259 /* tinyxmlerror.cpp */; };
@@ -44,7 +44,7 @@
 		558C3ED218F73F7200DEB259 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558C3ED118F73F7200DEB259 /* Cocoa.framework */; };
 		558C3F0D18F7407500DEB259 /* mli.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 558C3F0718F7407500DEB259 /* mli.iconset */; };
 		558C3F0E18F7407500DEB259 /* NSFileManagerDirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0918F7407500DEB259 /* NSFileManagerDirectoryLocations.m */; };
-		558C3F0F18F7407500DEB259 /* SDLMain.mm in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0B18F7407500DEB259 /* SDLMain.mm */; };
+		558C3F0F18F7407500DEB259 /* OSXMain.mm in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0B18F7407500DEB259 /* OSXMain.mm */; };
 		558C3FC418F7413900DEB259 /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F1318F7413900DEB259 /* Animation.cpp */; };
 		558C3FC518F7413900DEB259 /* AnimationSound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F1518F7413900DEB259 /* AnimationSound.cpp */; };
 		558C3FC618F7413900DEB259 /* Area.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F1818F7413900DEB259 /* Area.cpp */; };
@@ -196,8 +196,7 @@
 		558C3F0718F7407500DEB259 /* mli.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = mli.iconset; sourceTree = "<group>"; };
 		558C3F0818F7407500DEB259 /* NSFileManagerDirectoryLocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSFileManagerDirectoryLocations.h; sourceTree = "<group>"; };
 		558C3F0918F7407500DEB259 /* NSFileManagerDirectoryLocations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSFileManagerDirectoryLocations.m; sourceTree = "<group>"; };
-		558C3F0A18F7407500DEB259 /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLMain.h; sourceTree = "<group>"; };
-		558C3F0B18F7407500DEB259 /* SDLMain.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SDLMain.mm; sourceTree = "<group>"; usesTabs = 0; };
+		558C3F0B18F7407500DEB259 /* OSXMain.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OSXMain.mm; sourceTree = "<group>"; usesTabs = 0; };
 		558C3F1118F7410E00DEB259 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		558C3F1318F7413900DEB259 /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Animation.cpp; sourceTree = "<group>"; usesTabs = 0; };
 		558C3F1418F7413900DEB259 /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; usesTabs = 0; };
@@ -490,8 +489,7 @@
 				558C3F0618F7407500DEB259 /* ApplicationSupportBridge.h */,
 				558C3F0818F7407500DEB259 /* NSFileManagerDirectoryLocations.h */,
 				558C3F0918F7407500DEB259 /* NSFileManagerDirectoryLocations.m */,
-				558C3F0A18F7407500DEB259 /* SDLMain.h */,
-				558C3F0B18F7407500DEB259 /* SDLMain.mm */,
+				558C3F0B18F7407500DEB259 /* OSXMain.mm */,
 				558C401518F741E200DEB259 /* mli-Prefix.pch */,
 				551D57DB18F9B5250087AAA0 /* Resources */,
 			);
@@ -827,7 +825,7 @@
 				5533C63D18FB62DB0055B22B /* XmlReader.cpp in Sources */,
 				5533C63E18FB62DB0055B22B /* XmlWriter.cpp in Sources */,
 				5533C64918FB62DB0055B22B /* tinyxml.cpp in Sources */,
-				5533C64F18FB62DB0055B22B /* SDLMain.mm in Sources */,
+				5533C64F18FB62DB0055B22B /* OSXMain.mm in Sources */,
 				5533C65218FB62DB0055B22B /* FileFunctions.cpp in Sources */,
 				553F941418FB667300527E2D /* ticpp.cpp in Sources */,
 				5533C65D18FB62DB0055B22B /* tinyxmlparser.cpp in Sources */,
@@ -871,7 +869,7 @@
 				558C3FE918F7413900DEB259 /* HeightMap.cpp in Sources */,
 				558C3FF018F7413900DEB259 /* mli_audio.cpp in Sources */,
 				558C3FDC18F7413900DEB259 /* FontManager.cpp in Sources */,
-				558C3F0F18F7407500DEB259 /* SDLMain.mm in Sources */,
+				558C3F0F18F7407500DEB259 /* OSXMain.mm in Sources */,
 				558C3FF918F7413900DEB259 /* OptionsScreen.cpp in Sources */,
 				558C3FD918F7413900DEB259 /* FieldCharacterManager.cpp in Sources */,
 				558C3FE518F7413900DEB259 /* FileFunctions.cpp in Sources */,
