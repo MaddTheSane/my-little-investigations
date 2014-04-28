@@ -42,8 +42,8 @@ void BeginOSX()
     NSString *pStrDialogSeenListsPath = [pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"DialogSeenLists"];
 
     NSCasesPath = [pStrLocalGameApplicationSupportPath stringByAppendingPathComponent:@"Cases"];
-    NSSavesPath = [pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"Saves"];
     NSUserCasesPath = [pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"Cases"];
+    NSSavesPath = [pStrUserGameApplicationSupportPath stringByAppendingPathComponent:@"Saves"];
 
     NSError *error;
 
@@ -76,7 +76,8 @@ void BeginOSX()
 
 vector<string> GetCaseFilePathsOSX()
 {
-@autoreleasepool {
+@autoreleasepool
+{
     NSError *error;
     NSFileManager *defaultManager = [NSFileManager defaultManager];
 
@@ -119,7 +120,8 @@ vector<string> GetCaseFilePathsOSX()
 
 vector<string> GetSaveFilePathsForCaseOSX(string caseUuid)
 {
-@autoreleasepool {
+@autoreleasepool
+{
     NSError *error = nil;
     NSFileManager *defaultManager = [NSFileManager defaultManager];
 
@@ -155,7 +157,8 @@ vector<string> GetSaveFilePathsForCaseOSX(string caseUuid)
 
 string GetGameExecutable()
 {
-    @autoreleasepool {
+    @autoreleasepool
+    {
         NSString *exePath = [[[NSFileManager defaultManager] gameBundle] executablePath];
         
         return [exePath fileSystemRepresentation];
