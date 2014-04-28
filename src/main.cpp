@@ -181,6 +181,9 @@ int main(int argc, char * argv[])
 #endif
 
 #ifdef GAME_EXECUTABLE
+
+    SDL_EventState(SDL_DROPFILE, SDL_ENABLE);
+
     // Initialize the resource loader.  If this fails, the common resource data file is missing,
     // which is a very bad thing.  Quit if this happens to be the case.
     if (!ResourceLoader::GetInstance()->Init(GetCommonResourcesFilePath()))
@@ -189,30 +192,6 @@ int main(int argc, char * argv[])
         sprintf(msg, "Couldn't find common resources data file at %s!", GetCommonResourcesFilePath().c_str());
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Couldn't start", msg, NULL);
         return 1;
-    }
-
-    if (argc > 1)
-    {
-        string caseFileName = string(argv[1]);
-        string caseUuid;
-
-        if (ValidateCaseFile(caseFileName, &caseUuid))
-        {
-            if (CopyCaseFileToCaseFolder(caseFileName, caseUuid))
-            {
-                SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Success", "Successfully installed case file!", NULL);
-            }
-            else
-            {
-                SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Failure", "Couldn't install case file - unable to copy it to the case directory.", NULL);
-            }
-        }
-        else
-        {
-            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Failure", "Couldn't install case file - it appears to be corrupt.", NULL);
-        }
-
-        return 0;
     }
 
     // If we already have an instance of the executable open, then
@@ -331,6 +310,31 @@ int main(int argc, char * argv[])
 
                 case SDL_TEXTINPUT:
                     TextInputHelper::NotifyTextInput(event.text.text);
+                    break;
+
+                case SDL_DROPFILE:
+                {
+                    string caseFileName = string(event.drop.file);
+                    SDL_free(event.drop.file);
+                    string caseUuid;
+                    
+                    if (ValidateCaseFile(caseFileName, &caseUuid))
+                    {
+                        if (CopyCaseFileToCaseFolder(caseFileName, caseUuid))
+                        {
+                            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Success", "Successfully installed case file!", gpWindow);
+                        }
+                        else
+                        {
+                            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Failure", "Couldn't install case file - unable to copy it to the case directory.", gpWindow);
+                        }
+                    }
+                    else
+                    {
+                        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Failure", "Couldn't install case file - it appears to be corrupt.", gpWindow);
+                    }
+
+                }
                     break;
             #endif
 
