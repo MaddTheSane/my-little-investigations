@@ -313,7 +313,6 @@
 		558C3F8818F7413900DEB259 /* LogoScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoScreen.h; sourceTree = "<group>"; };
 		558C3F8918F7413900DEB259 /* OptionsScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OptionsScreen.cpp; sourceTree = "<group>"; };
 		558C3F8A18F7413900DEB259 /* OptionsScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsScreen.h; sourceTree = "<group>"; };
-		558C3F8B18F7413900DEB259 /* Screen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Screen.h; sourceTree = "<group>"; };
 		558C3F8C18F7413900DEB259 /* SelectionScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SelectionScreen.cpp; sourceTree = "<group>"; };
 		558C3F8D18F7413900DEB259 /* SelectionScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionScreen.h; sourceTree = "<group>"; };
 		558C3F8E18F7413900DEB259 /* TitleScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TitleScreen.cpp; sourceTree = "<group>"; };
@@ -668,7 +667,6 @@
 				558C3F8818F7413900DEB259 /* LogoScreen.h */,
 				558C3F8918F7413900DEB259 /* OptionsScreen.cpp */,
 				558C3F8A18F7413900DEB259 /* OptionsScreen.h */,
-				558C3F8B18F7413900DEB259 /* Screen.h */,
 				558C3F8C18F7413900DEB259 /* SelectionScreen.cpp */,
 				558C3F8D18F7413900DEB259 /* SelectionScreen.h */,
 				558C3F8E18F7413900DEB259 /* TitleScreen.cpp */,
