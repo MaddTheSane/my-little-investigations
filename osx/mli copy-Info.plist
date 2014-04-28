@@ -11,7 +11,7 @@
 	<key>CFBundleIconFile</key>
 	<string>mli</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.EquestrianDreamers.MyLittleInvestigationsLauncher</string>
+	<string>com.EquestrianDreamers.MyLittleInvestigations.Launcher</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
