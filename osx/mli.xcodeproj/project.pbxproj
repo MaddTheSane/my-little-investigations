@@ -36,6 +36,8 @@
 		5533C69F18FB64240055B22B /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5533C69E18FB64240055B22B /* libcurl.dylib */; };
 		5533C6A118FB642D0055B22B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5533C6A018FB642D0055B22B /* Security.framework */; };
 		553F941418FB667300527E2D /* ticpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9718F7413900DEB259 /* ticpp.cpp */; };
+		5541EC31194BA02100EB5089 /* KeyboardHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5541EC2F194BA02100EB5089 /* KeyboardHelper.cpp */; };
+		5541EC32194BA02100EB5089 /* KeyboardHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5541EC2F194BA02100EB5089 /* KeyboardHelper.cpp */; };
 		5562B30D18FC44CE00373B26 /* My Little Investigations Game.app in Resources */ = {isa = PBXBuildFile; fileRef = 558C3ECE18F73F7200DEB259 /* My Little Investigations Game.app */; };
 		5562B31418FC4FC300373B26 /* CelestiaMediumRedux1.5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5562B31118FC4FC300373B26 /* CelestiaMediumRedux1.5.ttf */; };
 		5562B31518FC4FC300373B26 /* common.dat in Resources */ = {isa = PBXBuildFile; fileRef = 5562B31218FC4FC300373B26 /* common.dat */; };
@@ -183,6 +185,8 @@
 		5533C69B18FB62DB0055B22B /* mli copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "mli copy-Info.plist"; path = "/Users/cwbetts/makestuff/my-little-investigations/osx/mli copy-Info.plist"; sourceTree = "<absolute>"; };
 		5533C69E18FB64240055B22B /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
 		5533C6A018FB642D0055B22B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		5541EC2F194BA02100EB5089 /* KeyboardHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyboardHelper.cpp; sourceTree = "<group>"; };
+		5541EC30194BA02100EB5089 /* KeyboardHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardHelper.h; sourceTree = "<group>"; };
 		5562B31118FC4FC300373B26 /* CelestiaMediumRedux1.5.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CelestiaMediumRedux1.5.ttf; sourceTree = "<group>"; };
 		5562B31218FC4FC300373B26 /* common.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = common.dat; sourceTree = "<group>"; };
 		5562B31618FC4FD200373B26 /* Cases */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Cases; sourceTree = "<group>"; };
@@ -498,6 +502,8 @@
 		558C3F1218F7413900DEB259 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				5541EC2F194BA02100EB5089 /* KeyboardHelper.cpp */,
+				5541EC30194BA02100EB5089 /* KeyboardHelper.h */,
 				558C3F1318F7413900DEB259 /* Animation.cpp */,
 				558C3F1418F7413900DEB259 /* Animation.h */,
 				558C3F1518F7413900DEB259 /* AnimationSound.cpp */,
@@ -826,6 +832,7 @@
 				5533C64F18FB62DB0055B22B /* OSXMain.mm in Sources */,
 				5533C65218FB62DB0055B22B /* FileFunctions.cpp in Sources */,
 				553F941418FB667300527E2D /* ticpp.cpp in Sources */,
+				5541EC31194BA02100EB5089 /* KeyboardHelper.cpp in Sources */,
 				5533C65D18FB62DB0055B22B /* tinyxmlparser.cpp in Sources */,
 				5533C66318FB62DB0055B22B /* tinyxmlerror.cpp in Sources */,
 				5533C66618FB62DB0055B22B /* NSFileManagerDirectoryLocations.m in Sources */,
@@ -885,6 +892,7 @@
 				558C3FEC18F7413900DEB259 /* Line.cpp in Sources */,
 				558C3FFC18F7413900DEB259 /* Sprite.cpp in Sources */,
 				558C400518F7413900DEB259 /* ButtonArray.cpp in Sources */,
+				5541EC32194BA02100EB5089 /* KeyboardHelper.cpp in Sources */,
 				558C3FCA18F7413900DEB259 /* Encounter.cpp in Sources */,
 				558C400218F7413900DEB259 /* tinyxmlerror.cpp in Sources */,
 				558C3FC418F7413900DEB259 /* Animation.cpp in Sources */,
