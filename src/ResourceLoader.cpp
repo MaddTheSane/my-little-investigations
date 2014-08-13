@@ -30,9 +30,6 @@
 #include "ResourceLoader.h"
 #include "mli_audio.h"
 #include "CaseInformation/Case.h"
-
-#include <cryptopp/sha.h>
-
 #include <cryptopp/sha.h>
 
 ResourceLoader * ResourceLoader::pInstance = NULL;
