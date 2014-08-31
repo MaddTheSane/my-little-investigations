@@ -49,8 +49,6 @@
 #include "XmlReader.h"
 #endif
 
-#include "ticpp/ticpp.h"
-
 #include <SDL2/SDL.h>
 
 #include <string>
@@ -130,7 +128,7 @@ int main(int argc, char * argv[])
         retrievedVersion = true;
 #endif
     }
-    catch (ticpp::Exception e)
+    catch (MLIException e)
     {
         // We'll just use the built-in version if we couldn't retrieve it from the XML file.
     }
@@ -547,7 +545,7 @@ bool ValidateCaseFile(const string &caseFileName, string *pCaseUuid)
         Case::ValidateXml();
         valid = true;
     }
-    catch (Exception e)
+    catch (MLIException e)
     {
     }
 

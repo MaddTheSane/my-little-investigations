@@ -53,3 +53,6 @@ mli-versions.xml
 **/*.xccheckout
 **/project.xcworkspace/
 **/xcuserdata/
+
+*.pro
+*.pro.user
