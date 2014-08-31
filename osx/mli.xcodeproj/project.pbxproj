@@ -10,13 +10,9 @@
 		551D57E218F9B5250087AAA0 /* MyLittleInvestigations.plist in Resources */ = {isa = PBXBuildFile; fileRef = 551D57DF18F9B5250087AAA0 /* MyLittleInvestigations.plist */; };
 		5533C63D18FB62DB0055B22B /* XmlReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FC018F7413900DEB259 /* XmlReader.cpp */; };
 		5533C63E18FB62DB0055B22B /* XmlWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FC218F7413900DEB259 /* XmlWriter.cpp */; };
-		5533C64918FB62DB0055B22B /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9C18F7413900DEB259 /* tinyxml.cpp */; };
 		5533C64F18FB62DB0055B22B /* OSXMain.mm in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0B18F7407500DEB259 /* OSXMain.mm */; };
 		5533C65218FB62DB0055B22B /* FileFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6118F7413900DEB259 /* FileFunctions.cpp */; };
-		5533C65D18FB62DB0055B22B /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9F18F7413900DEB259 /* tinyxmlparser.cpp */; };
-		5533C66318FB62DB0055B22B /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9E18F7413900DEB259 /* tinyxmlerror.cpp */; };
 		5533C66618FB62DB0055B22B /* NSFileManagerDirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0918F7407500DEB259 /* NSFileManagerDirectoryLocations.m */; };
-		5533C67018FB62DB0055B22B /* tinystr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9A18F7413900DEB259 /* tinystr.cpp */; };
 		5533C67218FB62DB0055B22B /* globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6718F7413900DEB259 /* globals.cpp */; };
 		5533C67418FB62DB0055B22B /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FB818F7413900DEB259 /* Utils.cpp */; };
 		5533C67918FB62DB0055B22B /* Version.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FBC18F7413900DEB259 /* Version.cpp */; };
@@ -35,7 +31,10 @@
 		5533C69618FB62DB0055B22B /* SDL2.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401618F7431B00DEB259 /* SDL2.framework */; };
 		5533C69F18FB64240055B22B /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5533C69E18FB64240055B22B /* libcurl.dylib */; };
 		5533C6A118FB642D0055B22B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5533C6A018FB642D0055B22B /* Security.framework */; };
-		553F941418FB667300527E2D /* ticpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9718F7413900DEB259 /* ticpp.cpp */; };
+		553B8B7A19B3DC9F007C2C64 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553B8B7819B3DC9F007C2C64 /* tinyxml2.cpp */; };
+		553B8B7B19B3DC9F007C2C64 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553B8B7819B3DC9F007C2C64 /* tinyxml2.cpp */; };
+		553B8B8419B3DCD5007C2C64 /* MLIException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553B8B8219B3DCD5007C2C64 /* MLIException.cpp */; };
+		553B8B8519B3DCD5007C2C64 /* MLIException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553B8B8219B3DCD5007C2C64 /* MLIException.cpp */; };
 		5541EC31194BA02100EB5089 /* KeyboardHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5541EC2F194BA02100EB5089 /* KeyboardHelper.cpp */; };
 		5541EC32194BA02100EB5089 /* KeyboardHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5541EC2F194BA02100EB5089 /* KeyboardHelper.cpp */; };
 		5562B30D18FC44CE00373B26 /* My Little Investigations Game.app in Resources */ = {isa = PBXBuildFile; fileRef = 558C3ECE18F73F7200DEB259 /* My Little Investigations Game.app */; };
@@ -104,11 +103,6 @@
 		558C3FFC18F7413900DEB259 /* Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9018F7413900DEB259 /* Sprite.cpp */; };
 		558C3FFD18F7413900DEB259 /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9218F7413900DEB259 /* State.cpp */; };
 		558C3FFE18F7413900DEB259 /* TextInputHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9418F7413900DEB259 /* TextInputHelper.cpp */; };
-		558C3FFF18F7413900DEB259 /* ticpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9718F7413900DEB259 /* ticpp.cpp */; };
-		558C400018F7413900DEB259 /* tinystr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9A18F7413900DEB259 /* tinystr.cpp */; };
-		558C400118F7413900DEB259 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9C18F7413900DEB259 /* tinyxml.cpp */; };
-		558C400218F7413900DEB259 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9E18F7413900DEB259 /* tinyxmlerror.cpp */; };
-		558C400318F7413900DEB259 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9F18F7413900DEB259 /* tinyxmlparser.cpp */; };
 		558C400418F7413900DEB259 /* Arrow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FA218F7413900DEB259 /* Arrow.cpp */; };
 		558C400518F7413900DEB259 /* ButtonArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FA418F7413900DEB259 /* ButtonArray.cpp */; };
 		558C400618F7413900DEB259 /* EvidenceDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FA618F7413900DEB259 /* EvidenceDescription.cpp */; };
@@ -185,6 +179,15 @@
 		5533C69B18FB62DB0055B22B /* mli copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "mli copy-Info.plist"; path = "/Users/cwbetts/makestuff/my-little-investigations/osx/mli copy-Info.plist"; sourceTree = "<absolute>"; };
 		5533C69E18FB64240055B22B /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
 		5533C6A018FB642D0055B22B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		553B8B7619B3DC72007C2C64 /* Cache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cache.h; sourceTree = "<group>"; };
+		553B8B7819B3DC9F007C2C64 /* tinyxml2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml2.cpp; sourceTree = "<group>"; };
+		553B8B7919B3DC9F007C2C64 /* tinyxml2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml2.h; sourceTree = "<group>"; };
+		553B8B7E19B3DCB4007C2C64 /* checked.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = checked.h; sourceTree = "<group>"; };
+		553B8B7F19B3DCB4007C2C64 /* core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
+		553B8B8019B3DCB4007C2C64 /* unchecked.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unchecked.h; sourceTree = "<group>"; };
+		553B8B8119B3DCB4007C2C64 /* utf8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf8.h; sourceTree = "<group>"; };
+		553B8B8219B3DCD5007C2C64 /* MLIException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MLIException.cpp; sourceTree = "<group>"; };
+		553B8B8319B3DCD5007C2C64 /* MLIException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLIException.h; sourceTree = "<group>"; };
 		5541EC2F194BA02100EB5089 /* KeyboardHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyboardHelper.cpp; sourceTree = "<group>"; };
 		5541EC30194BA02100EB5089 /* KeyboardHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardHelper.h; sourceTree = "<group>"; };
 		5562B31118FC4FC300373B26 /* CelestiaMediumRedux1.5.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CelestiaMediumRedux1.5.ttf; sourceTree = "<group>"; };
@@ -327,15 +330,6 @@
 		558C3F9318F7413900DEB259 /* State.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = State.h; sourceTree = "<group>"; usesTabs = 0; };
 		558C3F9418F7413900DEB259 /* TextInputHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextInputHelper.cpp; sourceTree = "<group>"; usesTabs = 0; };
 		558C3F9518F7413900DEB259 /* TextInputHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextInputHelper.h; sourceTree = "<group>"; usesTabs = 0; };
-		558C3F9718F7413900DEB259 /* ticpp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ticpp.cpp; sourceTree = "<group>"; usesTabs = 0; };
-		558C3F9818F7413900DEB259 /* ticpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ticpp.h; sourceTree = "<group>"; usesTabs = 0; };
-		558C3F9918F7413900DEB259 /* ticpprc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ticpprc.h; sourceTree = "<group>"; usesTabs = 0; };
-		558C3F9A18F7413900DEB259 /* tinystr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinystr.cpp; sourceTree = "<group>"; usesTabs = 0; };
-		558C3F9B18F7413900DEB259 /* tinystr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinystr.h; sourceTree = "<group>"; usesTabs = 0; };
-		558C3F9C18F7413900DEB259 /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml.cpp; sourceTree = "<group>"; usesTabs = 0; };
-		558C3F9D18F7413900DEB259 /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml.h; sourceTree = "<group>"; usesTabs = 0; };
-		558C3F9E18F7413900DEB259 /* tinyxmlerror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlerror.cpp; sourceTree = "<group>"; usesTabs = 0; };
-		558C3F9F18F7413900DEB259 /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlparser.cpp; sourceTree = "<group>"; usesTabs = 0; };
 		558C3FA018F7413900DEB259 /* TransitionRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionRequest.h; sourceTree = "<group>"; usesTabs = 0; };
 		558C3FA218F7413900DEB259 /* Arrow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Arrow.cpp; sourceTree = "<group>"; usesTabs = 0; };
 		558C3FA318F7413900DEB259 /* Arrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Arrow.h; sourceTree = "<group>"; usesTabs = 0; };
@@ -430,6 +424,34 @@
 			path = deltatool;
 			sourceTree = "<group>";
 		};
+		553B8B7719B3DC9F007C2C64 /* tinyxml2 */ = {
+			isa = PBXGroup;
+			children = (
+				553B8B7819B3DC9F007C2C64 /* tinyxml2.cpp */,
+				553B8B7919B3DC9F007C2C64 /* tinyxml2.h */,
+			);
+			path = tinyxml2;
+			sourceTree = "<group>";
+		};
+		553B8B7C19B3DCB4007C2C64 /* utf8cpp */ = {
+			isa = PBXGroup;
+			children = (
+				553B8B7D19B3DCB4007C2C64 /* utf8 */,
+				553B8B8119B3DCB4007C2C64 /* utf8.h */,
+			);
+			path = utf8cpp;
+			sourceTree = "<group>";
+		};
+		553B8B7D19B3DCB4007C2C64 /* utf8 */ = {
+			isa = PBXGroup;
+			children = (
+				553B8B7E19B3DCB4007C2C64 /* checked.h */,
+				553B8B7F19B3DCB4007C2C64 /* core.h */,
+				553B8B8019B3DCB4007C2C64 /* unchecked.h */,
+			);
+			path = utf8;
+			sourceTree = "<group>";
+		};
 		5562B30E18FC4FC300373B26 /* data */ = {
 			isa = PBXGroup;
 			children = (
@@ -502,6 +524,7 @@
 		558C3F1218F7413900DEB259 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				553B8B7619B3DC72007C2C64 /* Cache.h */,
 				5541EC2F194BA02100EB5089 /* KeyboardHelper.cpp */,
 				5541EC30194BA02100EB5089 /* KeyboardHelper.h */,
 				558C3F1318F7413900DEB259 /* Animation.cpp */,
@@ -560,7 +583,6 @@
 				558C3F9318F7413900DEB259 /* State.h */,
 				558C3F9418F7413900DEB259 /* TextInputHelper.cpp */,
 				558C3F9518F7413900DEB259 /* TextInputHelper.h */,
-				558C3F9618F7413900DEB259 /* ticpp */,
 				558C3FA018F7413900DEB259 /* TransitionRequest.h */,
 				558C3FA118F7413900DEB259 /* UserInterface */,
 				558C3FB818F7413900DEB259 /* Utils.cpp */,
@@ -575,6 +597,10 @@
 				558C3FC118F7413900DEB259 /* XmlReader.h */,
 				558C3FC218F7413900DEB259 /* XmlWriter.cpp */,
 				558C3FC318F7413900DEB259 /* XmlWriter.h */,
+				553B8B8219B3DCD5007C2C64 /* MLIException.cpp */,
+				553B8B8319B3DCD5007C2C64 /* MLIException.h */,
+				553B8B7719B3DC9F007C2C64 /* tinyxml2 */,
+				553B8B7C19B3DCB4007C2C64 /* utf8cpp */,
 			);
 			name = src;
 			path = ../src;
@@ -679,22 +705,6 @@
 				558C3F8F18F7413900DEB259 /* TitleScreen.h */,
 			);
 			path = Screens;
-			sourceTree = "<group>";
-		};
-		558C3F9618F7413900DEB259 /* ticpp */ = {
-			isa = PBXGroup;
-			children = (
-				558C3F9718F7413900DEB259 /* ticpp.cpp */,
-				558C3F9818F7413900DEB259 /* ticpp.h */,
-				558C3F9918F7413900DEB259 /* ticpprc.h */,
-				558C3F9A18F7413900DEB259 /* tinystr.cpp */,
-				558C3F9B18F7413900DEB259 /* tinystr.h */,
-				558C3F9C18F7413900DEB259 /* tinyxml.cpp */,
-				558C3F9D18F7413900DEB259 /* tinyxml.h */,
-				558C3F9E18F7413900DEB259 /* tinyxmlerror.cpp */,
-				558C3F9F18F7413900DEB259 /* tinyxmlparser.cpp */,
-			);
-			path = ticpp;
 			sourceTree = "<group>";
 		};
 		558C3FA118F7413900DEB259 /* UserInterface */ = {
@@ -828,15 +838,12 @@
 			files = (
 				5533C63D18FB62DB0055B22B /* XmlReader.cpp in Sources */,
 				5533C63E18FB62DB0055B22B /* XmlWriter.cpp in Sources */,
-				5533C64918FB62DB0055B22B /* tinyxml.cpp in Sources */,
+				553B8B8419B3DCD5007C2C64 /* MLIException.cpp in Sources */,
 				5533C64F18FB62DB0055B22B /* OSXMain.mm in Sources */,
+				553B8B7A19B3DC9F007C2C64 /* tinyxml2.cpp in Sources */,
 				5533C65218FB62DB0055B22B /* FileFunctions.cpp in Sources */,
-				553F941418FB667300527E2D /* ticpp.cpp in Sources */,
 				5541EC31194BA02100EB5089 /* KeyboardHelper.cpp in Sources */,
-				5533C65D18FB62DB0055B22B /* tinyxmlparser.cpp in Sources */,
-				5533C66318FB62DB0055B22B /* tinyxmlerror.cpp in Sources */,
 				5533C66618FB62DB0055B22B /* NSFileManagerDirectoryLocations.m in Sources */,
-				5533C67018FB62DB0055B22B /* tinystr.cpp in Sources */,
 				5533C67218FB62DB0055B22B /* globals.cpp in Sources */,
 				5533C67418FB62DB0055B22B /* Utils.cpp in Sources */,
 				5533C67918FB62DB0055B22B /* Version.cpp in Sources */,
@@ -862,19 +869,18 @@
 				558C3FCE18F7413900DEB259 /* Location.cpp in Sources */,
 				558C3FC818F7413900DEB259 /* Crowd.cpp in Sources */,
 				558C3FD518F7413900DEB259 /* ContentManager.cpp in Sources */,
-				558C3FFF18F7413900DEB259 /* ticpp.cpp in Sources */,
 				558C3FEF18F7413900DEB259 /* miniz.c in Sources */,
 				558C3FE418F7413900DEB259 /* EventProviders.cpp in Sources */,
 				558C3FE118F7413900DEB259 /* Condition.cpp in Sources */,
 				558C3FDE18F7413900DEB259 /* SpriteManager.cpp in Sources */,
 				558C400918F7413900DEB259 /* PartnerInformation.cpp in Sources */,
-				558C400118F7413900DEB259 /* tinyxml.cpp in Sources */,
 				558C3FF118F7413900DEB259 /* MouseHelper.cpp in Sources */,
 				558C3FC518F7413900DEB259 /* AnimationSound.cpp in Sources */,
 				558C3FE918F7413900DEB259 /* HeightMap.cpp in Sources */,
 				558C3FF018F7413900DEB259 /* mli_audio.cpp in Sources */,
 				558C3FDC18F7413900DEB259 /* FontManager.cpp in Sources */,
 				558C3F0F18F7407500DEB259 /* OSXMain.mm in Sources */,
+				553B8B8519B3DCD5007C2C64 /* MLIException.cpp in Sources */,
 				558C3FF918F7413900DEB259 /* OptionsScreen.cpp in Sources */,
 				558C3FD918F7413900DEB259 /* FieldCharacterManager.cpp in Sources */,
 				558C3FE518F7413900DEB259 /* FileFunctions.cpp in Sources */,
@@ -887,19 +893,18 @@
 				558C3FD018F7413900DEB259 /* ZoomedView.cpp in Sources */,
 				558C400B18F7413900DEB259 /* Selector.cpp in Sources */,
 				558C400818F7413900DEB259 /* ImageButton.cpp in Sources */,
-				558C400318F7413900DEB259 /* tinyxmlparser.cpp in Sources */,
 				558C3FD318F7413900DEB259 /* Case.cpp in Sources */,
 				558C3FEC18F7413900DEB259 /* Line.cpp in Sources */,
 				558C3FFC18F7413900DEB259 /* Sprite.cpp in Sources */,
 				558C400518F7413900DEB259 /* ButtonArray.cpp in Sources */,
 				5541EC32194BA02100EB5089 /* KeyboardHelper.cpp in Sources */,
 				558C3FCA18F7413900DEB259 /* Encounter.cpp in Sources */,
-				558C400218F7413900DEB259 /* tinyxmlerror.cpp in Sources */,
 				558C3FC418F7413900DEB259 /* Animation.cpp in Sources */,
 				558C400E18F7413900DEB259 /* Tab.cpp in Sources */,
 				558C3F0E18F7407500DEB259 /* NSFileManagerDirectoryLocations.m in Sources */,
 				558C3FCC18F7413900DEB259 /* FieldCutscene.cpp in Sources */,
 				558C3FD418F7413900DEB259 /* CommonCaseResources.cpp in Sources */,
+				553B8B7B19B3DC9F007C2C64 /* tinyxml2.cpp in Sources */,
 				558C3FF718F7413900DEB259 /* GameScreen.cpp in Sources */,
 				558C3FE318F7413900DEB259 /* enums.cpp in Sources */,
 				558C3FF218F7413900DEB259 /* Polygon.cpp in Sources */,
@@ -907,7 +912,6 @@
 				558C400D18F7413900DEB259 /* Slider.cpp in Sources */,
 				558C401218F7413900DEB259 /* Video.cpp in Sources */,
 				558C3FE618F7413900DEB259 /* MLIFont.cpp in Sources */,
-				558C400018F7413900DEB259 /* tinystr.cpp in Sources */,
 				558C3FE018F7413900DEB259 /* Color.cpp in Sources */,
 				558C3FE818F7413900DEB259 /* globals.cpp in Sources */,
 				558C3FFD18F7413900DEB259 /* State.cpp in Sources */,
@@ -954,10 +958,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mli-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					LAUNCHER,
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = LAUNCHER;
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks/SDL2.framework/Headers,
 					/Library/Frameworks/SDL2_mixer.framework/Headers,
@@ -993,10 +995,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mli-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					LAUNCHER,
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = LAUNCHER;
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks/SDL2.framework/Headers,
 					/Library/Frameworks/SDL2_mixer.framework/Headers,
@@ -1118,10 +1118,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mli-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					GAME_EXECUTABLE,
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GAME_EXECUTABLE;
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks/SDL2.framework/Headers,
 					/Library/Frameworks/SDL2_mixer.framework/Headers,
@@ -1157,10 +1155,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mli-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					GAME_EXECUTABLE,
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GAME_EXECUTABLE;
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks/SDL2.framework/Headers,
 					/Library/Frameworks/SDL2_mixer.framework/Headers,
