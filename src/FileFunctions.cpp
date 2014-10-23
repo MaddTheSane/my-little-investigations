@@ -1322,6 +1322,8 @@ bool LaunchExecutable(const char *pExecutablePath, vector<string> commandLineArg
     return success;
 }
 
+#include "SDL_messagebox.h"
+
 void LaunchGameExecutable()
 {
 #ifdef __WINDOWS

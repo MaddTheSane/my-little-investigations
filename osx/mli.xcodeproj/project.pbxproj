@@ -38,8 +38,6 @@
 		5541EC31194BA02100EB5089 /* KeyboardHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5541EC2F194BA02100EB5089 /* KeyboardHelper.cpp */; };
 		5541EC32194BA02100EB5089 /* KeyboardHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5541EC2F194BA02100EB5089 /* KeyboardHelper.cpp */; };
 		554F15AF19F9127500577DDD /* LocalizableContent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554F15AD19F9127500577DDD /* LocalizableContent.cpp */; };
-		554F15B419F912AF00577DDD /* TextButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554F15B019F912AF00577DDD /* TextButton.cpp */; };
-		554F15B519F912AF00577DDD /* TextWidget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554F15B219F912AF00577DDD /* TextWidget.cpp */; };
 		554F15B619F912B600577DDD /* TextButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554F15B019F912AF00577DDD /* TextButton.cpp */; };
 		554F15B719F912B600577DDD /* TextWidget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554F15B219F912AF00577DDD /* TextWidget.cpp */; };
 		554F15B819F912CC00577DDD /* LocalizableContent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554F15AD19F9127500577DDD /* LocalizableContent.cpp */; };
@@ -856,7 +854,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				554F15B419F912AF00577DDD /* TextButton.cpp in Sources */,
 				5533C63D18FB62DB0055B22B /* XmlReader.cpp in Sources */,
 				5533C63E18FB62DB0055B22B /* XmlWriter.cpp in Sources */,
 				553B8B8419B3DCD5007C2C64 /* MLIException.cpp in Sources */,
@@ -868,7 +865,6 @@
 				5533C67218FB62DB0055B22B /* globals.cpp in Sources */,
 				554F15AF19F9127500577DDD /* LocalizableContent.cpp in Sources */,
 				5533C67418FB62DB0055B22B /* Utils.cpp in Sources */,
-				554F15B519F912AF00577DDD /* TextWidget.cpp in Sources */,
 				5533C67918FB62DB0055B22B /* Version.cpp in Sources */,
 				5533C67A18FB62DB0055B22B /* main.cpp in Sources */,
 			);
