@@ -6,6 +6,7 @@
 
 #include "SDL.h"
 #include <time.h>
+#include <stdio.h>
 
 #define SCREEN_WIDTH 1024
 #define SCREEN_HEIGHT 768
