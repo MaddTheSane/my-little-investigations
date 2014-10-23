@@ -25,10 +25,10 @@
 		5533C68E18FB62DB0055B22B /* xdelta3 in Resources */ = {isa = PBXBuildFile; fileRef = 551D57E518F9B53E0087AAA0 /* xdelta3 */; };
 		5533C68F18FB62DB0055B22B /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 551D57E418F9B53E0087AAA0 /* COPYING */; };
 		5533C69118FB62DB0055B22B /* mli.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 558C3F0718F7407500DEB259 /* mli.iconset */; };
-		5533C69318FB62DB0055B22B /* SDL2_ttf.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; };
-		5533C69418FB62DB0055B22B /* SDL2_mixer.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CC18F75543009BED51 /* SDL2_mixer.framework */; };
-		5533C69518FB62DB0055B22B /* SDL2_image.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401918F7446C00DEB259 /* SDL2_image.framework */; };
-		5533C69618FB62DB0055B22B /* SDL2.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401618F7431B00DEB259 /* SDL2.framework */; };
+		5533C69318FB62DB0055B22B /* SDL2_ttf.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		5533C69418FB62DB0055B22B /* SDL2_mixer.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CC18F75543009BED51 /* SDL2_mixer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		5533C69518FB62DB0055B22B /* SDL2_image.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401918F7446C00DEB259 /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		5533C69618FB62DB0055B22B /* SDL2.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401618F7431B00DEB259 /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		5533C69F18FB64240055B22B /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5533C69E18FB64240055B22B /* libcurl.dylib */; };
 		5533C6A118FB642D0055B22B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5533C6A018FB642D0055B22B /* Security.framework */; };
 		553B8B7A19B3DC9F007C2C64 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553B8B7819B3DC9F007C2C64 /* tinyxml2.cpp */; };
@@ -37,6 +37,12 @@
 		553B8B8519B3DCD5007C2C64 /* MLIException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553B8B8219B3DCD5007C2C64 /* MLIException.cpp */; };
 		5541EC31194BA02100EB5089 /* KeyboardHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5541EC2F194BA02100EB5089 /* KeyboardHelper.cpp */; };
 		5541EC32194BA02100EB5089 /* KeyboardHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5541EC2F194BA02100EB5089 /* KeyboardHelper.cpp */; };
+		554F15AF19F9127500577DDD /* LocalizableContent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554F15AD19F9127500577DDD /* LocalizableContent.cpp */; };
+		554F15B419F912AF00577DDD /* TextButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554F15B019F912AF00577DDD /* TextButton.cpp */; };
+		554F15B519F912AF00577DDD /* TextWidget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554F15B219F912AF00577DDD /* TextWidget.cpp */; };
+		554F15B619F912B600577DDD /* TextButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554F15B019F912AF00577DDD /* TextButton.cpp */; };
+		554F15B719F912B600577DDD /* TextWidget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554F15B219F912AF00577DDD /* TextWidget.cpp */; };
+		554F15B819F912CC00577DDD /* LocalizableContent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554F15AD19F9127500577DDD /* LocalizableContent.cpp */; };
 		5562B30D18FC44CE00373B26 /* My Little Investigations Game.app in Resources */ = {isa = PBXBuildFile; fileRef = 558C3ECE18F73F7200DEB259 /* My Little Investigations Game.app */; };
 		5562B31418FC4FC300373B26 /* CelestiaMediumRedux1.5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5562B31118FC4FC300373B26 /* CelestiaMediumRedux1.5.ttf */; };
 		5562B31518FC4FC300373B26 /* common.dat in Resources */ = {isa = PBXBuildFile; fileRef = 5562B31218FC4FC300373B26 /* common.dat */; };
@@ -124,10 +130,10 @@
 		558C401A18F7446C00DEB259 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401918F7446C00DEB259 /* SDL2_image.framework */; };
 		55FC88CD18F75543009BED51 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CC18F75543009BED51 /* SDL2_mixer.framework */; };
 		55FC88D018F75D71009BED51 /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; };
-		55FC88D418F76443009BED51 /* SDL2_ttf.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; };
-		55FC88D518F76443009BED51 /* SDL2_mixer.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CC18F75543009BED51 /* SDL2_mixer.framework */; };
-		55FC88D618F76443009BED51 /* SDL2_image.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401918F7446C00DEB259 /* SDL2_image.framework */; };
-		55FC88D718F76443009BED51 /* SDL2.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401618F7431B00DEB259 /* SDL2.framework */; };
+		55FC88D418F76443009BED51 /* SDL2_ttf.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		55FC88D518F76443009BED51 /* SDL2_mixer.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CC18F75543009BED51 /* SDL2_mixer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		55FC88D618F76443009BED51 /* SDL2_image.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401918F7446C00DEB259 /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		55FC88D718F76443009BED51 /* SDL2.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401618F7431B00DEB259 /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -190,6 +196,13 @@
 		553B8B8319B3DCD5007C2C64 /* MLIException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLIException.h; sourceTree = "<group>"; };
 		5541EC2F194BA02100EB5089 /* KeyboardHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyboardHelper.cpp; sourceTree = "<group>"; };
 		5541EC30194BA02100EB5089 /* KeyboardHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardHelper.h; sourceTree = "<group>"; };
+		554F15AC19F9124E00577DDD /* TextButtonEventProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextButtonEventProvider.h; sourceTree = "<group>"; };
+		554F15AD19F9127500577DDD /* LocalizableContent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LocalizableContent.cpp; sourceTree = "<group>"; };
+		554F15AE19F9127500577DDD /* LocalizableContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizableContent.h; sourceTree = "<group>"; };
+		554F15B019F912AF00577DDD /* TextButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextButton.cpp; sourceTree = "<group>"; };
+		554F15B119F912AF00577DDD /* TextButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextButton.h; sourceTree = "<group>"; };
+		554F15B219F912AF00577DDD /* TextWidget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextWidget.cpp; sourceTree = "<group>"; };
+		554F15B319F912AF00577DDD /* TextWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextWidget.h; sourceTree = "<group>"; };
 		5562B31118FC4FC300373B26 /* CelestiaMediumRedux1.5.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CelestiaMediumRedux1.5.ttf; sourceTree = "<group>"; };
 		5562B31218FC4FC300373B26 /* common.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = common.dat; sourceTree = "<group>"; };
 		5562B31618FC4FD200373B26 /* Cases */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Cases; sourceTree = "<group>"; };
@@ -524,6 +537,8 @@
 		558C3F1218F7413900DEB259 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				554F15AD19F9127500577DDD /* LocalizableContent.cpp */,
+				554F15AE19F9127500577DDD /* LocalizableContent.h */,
 				553B8B7619B3DC72007C2C64 /* Cache.h */,
 				5541EC2F194BA02100EB5089 /* KeyboardHelper.cpp */,
 				5541EC30194BA02100EB5089 /* KeyboardHelper.h */,
@@ -684,6 +699,7 @@
 				558C3F5E18F7413900DEB259 /* LocationEventProvider.h */,
 				558C3F5F18F7413900DEB259 /* PromptOverlayEventProvider.h */,
 				558C3F6018F7413900DEB259 /* SelectorEventProvider.h */,
+				554F15AC19F9124E00577DDD /* TextButtonEventProvider.h */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -732,6 +748,10 @@
 				558C3FB518F7413900DEB259 /* Slider.h */,
 				558C3FB618F7413900DEB259 /* Tab.cpp */,
 				558C3FB718F7413900DEB259 /* Tab.h */,
+				554F15B019F912AF00577DDD /* TextButton.cpp */,
+				554F15B119F912AF00577DDD /* TextButton.h */,
+				554F15B219F912AF00577DDD /* TextWidget.cpp */,
+				554F15B319F912AF00577DDD /* TextWidget.h */,
 			);
 			path = UserInterface;
 			sourceTree = "<group>";
@@ -782,7 +802,7 @@
 		558C3EC618F73F7200DEB259 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Equestria Dreamers";
 			};
 			buildConfigurationList = 558C3EC918F73F7200DEB259 /* Build configuration list for PBXProject "mli" */;
@@ -836,6 +856,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				554F15B419F912AF00577DDD /* TextButton.cpp in Sources */,
 				5533C63D18FB62DB0055B22B /* XmlReader.cpp in Sources */,
 				5533C63E18FB62DB0055B22B /* XmlWriter.cpp in Sources */,
 				553B8B8419B3DCD5007C2C64 /* MLIException.cpp in Sources */,
@@ -845,7 +866,9 @@
 				5541EC31194BA02100EB5089 /* KeyboardHelper.cpp in Sources */,
 				5533C66618FB62DB0055B22B /* NSFileManagerDirectoryLocations.m in Sources */,
 				5533C67218FB62DB0055B22B /* globals.cpp in Sources */,
+				554F15AF19F9127500577DDD /* LocalizableContent.cpp in Sources */,
 				5533C67418FB62DB0055B22B /* Utils.cpp in Sources */,
+				554F15B519F912AF00577DDD /* TextWidget.cpp in Sources */,
 				5533C67918FB62DB0055B22B /* Version.cpp in Sources */,
 				5533C67A18FB62DB0055B22B /* main.cpp in Sources */,
 			);
@@ -864,8 +887,10 @@
 				558C3FC618F7413900DEB259 /* Area.cpp in Sources */,
 				558C3FD118F7413900DEB259 /* AnimationManager.cpp in Sources */,
 				558C401318F7413900DEB259 /* XmlReader.cpp in Sources */,
+				554F15B719F912B600577DDD /* TextWidget.cpp in Sources */,
 				558C401418F7413900DEB259 /* XmlWriter.cpp in Sources */,
 				558C3FCD18F7413900DEB259 /* ForegroundElement.cpp in Sources */,
+				554F15B819F912CC00577DDD /* LocalizableContent.cpp in Sources */,
 				558C3FCE18F7413900DEB259 /* Location.cpp in Sources */,
 				558C3FC818F7413900DEB259 /* Crowd.cpp in Sources */,
 				558C3FD518F7413900DEB259 /* ContentManager.cpp in Sources */,
@@ -919,6 +944,7 @@
 				558C400618F7413900DEB259 /* EvidenceDescription.cpp in Sources */,
 				558C3FC918F7413900DEB259 /* Dialog.cpp in Sources */,
 				558C3FE718F7413900DEB259 /* Game.cpp in Sources */,
+				554F15B619F912B600577DDD /* TextButton.cpp in Sources */,
 				558C3FDF18F7413900DEB259 /* Collisions.cpp in Sources */,
 				558C401118F7413900DEB259 /* Version.cpp in Sources */,
 				558C3FED18F7413900DEB259 /* main.cpp in Sources */,
