@@ -41,6 +41,9 @@
 		554F15B619F912B600577DDD /* TextButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554F15B019F912AF00577DDD /* TextButton.cpp */; };
 		554F15B719F912B600577DDD /* TextWidget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554F15B219F912AF00577DDD /* TextWidget.cpp */; };
 		554F15B819F912CC00577DDD /* LocalizableContent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554F15AD19F9127500577DDD /* LocalizableContent.cpp */; };
+		55562A2C19F9874C009A59EF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 55562A2B19F9874C009A59EF /* main.m */; };
+		55562A3B19F9874C009A59EF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55562A3A19F9874C009A59EF /* Images.xcassets */; };
+		55562A3E19F9874C009A59EF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55562A3C19F9874C009A59EF /* LaunchScreen.xib */; };
 		5562B30D18FC44CE00373B26 /* My Little Investigations Game.app in Resources */ = {isa = PBXBuildFile; fileRef = 558C3ECE18F73F7200DEB259 /* My Little Investigations Game.app */; };
 		5562B31418FC4FC300373B26 /* CelestiaMediumRedux1.5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5562B31118FC4FC300373B26 /* CelestiaMediumRedux1.5.ttf */; };
 		5562B31518FC4FC300373B26 /* common.dat in Resources */ = {isa = PBXBuildFile; fileRef = 5562B31218FC4FC300373B26 /* common.dat */; };
@@ -201,6 +204,11 @@
 		554F15B119F912AF00577DDD /* TextButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextButton.h; sourceTree = "<group>"; };
 		554F15B219F912AF00577DDD /* TextWidget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextWidget.cpp; sourceTree = "<group>"; };
 		554F15B319F912AF00577DDD /* TextWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextWidget.h; sourceTree = "<group>"; };
+		55562A2719F9874C009A59EF /* MLI-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MLI-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		55562A2A19F9874C009A59EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		55562A2B19F9874C009A59EF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		55562A3A19F9874C009A59EF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		55562A3D19F9874C009A59EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		5562B31118FC4FC300373B26 /* CelestiaMediumRedux1.5.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CelestiaMediumRedux1.5.ttf; sourceTree = "<group>"; };
 		5562B31218FC4FC300373B26 /* common.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = common.dat; sourceTree = "<group>"; };
 		5562B31618FC4FD200373B26 /* Cases */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Cases; sourceTree = "<group>"; };
@@ -398,6 +406,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55562A2419F9874C009A59EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		558C3ECB18F73F7200DEB259 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -463,6 +478,25 @@
 			path = utf8;
 			sourceTree = "<group>";
 		};
+		55562A2819F9874C009A59EF /* MLI-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				55562A3A19F9874C009A59EF /* Images.xcassets */,
+				55562A3C19F9874C009A59EF /* LaunchScreen.xib */,
+				55562A2919F9874C009A59EF /* Supporting Files */,
+			);
+			path = "MLI-iOS";
+			sourceTree = "<group>";
+		};
+		55562A2919F9874C009A59EF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				55562A2A19F9874C009A59EF /* Info.plist */,
+				55562A2B19F9874C009A59EF /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		5562B30E18FC4FC300373B26 /* data */ = {
 			isa = PBXGroup;
 			children = (
@@ -479,6 +513,7 @@
 			children = (
 				558C3F1218F7413900DEB259 /* src */,
 				558C3ED718F73F7200DEB259 /* osx */,
+				55562A2819F9874C009A59EF /* MLI-iOS */,
 				558C3ED018F73F7200DEB259 /* Frameworks */,
 				558C3ECF18F73F7200DEB259 /* Products */,
 			);
@@ -489,6 +524,7 @@
 			children = (
 				558C3ECE18F73F7200DEB259 /* My Little Investigations Game.app */,
 				5533C69A18FB62DB0055B22B /* My Little Investigations.app */,
+				55562A2719F9874C009A59EF /* MLI-iOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -776,6 +812,23 @@
 			productReference = 5533C69A18FB62DB0055B22B /* My Little Investigations.app */;
 			productType = "com.apple.product-type.application";
 		};
+		55562A2619F9874C009A59EF /* MLI-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55562A4F19F9874C009A59EF /* Build configuration list for PBXNativeTarget "MLI-iOS" */;
+			buildPhases = (
+				55562A2319F9874C009A59EF /* Sources */,
+				55562A2419F9874C009A59EF /* Frameworks */,
+				55562A2519F9874C009A59EF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MLI-iOS";
+			productName = "MLI-iOS";
+			productReference = 55562A2719F9874C009A59EF /* MLI-iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
 		558C3ECD18F73F7200DEB259 /* MLI Game */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 558C3EFF18F73F7200DEB259 /* Build configuration list for PBXNativeTarget "MLI Game" */;
@@ -802,6 +855,11 @@
 			attributes = {
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Equestria Dreamers";
+				TargetAttributes = {
+					55562A2619F9874C009A59EF = {
+						CreatedOnToolsVersion = 6.1;
+					};
+				};
 			};
 			buildConfigurationList = 558C3EC918F73F7200DEB259 /* Build configuration list for PBXProject "mli" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -818,6 +876,7 @@
 			targets = (
 				5533C63318FB62DB0055B22B /* MLI Launch */,
 				558C3ECD18F73F7200DEB259 /* MLI Game */,
+				55562A2619F9874C009A59EF /* MLI-iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -832,6 +891,15 @@
 				5533C68E18FB62DB0055B22B /* xdelta3 in Resources */,
 				5533C68F18FB62DB0055B22B /* COPYING in Resources */,
 				5533C69118FB62DB0055B22B /* mli.iconset in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55562A2519F9874C009A59EF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55562A3E19F9874C009A59EF /* LaunchScreen.xib in Resources */,
+				55562A3B19F9874C009A59EF /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -867,6 +935,14 @@
 				5533C67418FB62DB0055B22B /* Utils.cpp in Sources */,
 				5533C67918FB62DB0055B22B /* Version.cpp in Sources */,
 				5533C67A18FB62DB0055B22B /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55562A2319F9874C009A59EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55562A2C19F9874C009A59EF /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -969,6 +1045,17 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		55562A3C19F9874C009A59EF /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55562A3D19F9874C009A59EF /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		5533C69818FB62DB0055B22B /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1041,6 +1128,65 @@
 				PLIST_FILE_OUTPUT_FORMAT = XML;
 				PRODUCT_NAME = "My Little Investigations";
 				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		55562A4B19F9874C009A59EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GAME_EXECUTABLE;
+				HEADER_SEARCH_PATHS = (
+					/opt/local/include,
+					/Library/Frameworks/SDL2.framework/Headers,
+					/Library/Frameworks/SDL2_mixer.framework/Headers,
+					/Library/Frameworks/SDL2_image.framework/Headers,
+					/Library/Frameworks/SDL2_ttf.framework/Headers,
+					"$(SRC_ROOT)/../src",
+					"$(SRC_ROOT)/Dependancies",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "MLI-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		55562A4C19F9874C009A59EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GAME_EXECUTABLE;
+				HEADER_SEARCH_PATHS = (
+					/opt/local/include,
+					/Library/Frameworks/SDL2.framework/Headers,
+					/Library/Frameworks/SDL2_mixer.framework/Headers,
+					/Library/Frameworks/SDL2_image.framework/Headers,
+					/Library/Frameworks/SDL2_ttf.framework/Headers,
+					"$(SRC_ROOT)/../src",
+					"$(SRC_ROOT)/Dependancies",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "MLI-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -1215,6 +1361,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		55562A4F19F9874C009A59EF /* Build configuration list for PBXNativeTarget "MLI-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55562A4B19F9874C009A59EF /* Debug */,
+				55562A4C19F9874C009A59EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		558C3EC918F73F7200DEB259 /* Build configuration list for PBXProject "mli" */ = {
 			isa = XCConfigurationList;
