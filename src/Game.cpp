@@ -50,6 +50,7 @@
 #include "Screens/SelectionScreen.h"
 #include "UserInterface/Slider.h"
 #include "UserInterface/Selector.h"
+#include "UserInterface/TextButton.h"
 #else
 #include "MLIFont.h"
 #include "Screens/CheckForUpdatesScreen.h"
@@ -460,30 +461,52 @@ void Game::Init()
     isFinished = false;
 
 #ifdef GAME_EXECUTABLE
-    MLIFont *pMouseOverFont = new MLIFont("fonts/CelestiaMediumRedux1.5.ttf", 30, 1);
-    MLIFont *pDialogFont = new MLIFont("fonts/FayesMousewriting_quotemapped.ttf", 37);
-    MLIFont *pEvidenceSelectorNameFont = new MLIFont("fonts/CelestiaMediumRedux1.5.ttf", 20, 0);
-    MLIFont *pEvidenceSelectorDescriptionFont = new MLIFont("fonts/FayesMousewriting_quotemapped.ttf", 24);
-    MLIFont *pPartnerInformationFont = new MLIFont("fonts/FayesMousewriting_quotemapped.ttf", 22);
-    MLIFont *pConfrontationNumberingFont = new MLIFont("fonts/CelestiaMediumRedux1.5.ttf", 100);
-    MLIFont *pTabFont = new MLIFont("fonts/CelestiaMediumRedux1.5.ttf", 21);
-    MLIFont *pHandwritingLargeFont = new MLIFont("fonts/JennaSue.ttf", 48);
-    MLIFont *pHandwritingMediumFont = new MLIFont("fonts/JennaSue.ttf", 36);
-    MLIFont *pHandwritingSmallFont = new MLIFont("fonts/JennaSue.ttf", 22);
-    MLIFont *pPromptOverlayFont = new MLIFont("fonts/FayesMousewriting_quotemapped.ttf", 42);
-    MLIFont *pPromptOverlayTextFont = new MLIFont("fonts/FayesMousewriting_quotemapped.ttf", 48);
+    MLIFont *pMouseOverFont = new MLIFont("MouseOverFont", 1, false);
+    MLIFont *pDialogFont = new MLIFont("DialogFont", 0, false);
+    MLIFont *pEvidenceSelectorNameFont = new MLIFont("EvidenceSelectorNameFont", 0, false);
+    MLIFont *pEvidenceSelectorDescriptionFont = new MLIFont("EvidenceSelectorDescriptionFont", 0, false);
+    MLIFont *pPartnerInformationHeaderFont = new MLIFont("PartnerInformationHeaderFont", 0, false);
+    MLIFont *pPartnerInformationContentFont = new MLIFont("PartnerInformationContentFont", 0, false);
+    MLIFont *pConfrontationNumberingFont = new MLIFont("ConfrontationNumberingFont", 0, false);
+    MLIFont *pTabFont = new MLIFont("TabFont", 0, false);
+    MLIFont *pHandwritingLargeFont = new MLIFont("HandwritingLargeFont", 0, false);
+    MLIFont *pHandwritingLargeFontOutlined = new MLIFont("HandwritingLargeFont", 1, false);
+    MLIFont *pHandwritingMediumFont = new MLIFont("HandwritingMediumFont", 0, false);
+    MLIFont *pHandwritingMediumFontOutlined = new MLIFont("HandwritingMediumFont", 1, false);
+    MLIFont *pHandwritingSmallFont = new MLIFont("HandwritingSmallFont", 0, false);
+    MLIFont *pPromptOverlayFont = new MLIFont("PromptOverlayFont", 0, false);
+    MLIFont *pPromptOverlayTextFont = new MLIFont("PromptOverlayTextFont", 0, false);
+    MLIFont *pDisclaimerFont = new MLIFont("DisclaimerFont", 1, false);
+    MLIFont *pMenuFont = new MLIFont("MenuFont", 1, false);
+    MLIFont *pSkipArrowFont = new MLIFont("SkipArrowFont", 1, false);
+    MLIFont *pSkipArrowFontInverted = new MLIFont("SkipArrowFont", 1, true);
 
     CommonCaseResources::GetInstance()->GetFontManager()->AddFont("MouseOverFont", pMouseOverFont);
     CommonCaseResources::GetInstance()->GetFontManager()->AddFont("DialogFont", pDialogFont);
     CommonCaseResources::GetInstance()->GetFontManager()->AddFont("EvidenceSelectorNameFont", pEvidenceSelectorNameFont);
     CommonCaseResources::GetInstance()->GetFontManager()->AddFont("EvidenceSelectorDescriptionFont", pEvidenceSelectorDescriptionFont);
-    CommonCaseResources::GetInstance()->GetFontManager()->AddFont("PartnerInformationFont", pPartnerInformationFont);
+    CommonCaseResources::GetInstance()->GetFontManager()->AddFont("PartnerInformationHeaderFont", pPartnerInformationHeaderFont);
+    CommonCaseResources::GetInstance()->GetFontManager()->AddFont("PartnerInformationContentFont", pPartnerInformationContentFont);
     CommonCaseResources::GetInstance()->GetFontManager()->AddFont("ConfrontationNumberingFont", pConfrontationNumberingFont);
     CommonCaseResources::GetInstance()->GetFontManager()->AddFont("TabFont", pTabFont);
     CommonCaseResources::GetInstance()->GetFontManager()->AddFont("HandwritingLargeFont", pHandwritingLargeFont);
     CommonCaseResources::GetInstance()->GetFontManager()->AddFont("HandwritingMediumFont", pHandwritingMediumFont);
     CommonCaseResources::GetInstance()->GetFontManager()->AddFont("HandwritingSmallFont", pHandwritingSmallFont);
     CommonCaseResources::GetInstance()->GetFontManager()->AddFont("PromptOverlayFont", pPromptOverlayFont);
+
+    CommonCaseResources::GetInstance()->GetFontManager()->AddFont("DisclaimerFont", pDisclaimerFont);
+
+    CommonCaseResources::GetInstance()->GetFontManager()->AddFont("MenuFont", pMenuFont);
+
+    CommonCaseResources::GetInstance()->GetFontManager()->AddFont("OptionsScreen/TabFont", pHandwritingLargeFontOutlined);
+    CommonCaseResources::GetInstance()->GetFontManager()->AddFont("OptionsScreen/SelectedTabFont", pHandwritingLargeFont);
+    CommonCaseResources::GetInstance()->GetFontManager()->AddFont("OptionsScreen/OptionFont", pHandwritingMediumFontOutlined);
+
+    CommonCaseResources::GetInstance()->GetFontManager()->AddFont("SelectionScreen/StartFont", pHandwritingLargeFontOutlined);
+
+    CommonCaseResources::GetInstance()->GetFontManager()->AddFont("SkipArrow/Font", pSkipArrowFont);
+    CommonCaseResources::GetInstance()->GetFontManager()->AddFont("SkipArrow/InvertedFont", pSkipArrowFontInverted);
+
     CommonCaseResources::GetInstance()->GetSpriteManager()->AddImage("MultipleChoiceDarkening", ResourceLoader::GetInstance()->LoadImage("image/MultipleChoiceDarkening.png"));
 
     Arrow::Initialize(
@@ -492,11 +515,11 @@ void Game::Init()
 
     SkipArrow::Initialize(
         ResourceLoader::GetInstance()->LoadImage("image/ArrowHorizontalDouble.png"),
-        ResourceLoader::GetInstance()->LoadImage("image/ArrowHorizontalDoubleInverted.png"),
-        ResourceLoader::GetInstance()->LoadImage("image/FFwdOff.png"),
+        ResourceLoader::GetInstance()->LoadImage("image/ArrowHorizontalDoubleInverted.png")
+       /* ResourceLoader::GetInstance()->LoadImage("image/FFwdOff.png"),
         ResourceLoader::GetInstance()->LoadImage("image/SkipOff.png"),
         ResourceLoader::GetInstance()->LoadImage("image/FFwdOn.png"),
-        ResourceLoader::GetInstance()->LoadImage("image/SkipOn.png"));
+        ResourceLoader::GetInstance()->LoadImage("image/SkipOn.png")*/);
 
     Slider::Initialize(
         pHandwritingMediumFont,
@@ -516,9 +539,15 @@ void Game::Init()
         ResourceLoader::GetInstance()->LoadImage("image/TabTop.png"),
         pTabFont);
 
+    Image *pCheckMarkImage = ResourceLoader::GetInstance()->LoadImage("image/CheckMark.png");
+
     Button::Initialize(
         pDialogFont,
-        ResourceLoader::GetInstance()->LoadImage("image/CheckMark.png"));
+        pCheckMarkImage);
+
+    TextButton::Initialize(
+        pCheckMarkImage,
+        ResourceLoader::GetInstance()->LoadImage("image/Box.png"));
 
     ButtonArray::Initialize(
         pDialogFont);
@@ -555,8 +584,8 @@ void Game::Init()
         ResourceLoader::GetInstance()->LoadImage("image/EncounterDarkBackground.png"));
     PartnerInformation::Initialize(
         ResourceLoader::GetInstance()->LoadImage("image/PartnerInfoBackground.png"),
-        pTabFont,
-        pPartnerInformationFont);
+        pPartnerInformationHeaderFont,
+        pPartnerInformationContentFont);
 
     PromptButton::Initialize(
         pPromptOverlayFont);
@@ -581,7 +610,7 @@ void Game::Init()
     screenFromIdMap[SAVE_SCREEN_ID] = new SelectionScreen(SelectionScreenTypeSaveGame);
 #endif
 #ifdef UPDATER
-    screenFromIdMap[CHECK_FOR_UPDATES_SCREEN_ID] = new CheckForUpdatesScreen(new MLIFont(GetLauncherFontFilePath(), 30, 1));
+    screenFromIdMap[CHECK_FOR_UPDATES_SCREEN_ID] = new CheckForUpdatesScreen(new MLIFont(GetLauncherFontFilePath(), 30, 1, false));
 #endif
 
 #ifdef GAME_EXECUTABLE

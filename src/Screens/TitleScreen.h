@@ -35,10 +35,10 @@
 #include "../EasingFunctions.h"
 #include "../Image.h"
 #include "../Video.h"
-#include "../Events/ImageButtonEventProvider.h"
+#include "../Events/TextButtonEventProvider.h"
 #include "../UserInterface/PromptOverlay.h"
 
-class TitleScreen : public MLIScreen, public ImageButtonEventListener
+class TitleScreen : public MLIScreen, public TextButtonEventListener
 {
 public:
     TitleScreen();
@@ -50,7 +50,7 @@ public:
     void Update(int delta);
     void Draw();
 
-    void OnButtonClicked(ImageButton *pSender);
+    void OnButtonClicked(TextButton *pSender);
 
 private:
     Image *pBackgroundSprite;
@@ -66,10 +66,12 @@ private:
     Animation *pCandleAnimation;
     Video *pTwilightVideo;
 
-    ImageButton *pNewGameButton;
-    ImageButton *pLoadGameButton;
-    ImageButton *pOptionsButton;
-    ImageButton *pExitButton;
+    TextButton *pNewGameButton;
+    TextButton *pLoadGameButton;
+    TextButton *pOptionsButton;
+    TextButton *pExitButton;
+
+    TextButton *pTestButton;
 
     PromptOverlay *pNoCasesPrompt;
 

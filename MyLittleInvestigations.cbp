@@ -299,6 +299,7 @@
 		<Unit filename="src/Events/LocationEventProvider.h" />
 		<Unit filename="src/Events/PromptOverlayEventProvider.h" />
 		<Unit filename="src/Events/SelectorEventProvider.h" />
+		<Unit filename="src/Events/TextButtonEventProvider.h" />
 		<Unit filename="src/FileFunctions.cpp" />
 		<Unit filename="src/FileFunctions.h" />
 		<Unit filename="src/Game.cpp" />
@@ -313,6 +314,8 @@
 		<Unit filename="src/KeyboardHelper.h" />
 		<Unit filename="src/Line.cpp" />
 		<Unit filename="src/Line.h" />
+		<Unit filename="src/LocalizableContent.cpp" />
+		<Unit filename="src/LocalizableContent.h" />
 		<Unit filename="src/MLIException.cpp" />
 		<Unit filename="src/MLIException.h" />
 		<Unit filename="src/MLIFont.cpp" />
@@ -366,6 +369,10 @@
 		<Unit filename="src/UserInterface/Slider.h" />
 		<Unit filename="src/UserInterface/Tab.cpp" />
 		<Unit filename="src/UserInterface/Tab.h" />
+		<Unit filename="src/UserInterface/TextButton.cpp" />
+		<Unit filename="src/UserInterface/TextButton.h" />
+		<Unit filename="src/UserInterface/TextWidget.cpp" />
+		<Unit filename="src/UserInterface/TextWidget.h" />
 		<Unit filename="src/Utils.cpp" />
 		<Unit filename="src/Utils.h" />
 		<Unit filename="src/Vector2.cpp" />

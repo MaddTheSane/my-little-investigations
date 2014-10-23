@@ -1,8 +1,8 @@
 /**
- * Basic header/include file for Rectangle.cpp.
+ * An event provider for text buttons.
  *
- * @author GabuEx, dawnmew
- * @since 1.0
+ * @author mad-mix
+ * @since 1.0.7
  *
  * Licensed under the MIT License.
  *
@@ -27,46 +27,43 @@
  * SOFTWARE.
  */
 
-#ifndef RECTANGLE_H
-#define RECTANGLE_H
+#ifndef TEXTBUTTONEVENTPROVIDER_H
+#define TEXTBUTTONEVENTPROVIDER_H
 
-class XmlReader;
+#include "EventProviders.h"
+#include "../UserInterface/TextButton.h"
+#include <list>
 
-#ifdef CASE_CREATOR
-#include <QRect>
-#endif
-
-class RectangleWH
+class TextButtonEventListener
 {
 public:
-    RectangleWH();
-    RectangleWH(double x, double y, double width, double height);
-
-    double GetX() const { return this->x; }
-    void SetX(double x) { this->x = x; }
-    double GetY() const { return this->y; }
-    void SetY(double y) { this->y = y; }
-    double GetWidth() const { return this->width; }
-    void SetWidth(double width) { this->width = width; }
-    double GetHeight() const { return this->height; }
-    void SetHeight(double height) { this->height = height; }
-
-    RectangleWH & operator=(const RectangleWH &rhs);
-
-    bool operator==(const RectangleWH &other) const;
-    bool operator!=(const RectangleWH &other) const;
-
-    RectangleWH(XmlReader *pReader);
-
-#ifdef CASE_CREATOR
-    QRect ToQRect();
-#endif
-
-private:
-    double x;
-    double y;
-    double width;
-    double height;
+    virtual void OnButtonClicked(TextButton *pSender) = 0;
 };
 
-#endif
+class TextButtonEventProvider
+{
+public:
+    void RegisterListener(TextButtonEventListener *pListener)
+    {
+        listenerList.push_back(pListener);
+        listenerList.unique();
+    }
+
+    void ClearListener(TextButtonEventListener *pListener)
+    {
+        listenerList.remove(pListener);
+    }
+
+    void RaiseClicked(TextButton *pSender)
+    {
+        for (list<TextButtonEventListener *>::iterator iter = listenerList.begin(); iter != listenerList.end(); ++iter)
+        {
+            (*iter)->OnButtonClicked(pSender);
+        }
+    }
+
+protected:
+    list<TextButtonEventListener *> listenerList;
+};
+
+#endif // TEXTBUTTONEVENTPROVIDER_H

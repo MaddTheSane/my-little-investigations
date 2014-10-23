@@ -56,3 +56,4 @@ mli-versions.xml
 
 *.pro
 *.pro.user
+build-*
