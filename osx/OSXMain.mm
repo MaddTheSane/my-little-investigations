@@ -30,10 +30,7 @@ void BeginOSX()
 
     /* Create our Application Support folders if they don't exist yet and store the paths */
     NSString *pStrLocalApplicationSupportPath;
-    @autoreleasepool
-    {
-        pStrLocalApplicationSupportPath = [defaultManager localApplicationSupportDirectory];
-    }
+    pStrLocalApplicationSupportPath = [defaultManager localApplicationSupportDirectory];
     NSString *pStrUserApplicationSupportPath = [defaultManager userApplicationSupportDirectory];
 
     /* Next, create the folders that the executable will need during execution if they don't already exist. */
@@ -147,7 +144,7 @@ vector<string> GetSaveFilePathsForCaseOSX(string caseUuid)
             continue;
         }
         
-        NSString *pStrSaveFilePath = [NSSavesPath stringByAppendingPathComponent:pStrSaveFileName];
+        NSString *pStrSaveFilePath = [currentCaseSavePath stringByAppendingPathComponent:pStrSaveFileName];
         ppSaveFilePathList.push_back(string([pStrSaveFilePath fileSystemRepresentation]));
     }
 

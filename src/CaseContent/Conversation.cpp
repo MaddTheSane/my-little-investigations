@@ -245,14 +245,20 @@ bool Conversation::GetIsNotificationNext()
 
 void Conversation::Begin(State *pState)
 {
+    if (pSkipTab == NULL)
+    {
+        pSkipTab = new Tab(gScreenWidth - (TabWidth + 7), true /* isClickable */, pgLocalizableContent->GetText("Conversation/FastForwardText"), false /* useCancelClickSoundEffect */, TabRowTop);
+    }
+
+    if (pSkipArrow == NULL)
+    {
+        pSkipArrow = new SkipArrow(789, 8 + TabHeight, 10, false /* isClickable */, true /* isFFwd */);
+    }
+
     this->Reset();
     this->pState = pState;
     this->initialBgmId = getPlayingMusic();
     this->initialAmbianceSfxId = getPlayingAmbiance();
-
-    this->SetWrongPartnerUsed(
-        this->GetRequiredPartnerId().length() > 0 &&
-        this->GetRequiredPartnerId() != Case::GetInstance()->GetPartnerManager()->GetCurrentPartnerId());
 
     pState->SetCurrentConversation(this);
     pState->SetCurrentConfrontation(NULL);
@@ -394,7 +400,7 @@ void Conversation::Update(int delta)
         {
             pState->SetEndRequested(false);
         }
-        else if (!GetWrongPartnerUsed() && GetLockCount() == 0)
+        else if (GetLockCount() == 0)
         {
             SetHasBeenCompleted(true);
         }
@@ -515,7 +521,6 @@ void Conversation::Initialize()
     SetHasBeenCompleted(false);
 
     isLocked = false;
-    wrongPartnerUsed = false;
     isFinished = false;
 }
 
@@ -523,8 +528,8 @@ void Conversation::LoadFromXmlCore(XmlReader *pReader)
 {
     pCurrentContinuousAction = NULL;
     pLastContinuousAction = NULL;
-    pSkipTab = new Tab(gScreenWidth - (TabWidth + 7), true /* isClickable */, pgLocalizableContent->GetText("Conversation/FastForwardText"), false /* useCancelClickSoundEffect */, TabRowTop);
-    pSkipArrow = new SkipArrow(789, 8 + TabHeight, 10, false /* isClickable */, true /* isFFwd */);
+    pSkipTab = NULL;
+    pSkipArrow = NULL;
 
     if (pReader->ElementExists("Id"))
     {
@@ -534,11 +539,6 @@ void Conversation::LoadFromXmlCore(XmlReader *pReader)
     if (pReader->ElementExists("Name"))
     {
         name = pReader->ReadTextElement("Name");
-    }
-
-    if (pReader->ElementExists("RequiredPartnerId"))
-    {
-        requiredPartnerId = pReader->ReadTextElement("RequiredPartnerId");
     }
 
     isEnabled = pReader->ReadBooleanElement("IsEnabled");
@@ -688,22 +688,6 @@ Conversation::Action * Conversation::GetActionForNextElement(XmlReader *pReader)
     else if (pReader->ElementExists("StopAnimationAction"))
     {
         return new StopAnimationAction(pReader);
-    }
-    else if (pReader->ElementExists("BeginCheckPartnerAction"))
-    {
-        return new BeginCheckPartnerAction(pReader);
-    }
-    else if (pReader->ElementExists("BranchIfRightAction"))
-    {
-        return new BranchIfRightAction(pReader);
-    }
-    else if (pReader->ElementExists("BranchIfWrongAction"))
-    {
-        return new BranchIfWrongAction(pReader);
-    }
-    else if (pReader->ElementExists("EndCheckPartnerAction"))
-    {
-        return new EndCheckPartnerAction(pReader);
     }
     else if (pReader->ElementExists("SetPartnerAction"))
     {
@@ -2067,62 +2051,6 @@ void Conversation::StopAnimationAction::Execute(State *pState)
 Conversation::StopAnimationAction::StopAnimationAction(XmlReader *pReader)
 {
     pReader->StartElement("StopAnimationAction");
-    pReader->EndElement();
-}
-
-void Conversation::BeginCheckPartnerAction::Execute(State *pState)
-{
-    if (partnerId.length() == 0 || Case::GetInstance()->GetPartnerManager()->GetCurrentPartnerId() == partnerId)
-    {
-        pState->SetActionIndex(GetRightIndex());
-    }
-    else if (partnerId.length() > 0)
-    {
-        pState->SetActionIndex(GetWrongIndex());
-    }
-}
-
-Conversation::BeginCheckPartnerAction::BeginCheckPartnerAction(XmlReader *pReader)
-{
-    pReader->StartElement("BeginCheckPartnerAction");
-    partnerId = pReader->ReadTextElement("PartnerId");
-    rightIndex = pReader->ReadIntElement("RightIndex");
-    wrongIndex = pReader->ReadIntElement("WrongIndex");
-    pReader->EndElement();
-}
-
-void Conversation::BranchIfRightAction::Execute(State *pState)
-{
-    pState->SetActionIndex(GetEndIndex());
-}
-
-Conversation::BranchIfRightAction::BranchIfRightAction(XmlReader *pReader)
-{
-    pReader->StartElement("BranchIfRightAction");
-    endIndex = pReader->ReadIntElement("EndIndex");
-    pReader->EndElement();
-}
-
-void Conversation::BranchIfWrongAction::Execute(State *pState)
-{
-    pState->SetActionIndex(GetEndIndex());
-}
-
-Conversation::BranchIfWrongAction::BranchIfWrongAction(XmlReader *pReader)
-{
-    pReader->StartElement("BranchIfWrongAction");
-    endIndex = pReader->ReadIntElement("EndIndex");
-    pReader->EndElement();
-}
-
-void Conversation::EndCheckPartnerAction::Execute(State *pState)
-{
-
-}
-
-Conversation::EndCheckPartnerAction::EndCheckPartnerAction(XmlReader *pReader)
-{
-    pReader->StartElement("EndCheckPartnerAction");
     pReader->EndElement();
 }
 

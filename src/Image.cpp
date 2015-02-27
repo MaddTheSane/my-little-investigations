@@ -157,7 +157,7 @@ void Image::Reload(SDL_Surface *pSurface, bool loadImmediately)
     this->height = this->pSurface->h;
 
 #ifdef GAME_EXECUTABLE
-    Uint32 currentThreadId = SDL_ThreadID();
+    SDL_threadID currentThreadId = SDL_ThreadID();
 
     if (gUiThreadId != currentThreadId || !loadImmediately)
     {
@@ -310,6 +310,7 @@ void Image::Draw(
     double scale,
     Color color)
 {
+    EnsureUIThread();
 
     // If this isn't a valid sprite, then we just won't draw anything.
     if (!valid)
