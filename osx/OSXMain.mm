@@ -183,8 +183,10 @@ string GetGameExecutable()
 
 string GetVersionStringOSX(string PropertyListFilePath)
 {
+    @autoreleasepool {
     NSFileManager *defaultManager = [NSFileManager defaultManager];
     NSString *plistPath = [defaultManager stringWithFileSystemRepresentation:PropertyListFilePath.c_str() length: PropertyListFilePath.size()];
+    plistPath = plistPath.stringByStandardizingPath;
     
     if (![defaultManager fileExistsAtPath:plistPath])
     {
@@ -200,6 +202,7 @@ string GetVersionStringOSX(string PropertyListFilePath)
     
     NSString *versString = plistDict[@"VersionString"];
     return [versString UTF8String];
+    }
 }
 
 char *GetPropertyListXMLForVersionStringOSX(string PropertyListFilePath, string pVersionString, unsigned long *pVersionStringLength)
