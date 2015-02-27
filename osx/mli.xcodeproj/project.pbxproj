@@ -180,7 +180,7 @@
 		551D57E418F9B53E0087AAA0 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		551D57E518F9B53E0087AAA0 /* xdelta3 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = xdelta3; sourceTree = "<group>"; };
 		5533C69A18FB62DB0055B22B /* My Little Investigations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Little Investigations.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5533C69B18FB62DB0055B22B /* mli copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "mli copy-Info.plist"; path = "/Users/cwbetts/makestuff/my-little-investigations/osx/mli copy-Info.plist"; sourceTree = "<absolute>"; };
+		5533C69B18FB62DB0055B22B /* mli copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "mli copy-Info.plist"; sourceTree = SOURCE_ROOT; };
 		5533C69E18FB64240055B22B /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
 		5533C6A018FB642D0055B22B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		553B8B7619B3DC72007C2C64 /* Cache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cache.h; sourceTree = "<group>"; };
