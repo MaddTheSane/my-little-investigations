@@ -147,7 +147,7 @@ vector<string> GetSaveFilePathsForCaseOSX(string caseUuid)
             continue;
         }
         
-        NSString *pStrSaveFilePath = [NSSavesPath stringByAppendingPathComponent:pStrSaveFileName];
+        NSString *pStrSaveFilePath = [currentCaseSavePath stringByAppendingPathComponent:pStrSaveFileName];
         ppSaveFilePathList.push_back(string([pStrSaveFilePath fileSystemRepresentation]));
     }
 
