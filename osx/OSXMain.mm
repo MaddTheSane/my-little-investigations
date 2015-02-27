@@ -41,25 +41,25 @@ void BeginOSX()
     NSUserCasesPath = [userGameAppSupportPath stringByAppendingPathComponent:@"Cases"];
     NSSavesPath = [userGameAppSupportPath stringByAppendingPathComponent:@"Saves"];
 
-    NSError *error;
+	NSError *error = nil;
 
-    [defaultManager
-     createDirectoryAtPath:dialogSeenPath
-     withIntermediateDirectories:YES
-     attributes:nil
-     error:&error];
+	[defaultManager
+		createDirectoryAtPath:dialogSeenPath
+		withIntermediateDirectories:YES
+		attributes:nil
+		error:&error];
 
-    [defaultManager
-     createDirectoryAtPath:NSSavesPath
-     withIntermediateDirectories:YES
-     attributes:nil
-     error:&error];
+	[defaultManager
+		createDirectoryAtPath:NSSavesPath
+		withIntermediateDirectories:YES
+		attributes:nil
+		error:&error];
 
-    [defaultManager
-     createDirectoryAtPath:NSUserCasesPath
-     withIntermediateDirectories:YES
-     attributes:nil
-     error:&error];
+	[defaultManager
+        createDirectoryAtPath:NSUserCasesPath
+        withIntermediateDirectories:YES
+        attributes:nil
+        error:&error];
 
     pLocalApplicationSupportPath = [localGameAppSupportPath fileSystemRepresentation];
     pCasesPath = [NSCasesPath fileSystemRepresentation];
@@ -78,7 +78,7 @@ vector<string> GetCaseFilePathsOSX()
     NSFileManager *defaultManager = [NSFileManager defaultManager];
 
     NSArray *caseFiles = [defaultManager
-                              contentsOfDirectoryAtPath:NSCasesPath
+                              contentsOfDirectoryAtPath: NSCasesPath
                               error:&error];
 
     NSMutableArray *uniqueCaseList;
@@ -145,7 +145,7 @@ vector<string> GetSaveFilePathsForCaseOSX(string caseUuid)
     NSString *currentCaseSavePath = [NSSavesPath stringByAppendingPathComponent:@(caseUuid.c_str())];
 
     [defaultManager
-     createDirectoryAtPath:currentCaseSavePath
+     createDirectoryAtPath: currentCaseSavePath
      withIntermediateDirectories:YES
      attributes:nil
      error:&error];

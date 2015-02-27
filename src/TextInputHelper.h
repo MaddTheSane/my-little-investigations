@@ -51,8 +51,8 @@ public:
     static void Reset();
 
     static string GetCurrentText() { return currentText; }
-    static void SetCurrentText(const string &currentText) { TextInputHelper::currentText = currentText; caretPosition = currentText.length(); }
-    static size_t GetCaretPosition() { return caretPosition; }
+    static void SetCurrentText(const string &currentText) { TextInputHelper::currentText = currentText; caretPosition = (int)currentText.length(); }
+    static unsigned int GetCaretPosition() { return caretPosition; }
     static bool GetIsCaretShowing() { return isCaretShowing; }
     static void SetMaxPixelWidth(int pixelWidth, MLIFont *pFontToCheckAgainst) { maxPixelWidth = pixelWidth; TextInputHelper::pFontToCheckAgainst = pFontToCheckAgainst; }
 
@@ -61,12 +61,12 @@ public:
     static bool GetInSession() { return isInSession; }
 
 private:
-    static bool SetNewText(const string &newText, size_t newCaretPosition);
+    static bool SetNewText(const string &newText, unsigned int newCaretPosition);
     static void HandleSpecialKey(SDL_Keycode keycode);
     static void ResetCaret();
 
     static string currentText;
-    static size_t caretPosition;
+    static unsigned int caretPosition;
     static bool isCaretShowing;
     static int timeBeforeCaretToggle;
 

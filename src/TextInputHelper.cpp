@@ -32,7 +32,7 @@
 #include "MLIFont.h"
 
 string TextInputHelper::currentText = "";
-size_t TextInputHelper::caretPosition = 0;
+unsigned int TextInputHelper::caretPosition = 0;
 bool TextInputHelper::isCaretShowing = true;
 int TextInputHelper::timeBeforeCaretToggle = 0;
 
@@ -139,7 +139,7 @@ void TextInputHelper::Reset()
     isInSession = false;
 }
 
-bool TextInputHelper::SetNewText(const string &newText, size_t newCaretPosition)
+bool TextInputHelper::SetNewText(const string &newText, unsigned int newCaretPosition)
 {
     // If we have a max pixel width and the new text will push us past that width,
     // then we won't do anything.

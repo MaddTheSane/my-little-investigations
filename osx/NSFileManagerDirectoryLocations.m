@@ -202,7 +202,11 @@ NSString * const DirectoryLocationDomain = @"DirectoryLocationDomain";
 //
 - (NSString *)localApplicationSupportDirectory
 {
+#if 1
 	return [[self gameBundle] resourcePath];
+#else
+	return [[NSBundle mainBundle] resourcePath];
+#endif
 }
 
 @end
