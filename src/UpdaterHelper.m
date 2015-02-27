@@ -28,8 +28,6 @@
  */
 
 #import <Foundation/Foundation.h>
-#include <sys/stat.h>
-#include <unistd.h>
 
 #define PRINT_AND_RETURN() \
 	do { \
@@ -90,7 +88,8 @@ int main(int argc, char *argv[])
 		}
 		
 		if (success) {
-			success = chmod(newFilePath.fileSystemRepresentation, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH) == 0;
+			short perms = S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH;
+			success = [fm setAttributes:@{NSFilePosixPermissions: @(perms)} ofItemAtPath:newFilePath error:nil];
 		}
 	} else if ([operation isEqualToString:@"remove"]) {
 		// If we're removing, we expect to receive one additional argument:
