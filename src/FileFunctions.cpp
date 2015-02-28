@@ -295,12 +295,12 @@ vector<string> GetCaseFilePaths()
     #elif defined(__OSX)
         vector<string> ppCaseFilePaths = GetCaseFilePathsOSX();
 
-        for (size_t i = 0; i < ppCaseFilePaths.size(); i++)
+        for (vector<string>::const_iterator iter = ppCaseFilePaths.begin(); iter != ppCaseFilePaths.end(); ++iter)
         {
-            string caseFilePath = ppCaseFilePaths[i];
-
-            if (caseFilePath.find(".mlicase") != string::npos)
+            if (iter->find(".mlicase") != string::npos)
             {
+				string caseFilePath = *iter;
+
                 filePaths.push_back(caseFilePath);
             }
         }
