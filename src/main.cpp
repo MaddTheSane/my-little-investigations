@@ -195,6 +195,30 @@ int main(int argc, char * argv[])
         return 1;
     }
 
+    if (argc > 1)
+    {
+        string caseFileName = string(argv[1]);
+        string caseUuid;
+
+        if (ValidateCaseFile(caseFileName, &caseUuid))
+        {
+            if (CopyCaseFileToCaseFolder(caseFileName, caseUuid))
+            {
+                SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Success", "Successfully installed case file!", NULL);
+            }
+            else
+            {
+                SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Failure", "Couldn't install case file - unable to copy it to the case directory.", NULL);
+            }
+        }
+        else
+        {
+            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Failure", "Couldn't install case file - it appears to be corrupt.", NULL);
+        }
+
+        return 0;
+    }
+
     // If we already have an instance of the executable open, then
     // we should prevent another instance from being opened.
     if (CheckForExistingInstance())

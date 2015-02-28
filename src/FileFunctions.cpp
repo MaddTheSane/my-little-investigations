@@ -371,9 +371,9 @@ void PopulateCaseSignatureMap()
     gCaseIsSignedByFilePathMap.clear();
     vector<string> caseFilePaths = GetCaseFilePaths();
 
-    for (unsigned int i = 0; i < caseFilePaths.size(); i++)
+    for (vector<string>::const_iterator iter = caseFilePaths.begin(); iter != caseFilePaths.end(); ++iter)
     {
-        string caseFilePath = caseFilePaths[i];
+        string caseFilePath = *iter;
 
         // IsCaseCorrectlySigned will add the result to the lookup table if it's not already there,
         // so we'll just call it on every case file path to populate that table.
