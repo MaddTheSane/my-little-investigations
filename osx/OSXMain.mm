@@ -96,7 +96,7 @@ void BeginOSX()
 vector<string> GetCaseFilePathsOSX()
 {
     AUTORELEASE_POOL_START
-    NSError *error;
+    NSError *error = nil;
     NSFileManager *defaultManager = [NSFileManager defaultManager];
 
     NSArray *caseFiles = [defaultManager
@@ -132,6 +132,8 @@ vector<string> GetCaseFilePathsOSX()
         NSString *fullCasePath = [NSUserCasesPath stringByAppendingPathComponent:object];
         [userCaseList addObject:fullCasePath];
     }
+
+    uniqueCaseList = [[NSMutableArray alloc] initWithCapacity:localCaseList.count + userCaseList.count];
 
     AUTORELEASE_POOL_START
     NSIndexSet *uniqueLocalCases = [localCaseList indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
@@ -169,11 +171,11 @@ vector<string> GetSaveFilePathsForCaseOSX(string caseUuid)
     NSString *currentCaseSavePath = [NSSavesPath stringByAppendingPathComponent:@(caseUuid.c_str())];
 
     [defaultManager
-     createDirectoryAtPath: currentCaseSavePath
-     withIntermediateDirectories:YES
-     attributes:nil
-     error:&error];
-    
+        createDirectoryAtPath: currentCaseSavePath
+        withIntermediateDirectories:YES
+        attributes:nil
+        error:&error];
+
     NSArray *pSaveFileList = [defaultManager
                               contentsOfDirectoryAtPath:currentCaseSavePath
                               error:&error];
@@ -185,7 +187,7 @@ vector<string> GetSaveFilePathsForCaseOSX(string caseUuid)
         {
             continue;
         }
-        
+
         NSString *savePath = [currentCaseSavePath stringByAppendingPathComponent:fileName];
         ppSaveFilePathList.push_back(string([savePath fileSystemRepresentation]));
     }
