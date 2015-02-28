@@ -21,6 +21,8 @@ static NSString *NSCasesPath;
 static NSString *NSUserCasesPath;
 static NSString *NSSavesPath;
 
+#define kCaseExt @"mlicase"
+
 #if __clang__ && defined(MAC_OS_X_VERSION_10_7)
 #define AUTORELEASE_POOL @autoreleasepool
 #define AUTORELEASE_POOL_START @autoreleasepool {
@@ -250,4 +252,25 @@ char *GetPropertyListXMLForVersionStringOSX(string PropertyListFilePath, string 
     *pVersionStringLength = dataLength;
     return pCharData;
     AUTORELEASE_POOL_STOP
+}
+
+bool CopyCaseUserOSX(const string &cppCasePath, const string &cppCaseUuid)
+{
+    bool success = false;
+    AUTORELEASE_POOL_START
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSString *caseFilePath = [fm stringWithFileSystemRepresentation:cppCasePath.c_str() length:cppCasePath.length()];
+    NSString *caseUUID = [NSString stringWithUTF8String:cppCaseUuid.c_str()];
+    NSString *userCasePath = [NSUserCasesPath stringByAppendingPathComponent:caseUUID];
+    userCasePath = [userCasePath stringByAppendingPathExtension:kCaseExt];
+
+    if ([fm fileExistsAtPath:userCasePath]) {
+        // something's already there...
+        success = false;
+    } else {
+        success = [fm copyItemAtPath:caseFilePath toPath:userCasePath error:NULL];
+    }
+
+    AUTORELEASE_POOL_STOP
+    return success;
 }

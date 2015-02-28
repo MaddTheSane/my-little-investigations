@@ -182,6 +182,7 @@ int main(int argc, char * argv[])
 
 #ifdef GAME_EXECUTABLE
 
+    // Enable dropping a file onto the game's icon.
     SDL_EventState(SDL_DROPFILE, SDL_ENABLE);
 
     // Initialize the resource loader.  If this fails, the common resource data file is missing,
@@ -370,7 +371,6 @@ int main(int argc, char * argv[])
                     {
                         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Failure", "Couldn't install case file - it appears to be corrupt.", gpWindow);
                     }
-
                 }
                     break;
             #endif
