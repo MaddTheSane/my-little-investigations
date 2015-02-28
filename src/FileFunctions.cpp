@@ -386,9 +386,9 @@ vector<string> GetCaseUuids()
     vector<string> caseUuids;
     vector<string> filePaths = GetCaseFilePaths();
 
-    for (unsigned int i = 0; i < filePaths.size(); i++)
+    for (vector<string>::const_iterator iter = filePaths.begin(); iter != filePaths.end(); ++iter )
     {
-        caseUuids.push_back(GetUuidFromFilePath(filePaths[i]));
+        caseUuids.push_back(GetUuidFromFilePath(*iter));
     }
 
     return caseUuids;
@@ -807,11 +807,9 @@ bool SaveFileExists()
     bool saveFileExists = false;
     vector<string> caseUuids = GetCaseUuids();
 
-    for (unsigned int i = 0; i < caseUuids.size(); i++)
+    for (vector<string>::const_iterator iter = caseUuids.begin(); iter != caseUuids.end(); ++iter)
     {
-        string caseUuid = caseUuids[i];
-
-        if (SaveFileExistsForCase(caseUuid))
+        if (SaveFileExistsForCase(*iter))
         {
             saveFileExists = true;
             break;
@@ -862,12 +860,12 @@ vector<string> GetSaveFilePathsForCase(const string &caseUuid)
     #elif defined(__OSX)
         vector<string> ppSaveFilePaths = GetSaveFilePathsForCaseOSX(caseUuid);
 
-        for (size_t j = 0; j < ppSaveFilePaths.size(); j++)
+        for (vector<string>::const_iterator iter = ppSaveFilePaths.begin(); iter != ppSaveFilePaths.end(); ++iter)
         {
-            string saveFilePath = ppSaveFilePaths[j];
-
-            if (saveFilePath.find(".sav") != string::npos)
+            if (iter->find(".sav") != string::npos)
             {
+                string saveFilePath = *iter;
+                
                 filePaths.push_back(saveFilePath);
             }
         }

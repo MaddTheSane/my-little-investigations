@@ -160,7 +160,7 @@ vector<string> GetCaseFilePathsOSX()
     AUTORELEASE_POOL_STOP
 }
 
-vector<string> GetSaveFilePathsForCaseOSX(string caseUuid)
+vector<string> GetSaveFilePathsForCaseOSX(const string &caseUuid)
 {
     vector<string> ppSaveFilePathList;
 

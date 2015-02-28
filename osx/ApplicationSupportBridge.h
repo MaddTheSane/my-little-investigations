@@ -13,7 +13,7 @@ extern string pDialogSeenListsPath;
 extern string pSavesPath;
 
 vector<string> GetCaseFilePathsOSX();
-vector<string> GetSaveFilePathsForCaseOSX(string caseUuid);
+vector<string> GetSaveFilePathsForCaseOSX(const string &caseUuid);
 string GetVersionStringOSX();
 char * GetPropertyListXMLForVersionStringOSX(string pPropertyListFilePath, string pVersionString, unsigned long *pVersionStringLength);
 string GetGameExecutable();
