@@ -21,7 +21,7 @@ static NSString *NSCasesPath;
 static NSString *NSUserCasesPath;
 static NSString *NSSavesPath;
 
-#if __clang__ && __has_feature(objc_arc)
+#if __clang__ && defined(MAC_OS_X_VERSION_10_7)
 #define AUTORELEASE_POOL @autoreleasepool
 #define AUTORELEASE_POOL_START @autoreleasepool {
 #else
