@@ -58,9 +58,9 @@ void BeginOSX()
     NSString *userGameAppSupportPath = [userAppSupport stringByAppendingPathComponent:@"My Little Investigations"];
     NSString *dialogSeenPath = [userGameAppSupportPath stringByAppendingPathComponent:@"DialogSeenLists"];
 
-    NSCasesPath = [localGameAppSupportPath stringByAppendingPathComponent:@"Cases"];
-    NSUserCasesPath = [userGameAppSupportPath stringByAppendingPathComponent:@"Cases"];
-    NSSavesPath = [userGameAppSupportPath stringByAppendingPathComponent:@"Saves"];
+    NSCasesPath = [[localGameAppSupportPath stringByAppendingPathComponent:@"Cases"] retain];
+    NSUserCasesPath = [[userGameAppSupportPath stringByAppendingPathComponent:@"Cases"] retain];
+    NSSavesPath = [[userGameAppSupportPath stringByAppendingPathComponent:@"Saves"] retain];
 
 	NSError *error = nil;
 
