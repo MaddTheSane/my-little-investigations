@@ -21,11 +21,32 @@ static NSString *NSCasesPath;
 static NSString *NSUserCasesPath;
 static NSString *NSSavesPath;
 
+#if __clang__ && __has_feature(objc_arc)
+#define AUTORELEASE_POOL @autoreleasepool
+#define AUTORELEASE_POOL_START @autoreleasepool {
+#else
+class Autorelease_Pool_Wrapper {
+public:
+    Autorelease_Pool_Wrapper() { m_pool = [[NSAutoreleasePool alloc] init]; }
+    ~Autorelease_Pool_Wrapper() { [m_pool drain]; }
+    operator bool() const { return true; }
+private:
+    NSAutoreleasePool *m_pool;
+};
+
+#define POOL_NAME(x, y) x##_##y
+#define POOL_NAME2(x, y) POOL_NAME(x, y)
+#define AUTORELEASE_POOL if(Autorelease_Pool_Wrapper POOL_NAME2(pool, __LINE__) = Autorelease_Pool_Wrapper())
+#define AUTORELEASE_POOL_START {\
+Autorelease_Pool_Wrapper POOL_NAME2(pool, __LINE__) = Autorelease_Pool_Wrapper();
+#endif // !__clang__
+
+#define AUTORELEASE_POOL_STOP }
+
 /* Main entry point to executable - should *not* be SDL_main! */
 void BeginOSX()
 {
-    @autoreleasepool
-{
+    AUTORELEASE_POOL_START
     NSFileManager *defaultManager = [NSFileManager defaultManager];
 
     /* Create our Application Support folders if they don't exist yet and store the paths */
@@ -67,29 +88,26 @@ void BeginOSX()
     pDialogSeenListsPath = [dialogSeenPath fileSystemRepresentation];
     pSavesPath = [NSSavesPath fileSystemRepresentation];
 
-}
+    AUTORELEASE_POOL_STOP
 }
 
 vector<string> GetCaseFilePathsOSX()
 {
-@autoreleasepool
-{
+    AUTORELEASE_POOL_START
     NSError *error;
     NSFileManager *defaultManager = [NSFileManager defaultManager];
 
     NSArray *caseFiles = [defaultManager
-                              contentsOfDirectoryAtPath: NSCasesPath
-                              error:&error];
+                          contentsOfDirectoryAtPath: NSCasesPath
+                          error:&error];
 
     NSMutableArray *uniqueCaseList;
     vector<string> caseFileList;
     NSMutableArray *localCaseList = [[NSMutableArray alloc] initWithCapacity:caseFiles.count];
-    
-    for (NSString *object in caseFiles)
-    {
+
+    for (NSString *object in caseFiles) {
         //Ignore UNIX hidden files, like OS X's .DS_Store
-        if ([object hasPrefix:@"."])
-        {
+        if ([object hasPrefix:@"."]) {
             continue;
         }
 
@@ -97,50 +115,54 @@ vector<string> GetCaseFilePathsOSX()
         [localCaseList addObject:fullCasePath];
     }
 
-    // Get user cases
+    // Cases in the user's folder
     caseFiles = [defaultManager
-                     contentsOfDirectoryAtPath:NSUserCasesPath
-                     error:&error];
+                 contentsOfDirectoryAtPath: NSUserCasesPath
+                 error:&error];
     
     NSMutableArray *userCaseList = [[NSMutableArray alloc] initWithCapacity:caseFiles.count];
     
-    for (NSString *object in caseFiles)
-    {
+    for (NSString *object in caseFiles) {
         //Ignore UNIX hidden files, like OS X's .DS_Store
-        if ([object hasPrefix:@"."])
-        {
+        if ([object hasPrefix:@"."]) {
             continue;
         }
         NSString *fullCasePath = [NSUserCasesPath stringByAppendingPathComponent:object];
         [userCaseList addObject:fullCasePath];
     }
-    
-    uniqueCaseList = [[NSMutableArray alloc] initWithCapacity:localCaseList.count + userCaseList.count];
 
+    AUTORELEASE_POOL_START
     NSIndexSet *uniqueLocalCases = [localCaseList indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         NSString *lastPathComponent = [obj lastPathComponent];
         
         return ![caseFiles containsObject:lastPathComponent];
     }];
-    
+
+    //prefer a user's case over the local cases
     [uniqueCaseList addObjectsFromArray:[localCaseList objectsAtIndexes:uniqueLocalCases]];
     [uniqueCaseList addObjectsFromArray:userCaseList];
-    
-    for (NSString *path in uniqueCaseList)
-    {
+    AUTORELEASE_POOL_STOP
+
+    [localCaseList release]; localCaseList = nil;
+    [userCaseList release]; userCaseList = nil;
+
+    for (NSString *path in uniqueCaseList) {
         caseFileList.push_back(string([path fileSystemRepresentation]));
     }
+    [uniqueCaseList release]; uniqueCaseList = nil;
     
     return caseFileList;
-}
+    
+    AUTORELEASE_POOL_STOP
 }
 
 vector<string> GetSaveFilePathsForCaseOSX(string caseUuid)
 {
-@autoreleasepool
-{
-    NSError *error = nil;
-    NSFileManager *defaultManager = [NSFileManager defaultManager];
+    vector<string> ppSaveFilePathList;
+
+    AUTORELEASE_POOL_START
+	NSError *error = nil;
+	NSFileManager *defaultManager = [NSFileManager defaultManager];
 
     NSString *currentCaseSavePath = [NSSavesPath stringByAppendingPathComponent:@(caseUuid.c_str())];
 
@@ -154,8 +176,6 @@ vector<string> GetSaveFilePathsForCaseOSX(string caseUuid)
                               contentsOfDirectoryAtPath:currentCaseSavePath
                               error:&error];
 
-    vector<string> saveFileList;
-
     for (NSString *fileName in pSaveFileList)
     {
         //Ignore UNIX hidden files, like OS X's .DS_Store
@@ -165,68 +185,52 @@ vector<string> GetSaveFilePathsForCaseOSX(string caseUuid)
         }
         
         NSString *savePath = [currentCaseSavePath stringByAppendingPathComponent:fileName];
-        saveFileList.push_back(string([savePath fileSystemRepresentation]));
+        ppSaveFilePathList.push_back(string([savePath fileSystemRepresentation]));
     }
 
-    return saveFileList;
-}
+    AUTORELEASE_POOL_STOP
+    return ppSaveFilePathList;
 }
 
-string GetGameExecutable()
+string GetVersionStringOSX()
 {
-    @autoreleasepool {
-        NSString *exePath = [[[NSFileManager defaultManager] gameBundle] executablePath];
-        
-        return [exePath fileSystemRepresentation];
-    }
-}
-
-string GetVersionStringOSX(string PropertyListFilePath)
-{
-    @autoreleasepool {
-    NSFileManager *defaultManager = [NSFileManager defaultManager];
-    NSString *plistPath = [defaultManager stringWithFileSystemRepresentation:PropertyListFilePath.c_str() length: PropertyListFilePath.size()];
-    plistPath = plistPath.stringByStandardizingPath;
-    
-    if (![defaultManager fileExistsAtPath:plistPath])
-    {
-        return string();
-    }
-    
-    NSDictionary *plistDict =
-    [NSDictionary dictionaryWithContentsOfFile:plistPath];
-    
-    if (plistDict == NULL) {
-        return string();
-    }
-    
-    NSString *versString = plistDict[@"VersionString"];
-    return [versString UTF8String];
-    }
+    AUTORELEASE_POOL_START
+    NSBundle *ourBundle = [NSBundle mainBundle];
+    NSDictionary *infoPlist = ourBundle.infoDictionary;
+    NSString *versStr = [infoPlist objectForKey:@"CFBundleVersion"];
+    return versStr != nil ? versStr.UTF8String : "";
+    AUTORELEASE_POOL_STOP
 }
 
 char *GetPropertyListXMLForVersionStringOSX(string PropertyListFilePath, string pVersionString, unsigned long *pVersionStringLength)
 {
+    AUTORELEASE_POOL_START
     *pVersionStringLength = 0;
 
     NSFileManager *defaultManager = [NSFileManager defaultManager];
     NSString *pErrorDesc = nil;
-    NSString *plistPath = [defaultManager stringWithFileSystemRepresentation:PropertyListFilePath.c_str() length: PropertyListFilePath.size()];
+    //TODO: Save the NSString as, say, a static pointer.
+    NSString *pProperyListPath = [defaultManager
+								  stringWithFileSystemRepresentation:PropertyListFilePath.c_str()
+								  length: PropertyListFilePath.size()];
+	pProperyListPath = pProperyListPath.stringByStandardizingPath;
 
-    if (![defaultManager fileExistsAtPath:plistPath])
+    if (![defaultManager fileExistsAtPath:pProperyListPath])
     {
         return NULL;
     }
 
     NSMutableDictionary *plistDict =
-        [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
+        [NSMutableDictionary dictionaryWithContentsOfFile:pProperyListPath];
 
     if (plistDict == NULL)
     {
         return NULL;
     }
 
-    plistDict[@"VersionString"] = @(pVersionString.c_str());
+    NSString *newStringValue = @(pVersionString.c_str());
+    plistDict[@"CFBundleShortVersionString"] = newStringValue;
+    plistDict[@"CFBundleVersion"] = newStringValue;
 
     NSData *pData = [NSPropertyListSerialization
         dataFromPropertyList:plistDict
@@ -245,4 +249,5 @@ char *GetPropertyListXMLForVersionStringOSX(string PropertyListFilePath, string 
 
     *pVersionStringLength = dataLength;
     return pCharData;
+    AUTORELEASE_POOL_STOP
 }
