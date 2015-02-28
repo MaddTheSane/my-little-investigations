@@ -63,6 +63,157 @@
 		55244AB51AA2574F00E6099D /* enums.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F5318F7413900DEB259 /* enums.cpp */; };
 		55244AB61AA2578400E6099D /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6518F7413900DEB259 /* Game.cpp */; };
 		55244AC21AA2583600E6099D /* main_UpdaterHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F7218F7413900DEB259 /* main_UpdaterHelper.cpp */; };
+		55244ACB1AA258A600E6099D /* Cases in Resources */ = {isa = PBXBuildFile; fileRef = 5562B31618FC4FD200373B26 /* Cases */; };
+		55244ACC1AA258AF00E6099D /* CelestiaMediumRedux1.5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5562B31118FC4FC300373B26 /* CelestiaMediumRedux1.5.ttf */; };
+		55244ACD1AA258AF00E6099D /* common.dat in Resources */ = {isa = PBXBuildFile; fileRef = 5562B31218FC4FC300373B26 /* common.dat */; };
+		55244AD01AA258DE00E6099D /* XmlReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FC018F7413900DEB259 /* XmlReader.cpp */; };
+		55244AD11AA258DE00E6099D /* XmlWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FC218F7413900DEB259 /* XmlWriter.cpp */; };
+		55244AD21AA258DE00E6099D /* MLIException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553B8B8219B3DCD5007C2C64 /* MLIException.cpp */; };
+		55244AD31AA258DE00E6099D /* OSXMain.mm in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0B18F7407500DEB259 /* OSXMain.mm */; };
+		55244AD41AA258DE00E6099D /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553B8B7819B3DC9F007C2C64 /* tinyxml2.cpp */; };
+		55244AD51AA258DE00E6099D /* FileFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6118F7413900DEB259 /* FileFunctions.cpp */; };
+		55244AD61AA258DE00E6099D /* KeyboardHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5541EC2F194BA02100EB5089 /* KeyboardHelper.cpp */; };
+		55244AD71AA258DE00E6099D /* NSFileManagerDirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0918F7407500DEB259 /* NSFileManagerDirectoryLocations.m */; };
+		55244AD81AA258DE00E6099D /* globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6718F7413900DEB259 /* globals.cpp */; };
+		55244AD91AA258DE00E6099D /* LocalizableContent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554F15AD19F9127500577DDD /* LocalizableContent.cpp */; };
+		55244ADA1AA258DE00E6099D /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FB818F7413900DEB259 /* Utils.cpp */; };
+		55244ADB1AA258DE00E6099D /* Version.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FBC18F7413900DEB259 /* Version.cpp */; };
+		55244ADC1AA258DE00E6099D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F7118F7413900DEB259 /* main.cpp */; };
+		55244ADE1AA258DE00E6099D /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5533C69E18FB64240055B22B /* libcurl.dylib */; };
+		55244ADF1AA258DE00E6099D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5533C6A018FB642D0055B22B /* Security.framework */; };
+		55244AE01AA258DE00E6099D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558C3ED118F73F7200DEB259 /* Cocoa.framework */; };
+		55244AE11AA258DE00E6099D /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401618F7431B00DEB259 /* SDL2.framework */; };
+		55244AE21AA258DE00E6099D /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401918F7446C00DEB259 /* SDL2_image.framework */; };
+		55244AE31AA258DE00E6099D /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CC18F75543009BED51 /* SDL2_mixer.framework */; };
+		55244AE41AA258DE00E6099D /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; };
+		55244AE61AA258DE00E6099D /* Cases in Resources */ = {isa = PBXBuildFile; fileRef = 5562B31618FC4FD200373B26 /* Cases */; };
+		55244AE71AA258DE00E6099D /* CelestiaMediumRedux1.5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5562B31118FC4FC300373B26 /* CelestiaMediumRedux1.5.ttf */; };
+		55244AE81AA258DE00E6099D /* MyLittleInvestigations.plist in Resources */ = {isa = PBXBuildFile; fileRef = 551D57DF18F9B5250087AAA0 /* MyLittleInvestigations.plist */; };
+		55244AE91AA258DE00E6099D /* common.dat in Resources */ = {isa = PBXBuildFile; fileRef = 5562B31218FC4FC300373B26 /* common.dat */; };
+		55244AEA1AA258DE00E6099D /* xdelta3 in Resources */ = {isa = PBXBuildFile; fileRef = 551D57E518F9B53E0087AAA0 /* xdelta3 */; };
+		55244AEB1AA258DE00E6099D /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 551D57E418F9B53E0087AAA0 /* COPYING */; };
+		55244AEC1AA258DE00E6099D /* mli.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 558C3F0718F7407500DEB259 /* mli.iconset */; };
+		55244AEE1AA258DE00E6099D /* SDL2_ttf.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		55244AEF1AA258DE00E6099D /* SDL2_mixer.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CC18F75543009BED51 /* SDL2_mixer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		55244AF01AA258DE00E6099D /* SDL2_image.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401918F7446C00DEB259 /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		55244AF11AA258DE00E6099D /* SDL2.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401618F7431B00DEB259 /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		55244AF81AA2592D00E6099D /* UpdaterHelper in Copy Executables */ = {isa = PBXBuildFile; fileRef = 55244ABB1AA2581700E6099D /* UpdaterHelper */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		55244AFD1AA2594000E6099D /* PartnerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F4718F7413900DEB259 /* PartnerManager.cpp */; };
+		55244AFE1AA2594000E6099D /* DialogCutsceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F3B18F7413900DEB259 /* DialogCutsceneManager.cpp */; };
+		55244AFF1AA2594000E6099D /* ResourceLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F8018F7413900DEB259 /* ResourceLoader.cpp */; };
+		55244B001AA2594000E6099D /* AudioManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F3118F7413900DEB259 /* AudioManager.cpp */; };
+		55244B011AA2594000E6099D /* EvidenceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F3D18F7413900DEB259 /* EvidenceManager.cpp */; };
+		55244B021AA2594000E6099D /* EasingFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F5118F7413900DEB259 /* EasingFunctions.cpp */; };
+		55244B031AA2594000E6099D /* Area.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F1818F7413900DEB259 /* Area.cpp */; };
+		55244B041AA2594000E6099D /* AnimationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F2F18F7413900DEB259 /* AnimationManager.cpp */; };
+		55244B051AA2594000E6099D /* XmlReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FC018F7413900DEB259 /* XmlReader.cpp */; };
+		55244B061AA2594000E6099D /* TextWidget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554F15B219F912AF00577DDD /* TextWidget.cpp */; };
+		55244B071AA2594000E6099D /* XmlWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FC218F7413900DEB259 /* XmlWriter.cpp */; };
+		55244B081AA2594000E6099D /* ForegroundElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F2618F7413900DEB259 /* ForegroundElement.cpp */; };
+		55244B091AA2594000E6099D /* LocalizableContent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554F15AD19F9127500577DDD /* LocalizableContent.cpp */; };
+		55244B0A1AA2594000E6099D /* Location.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F2818F7413900DEB259 /* Location.cpp */; };
+		55244B0B1AA2594000E6099D /* Crowd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F1C18F7413900DEB259 /* Crowd.cpp */; };
+		55244B0C1AA2594000E6099D /* ContentManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F3718F7413900DEB259 /* ContentManager.cpp */; };
+		55244B0D1AA2594000E6099D /* miniz.c in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F7318F7413900DEB259 /* miniz.c */; };
+		55244B0E1AA2594000E6099D /* EventProviders.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F5A18F7413900DEB259 /* EventProviders.cpp */; };
+		55244B0F1AA2594000E6099D /* Condition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F4F18F7413900DEB259 /* Condition.cpp */; };
+		55244B101AA2594000E6099D /* SpriteManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F4918F7413900DEB259 /* SpriteManager.cpp */; };
+		55244B111AA2594000E6099D /* PartnerInformation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FAC18F7413900DEB259 /* PartnerInformation.cpp */; };
+		55244B121AA2594000E6099D /* MouseHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F7718F7413900DEB259 /* MouseHelper.cpp */; };
+		55244B131AA2594000E6099D /* AnimationSound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F1518F7413900DEB259 /* AnimationSound.cpp */; };
+		55244B141AA2594000E6099D /* HeightMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6918F7413900DEB259 /* HeightMap.cpp */; };
+		55244B151AA2594000E6099D /* mli_audio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F7518F7413900DEB259 /* mli_audio.cpp */; };
+		55244B161AA2594000E6099D /* FontManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F4518F7413900DEB259 /* FontManager.cpp */; };
+		55244B171AA2594000E6099D /* OSXMain.mm in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0B18F7407500DEB259 /* OSXMain.mm */; };
+		55244B181AA2594000E6099D /* MLIException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553B8B8219B3DCD5007C2C64 /* MLIException.cpp */; };
+		55244B191AA2594000E6099D /* OptionsScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F8918F7413900DEB259 /* OptionsScreen.cpp */; };
+		55244B1A1AA2594000E6099D /* FieldCharacterManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F3F18F7413900DEB259 /* FieldCharacterManager.cpp */; };
+		55244B1B1AA2594000E6099D /* FileFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6118F7413900DEB259 /* FileFunctions.cpp */; };
+		55244B1C1AA2594000E6099D /* LogoScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F8718F7413900DEB259 /* LogoScreen.cpp */; };
+		55244B1D1AA2594000E6099D /* Arrow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FA218F7413900DEB259 /* Arrow.cpp */; };
+		55244B1E1AA2594000E6099D /* CheckForUpdatesScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F8318F7413900DEB259 /* CheckForUpdatesScreen.cpp */; };
+		55244B1F1AA2594000E6099D /* FieldCutsceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F4118F7413900DEB259 /* FieldCutsceneManager.cpp */; };
+		55244B201AA2594000E6099D /* SelectionScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F8C18F7413900DEB259 /* SelectionScreen.cpp */; };
+		55244B211AA2594000E6099D /* Notification.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F2A18F7413900DEB259 /* Notification.cpp */; };
+		55244B221AA2594000E6099D /* ZoomedView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F2C18F7413900DEB259 /* ZoomedView.cpp */; };
+		55244B231AA2594000E6099D /* Selector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FB018F7413900DEB259 /* Selector.cpp */; };
+		55244B241AA2594000E6099D /* ImageButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FAA18F7413900DEB259 /* ImageButton.cpp */; };
+		55244B251AA2594000E6099D /* Case.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F3318F7413900DEB259 /* Case.cpp */; };
+		55244B261AA2594000E6099D /* Line.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6F18F7413900DEB259 /* Line.cpp */; };
+		55244B271AA2594000E6099D /* Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9018F7413900DEB259 /* Sprite.cpp */; };
+		55244B281AA2594000E6099D /* ButtonArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FA418F7413900DEB259 /* ButtonArray.cpp */; };
+		55244B291AA2594000E6099D /* KeyboardHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5541EC2F194BA02100EB5089 /* KeyboardHelper.cpp */; };
+		55244B2A1AA2594000E6099D /* Encounter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F2018F7413900DEB259 /* Encounter.cpp */; };
+		55244B2B1AA2594000E6099D /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F1318F7413900DEB259 /* Animation.cpp */; };
+		55244B2C1AA2594000E6099D /* Tab.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FB618F7413900DEB259 /* Tab.cpp */; };
+		55244B2D1AA2594000E6099D /* NSFileManagerDirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0918F7407500DEB259 /* NSFileManagerDirectoryLocations.m */; };
+		55244B2E1AA2594000E6099D /* FieldCutscene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F2418F7413900DEB259 /* FieldCutscene.cpp */; };
+		55244B2F1AA2594000E6099D /* CommonCaseResources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F3518F7413900DEB259 /* CommonCaseResources.cpp */; };
+		55244B301AA2594000E6099D /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553B8B7819B3DC9F007C2C64 /* tinyxml2.cpp */; };
+		55244B311AA2594000E6099D /* GameScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F8518F7413900DEB259 /* GameScreen.cpp */; };
+		55244B321AA2594000E6099D /* enums.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F5318F7413900DEB259 /* enums.cpp */; };
+		55244B331AA2594000E6099D /* Polygon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F7918F7413900DEB259 /* Polygon.cpp */; };
+		55244B341AA2594000E6099D /* SkipArrow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FB218F7413900DEB259 /* SkipArrow.cpp */; };
+		55244B351AA2594000E6099D /* Slider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FB418F7413900DEB259 /* Slider.cpp */; };
+		55244B361AA2594000E6099D /* Video.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FBE18F7413900DEB259 /* Video.cpp */; };
+		55244B371AA2594000E6099D /* MLIFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6318F7413900DEB259 /* MLIFont.cpp */; };
+		55244B381AA2594000E6099D /* Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F4D18F7413900DEB259 /* Color.cpp */; };
+		55244B391AA2594000E6099D /* globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6718F7413900DEB259 /* globals.cpp */; };
+		55244B3A1AA2594000E6099D /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9218F7413900DEB259 /* State.cpp */; };
+		55244B3B1AA2594000E6099D /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FB818F7413900DEB259 /* Utils.cpp */; };
+		55244B3C1AA2594000E6099D /* EvidenceDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FA618F7413900DEB259 /* EvidenceDescription.cpp */; };
+		55244B3D1AA2594000E6099D /* Dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F1E18F7413900DEB259 /* Dialog.cpp */; };
+		55244B3E1AA2594000E6099D /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6518F7413900DEB259 /* Game.cpp */; };
+		55244B3F1AA2594000E6099D /* TextButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554F15B019F912AF00577DDD /* TextButton.cpp */; };
+		55244B401AA2594000E6099D /* Collisions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F4B18F7413900DEB259 /* Collisions.cpp */; };
+		55244B411AA2594000E6099D /* Version.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FBC18F7413900DEB259 /* Version.cpp */; };
+		55244B421AA2594000E6099D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F7118F7413900DEB259 /* main.cpp */; };
+		55244B431AA2594000E6099D /* DialogCharacterManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F3918F7413900DEB259 /* DialogCharacterManager.cpp */; };
+		55244B441AA2594000E6099D /* PromptOverlay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FAE18F7413900DEB259 /* PromptOverlay.cpp */; };
+		55244B451AA2594000E6099D /* FieldCharacter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F2218F7413900DEB259 /* FieldCharacter.cpp */; };
+		55244B461AA2594000E6099D /* Interfaces.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6D18F7413900DEB259 /* Interfaces.cpp */; };
+		55244B471AA2594000E6099D /* Rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F7C18F7413900DEB259 /* Rectangle.cpp */; };
+		55244B481AA2594000E6099D /* TitleScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F8E18F7413900DEB259 /* TitleScreen.cpp */; };
+		55244B491AA2594000E6099D /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6B18F7413900DEB259 /* Image.cpp */; };
+		55244B4A1AA2594000E6099D /* Conversation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F1A18F7413900DEB259 /* Conversation.cpp */; };
+		55244B4B1AA2594000E6099D /* Vector2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FBA18F7413900DEB259 /* Vector2.cpp */; };
+		55244B4C1AA2594000E6099D /* EvidenceSelector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FA818F7413900DEB259 /* EvidenceSelector.cpp */; };
+		55244B4D1AA2594000E6099D /* FlagManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F4318F7413900DEB259 /* FlagManager.cpp */; };
+		55244B4E1AA2594000E6099D /* TextInputHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F9418F7413900DEB259 /* TextInputHelper.cpp */; };
+		55244B501AA2594000E6099D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558C3ED118F73F7200DEB259 /* Cocoa.framework */; };
+		55244B511AA2594000E6099D /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401618F7431B00DEB259 /* SDL2.framework */; };
+		55244B521AA2594000E6099D /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401918F7446C00DEB259 /* SDL2_image.framework */; };
+		55244B531AA2594000E6099D /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CC18F75543009BED51 /* SDL2_mixer.framework */; };
+		55244B541AA2594000E6099D /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; };
+		55244B671AA2597B00E6099D /* XmlReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FC018F7413900DEB259 /* XmlReader.cpp */; };
+		55244B681AA2597B00E6099D /* XmlWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FC218F7413900DEB259 /* XmlWriter.cpp */; };
+		55244B691AA2597B00E6099D /* MLIException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553B8B8219B3DCD5007C2C64 /* MLIException.cpp */; };
+		55244B6A1AA2597B00E6099D /* OSXMain.mm in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0B18F7407500DEB259 /* OSXMain.mm */; };
+		55244B6B1AA2597B00E6099D /* EasingFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F5118F7413900DEB259 /* EasingFunctions.cpp */; };
+		55244B6C1AA2597B00E6099D /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553B8B7819B3DC9F007C2C64 /* tinyxml2.cpp */; };
+		55244B6D1AA2597B00E6099D /* FileFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6118F7413900DEB259 /* FileFunctions.cpp */; };
+		55244B6E1AA2597B00E6099D /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6518F7413900DEB259 /* Game.cpp */; };
+		55244B6F1AA2597B00E6099D /* KeyboardHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5541EC2F194BA02100EB5089 /* KeyboardHelper.cpp */; };
+		55244B701AA2597B00E6099D /* Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F4D18F7413900DEB259 /* Color.cpp */; };
+		55244B711AA2597B00E6099D /* NSFileManagerDirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0918F7407500DEB259 /* NSFileManagerDirectoryLocations.m */; };
+		55244B721AA2597B00E6099D /* globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6718F7413900DEB259 /* globals.cpp */; };
+		55244B731AA2597B00E6099D /* Rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F7C18F7413900DEB259 /* Rectangle.cpp */; };
+		55244B741AA2597B00E6099D /* LocalizableContent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554F15AD19F9127500577DDD /* LocalizableContent.cpp */; };
+		55244B751AA2597B00E6099D /* CheckForUpdatesScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F8318F7413900DEB259 /* CheckForUpdatesScreen.cpp */; };
+		55244B761AA2597B00E6099D /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FB818F7413900DEB259 /* Utils.cpp */; };
+		55244B771AA2597B00E6099D /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6B18F7413900DEB259 /* Image.cpp */; };
+		55244B781AA2597B00E6099D /* Version.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FBC18F7413900DEB259 /* Version.cpp */; };
+		55244B791AA2597B00E6099D /* Vector2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FBA18F7413900DEB259 /* Vector2.cpp */; };
+		55244B7A1AA2597B00E6099D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F7118F7413900DEB259 /* main.cpp */; };
+		55244B7B1AA2597B00E6099D /* MLIFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F6318F7413900DEB259 /* MLIFont.cpp */; };
+		55244B7C1AA2597B00E6099D /* enums.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F5318F7413900DEB259 /* enums.cpp */; };
+		55244B7E1AA2597B00E6099D /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5533C69E18FB64240055B22B /* libcurl.dylib */; };
+		55244B7F1AA2597B00E6099D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5533C6A018FB642D0055B22B /* Security.framework */; };
+		55244B801AA2597B00E6099D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558C3ED118F73F7200DEB259 /* Cocoa.framework */; };
+		55244B811AA2597B00E6099D /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401618F7431B00DEB259 /* SDL2.framework */; };
+		55244B821AA2597B00E6099D /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401918F7446C00DEB259 /* SDL2_image.framework */; };
+		55244B831AA2597B00E6099D /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CC18F75543009BED51 /* SDL2_mixer.framework */; };
+		55244B841AA2597B00E6099D /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; };
 		5533C63D18FB62DB0055B22B /* XmlReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FC018F7413900DEB259 /* XmlReader.cpp */; };
 		5533C63E18FB62DB0055B22B /* XmlWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FC218F7413900DEB259 /* XmlWriter.cpp */; };
 		5533C64F18FB62DB0055B22B /* OSXMain.mm in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0B18F7407500DEB259 /* OSXMain.mm */; };
@@ -90,6 +241,8 @@
 		553B8B7B19B3DC9F007C2C64 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553B8B7819B3DC9F007C2C64 /* tinyxml2.cpp */; };
 		553B8B8419B3DCD5007C2C64 /* MLIException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553B8B8219B3DCD5007C2C64 /* MLIException.cpp */; };
 		553B8B8519B3DCD5007C2C64 /* MLIException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553B8B8219B3DCD5007C2C64 /* MLIException.cpp */; };
+		553BDE5D1AA25A9F0047ADBE /* MyLittleInvestigations in Copy Executables */ = {isa = PBXBuildFile; fileRef = 55244B631AA2594000E6099D /* MyLittleInvestigations */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		553BDE5E1AA25A9F0047ADBE /* MyLittleInvestigationsUpdater in Copy Executables */ = {isa = PBXBuildFile; fileRef = 55244B921AA2597B00E6099D /* MyLittleInvestigationsUpdater */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		5541EC31194BA02100EB5089 /* KeyboardHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5541EC2F194BA02100EB5089 /* KeyboardHelper.cpp */; };
 		5541EC32194BA02100EB5089 /* KeyboardHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5541EC2F194BA02100EB5089 /* KeyboardHelper.cpp */; };
 		554F15AF19F9127500577DDD /* LocalizableContent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 554F15AD19F9127500577DDD /* LocalizableContent.cpp */; };
@@ -217,6 +370,27 @@
 			remoteGlobalIDString = 55244ABA1AA2581700E6099D;
 			remoteInfo = UpdaterHelper;
 		};
+		55244AF91AA2593400E6099D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 558C3EC618F73F7200DEB259 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55244ABA1AA2581700E6099D;
+			remoteInfo = UpdaterHelper;
+		};
+		553BDE5F1AA25AA80047ADBE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 558C3EC618F73F7200DEB259 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55244AFB1AA2594000E6099D;
+			remoteInfo = "Bare Game";
+		};
+		553BDE611AA25AA80047ADBE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 558C3EC618F73F7200DEB259 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55244B651AA2597B00E6099D;
+			remoteInfo = "Bare Updater";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -242,6 +416,33 @@
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
+		};
+		55244AED1AA258DE00E6099D /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				55244AEE1AA258DE00E6099D /* SDL2_ttf.framework in Copy Frameworks */,
+				55244AEF1AA258DE00E6099D /* SDL2_mixer.framework in Copy Frameworks */,
+				55244AF01AA258DE00E6099D /* SDL2_image.framework in Copy Frameworks */,
+				55244AF11AA258DE00E6099D /* SDL2.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55244AF71AA2591F00E6099D /* Copy Executables */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				553BDE5D1AA25A9F0047ADBE /* MyLittleInvestigations in Copy Executables */,
+				553BDE5E1AA25A9F0047ADBE /* MyLittleInvestigationsUpdater in Copy Executables */,
+				55244AF81AA2592D00E6099D /* UpdaterHelper in Copy Executables */,
+			);
+			name = "Copy Executables";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		5533C69218FB62DB0055B22B /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -279,7 +480,11 @@
 		551D57E518F9B53E0087AAA0 /* xdelta3 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = xdelta3; sourceTree = "<group>"; };
 		55244AAC1AA2561700E6099D /* My Little Investigations Updater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Little Investigations Updater.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55244AAD1AA2561A00E6099D /* MLI Launch copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MLI Launch copy-Info.plist"; sourceTree = SOURCE_ROOT; };
-		55244ABB1AA2581700E6099D /* updaterhelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = updaterhelper; sourceTree = BUILT_PRODUCTS_DIR; };
+		55244ABB1AA2581700E6099D /* UpdaterHelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = UpdaterHelper; sourceTree = BUILT_PRODUCTS_DIR; };
+		55244AF51AA258DE00E6099D /* MLI Launch copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MLI Launch copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		55244AF61AA258E000E6099D /* MLI Launch copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MLI Launch copy2-Info.plist"; sourceTree = SOURCE_ROOT; };
+		55244B631AA2594000E6099D /* MyLittleInvestigations */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MyLittleInvestigations; sourceTree = BUILT_PRODUCTS_DIR; };
+		55244B921AA2597B00E6099D /* MyLittleInvestigationsUpdater */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MyLittleInvestigationsUpdater; sourceTree = BUILT_PRODUCTS_DIR; };
 		5533C69A18FB62DB0055B22B /* My Little Investigations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Little Investigations.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5533C69B18FB62DB0055B22B /* mli copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "mli copy-Info.plist"; sourceTree = SOURCE_ROOT; };
 		5533C69E18FB64240055B22B /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
@@ -507,6 +712,46 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55244ADD1AA258DE00E6099D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55244ADE1AA258DE00E6099D /* libcurl.dylib in Frameworks */,
+				55244ADF1AA258DE00E6099D /* Security.framework in Frameworks */,
+				55244AE01AA258DE00E6099D /* Cocoa.framework in Frameworks */,
+				55244AE11AA258DE00E6099D /* SDL2.framework in Frameworks */,
+				55244AE21AA258DE00E6099D /* SDL2_image.framework in Frameworks */,
+				55244AE31AA258DE00E6099D /* SDL2_mixer.framework in Frameworks */,
+				55244AE41AA258DE00E6099D /* SDL2_ttf.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55244B4F1AA2594000E6099D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55244B501AA2594000E6099D /* Cocoa.framework in Frameworks */,
+				55244B511AA2594000E6099D /* SDL2.framework in Frameworks */,
+				55244B521AA2594000E6099D /* SDL2_image.framework in Frameworks */,
+				55244B531AA2594000E6099D /* SDL2_mixer.framework in Frameworks */,
+				55244B541AA2594000E6099D /* SDL2_ttf.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55244B7D1AA2597B00E6099D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55244B7E1AA2597B00E6099D /* libcurl.dylib in Frameworks */,
+				55244B7F1AA2597B00E6099D /* Security.framework in Frameworks */,
+				55244B801AA2597B00E6099D /* Cocoa.framework in Frameworks */,
+				55244B811AA2597B00E6099D /* SDL2.framework in Frameworks */,
+				55244B821AA2597B00E6099D /* SDL2_image.framework in Frameworks */,
+				55244B831AA2597B00E6099D /* SDL2_mixer.framework in Frameworks */,
+				55244B841AA2597B00E6099D /* SDL2_ttf.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5533C68718FB62DB0055B22B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -543,6 +788,7 @@
 				558C3F1118F7410E00DEB259 /* Info.plist */,
 				5533C69B18FB62DB0055B22B /* mli copy-Info.plist */,
 				55244AAD1AA2561A00E6099D /* MLI Launch copy-Info.plist */,
+				55244AF61AA258E000E6099D /* MLI Launch copy2-Info.plist */,
 				551D57E318F9B53E0087AAA0 /* deltatool */,
 				551D57DF18F9B5250087AAA0 /* MyLittleInvestigations.plist */,
 				558C3F0718F7407500DEB259 /* mli.iconset */,
@@ -614,7 +860,10 @@
 				558C3ECE18F73F7200DEB259 /* My Little Investigations Game.app */,
 				5533C69A18FB62DB0055B22B /* My Little Investigations.app */,
 				55244AAC1AA2561700E6099D /* My Little Investigations Updater.app */,
-				55244ABB1AA2581700E6099D /* updaterhelper */,
+				55244ABB1AA2581700E6099D /* UpdaterHelper */,
+				55244AF51AA258DE00E6099D /* MLI Launch copy.app */,
+				55244B631AA2594000E6099D /* MyLittleInvestigations */,
+				55244B921AA2597B00E6099D /* MyLittleInvestigationsUpdater */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -916,7 +1165,61 @@
 			);
 			name = UpdaterHelper;
 			productName = updaterhelper;
-			productReference = 55244ABB1AA2581700E6099D /* updaterhelper */;
+			productReference = 55244ABB1AA2581700E6099D /* UpdaterHelper */;
+			productType = "com.apple.product-type.tool";
+		};
+		55244ACE1AA258DE00E6099D /* all together */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55244AF21AA258DE00E6099D /* Build configuration list for PBXNativeTarget "all together" */;
+			buildPhases = (
+				55244ACF1AA258DE00E6099D /* Sources */,
+				55244ADD1AA258DE00E6099D /* Frameworks */,
+				55244AE51AA258DE00E6099D /* Resources */,
+				55244AED1AA258DE00E6099D /* Copy Frameworks */,
+				55244AF71AA2591F00E6099D /* Copy Executables */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				553BDE601AA25AA80047ADBE /* PBXTargetDependency */,
+				553BDE621AA25AA80047ADBE /* PBXTargetDependency */,
+				55244AFA1AA2593400E6099D /* PBXTargetDependency */,
+			);
+			name = "all together";
+			productName = mli;
+			productReference = 55244AF51AA258DE00E6099D /* MLI Launch copy.app */;
+			productType = "com.apple.product-type.application";
+		};
+		55244AFB1AA2594000E6099D /* Bare Game */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55244B601AA2594000E6099D /* Build configuration list for PBXNativeTarget "Bare Game" */;
+			buildPhases = (
+				55244AFC1AA2594000E6099D /* Sources */,
+				55244B4F1AA2594000E6099D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Bare Game";
+			productName = mli;
+			productReference = 55244B631AA2594000E6099D /* MyLittleInvestigations */;
+			productType = "com.apple.product-type.tool";
+		};
+		55244B651AA2597B00E6099D /* Bare Updater */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55244B8F1AA2597B00E6099D /* Build configuration list for PBXNativeTarget "Bare Updater" */;
+			buildPhases = (
+				55244B661AA2597B00E6099D /* Sources */,
+				55244B7D1AA2597B00E6099D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Bare Updater";
+			productName = mli;
+			productReference = 55244B921AA2597B00E6099D /* MyLittleInvestigationsUpdater */;
 			productType = "com.apple.product-type.tool";
 		};
 		5533C63318FB62DB0055B22B /* MLI Launch */ = {
@@ -989,6 +1292,9 @@
 				558C3ECD18F73F7200DEB259 /* MLI Game */,
 				55244A881AA2561700E6099D /* MLI Updater */,
 				55244ABA1AA2581700E6099D /* UpdaterHelper */,
+				55244ACE1AA258DE00E6099D /* all together */,
+				55244AFB1AA2594000E6099D /* Bare Game */,
+				55244B651AA2597B00E6099D /* Bare Updater */,
 				55244A841AA2560600E6099D /* all */,
 			);
 		};
@@ -1006,11 +1312,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55244AE51AA258DE00E6099D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55244AE61AA258DE00E6099D /* Cases in Resources */,
+				55244AE71AA258DE00E6099D /* CelestiaMediumRedux1.5.ttf in Resources */,
+				55244AE81AA258DE00E6099D /* MyLittleInvestigations.plist in Resources */,
+				55244AE91AA258DE00E6099D /* common.dat in Resources */,
+				55244AEA1AA258DE00E6099D /* xdelta3 in Resources */,
+				55244AEB1AA258DE00E6099D /* COPYING in Resources */,
+				55244AEC1AA258DE00E6099D /* mli.iconset in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5533C68D18FB62DB0055B22B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55244ACB1AA258A600E6099D /* Cases in Resources */,
+				55244ACC1AA258AF00E6099D /* CelestiaMediumRedux1.5.ttf in Resources */,
 				5562B31818FC545E00373B26 /* MyLittleInvestigations.plist in Resources */,
+				55244ACD1AA258AF00E6099D /* common.dat in Resources */,
 				5533C68E18FB62DB0055B22B /* xdelta3 in Resources */,
 				5533C68F18FB62DB0055B22B /* COPYING in Resources */,
 				5533C69118FB62DB0055B22B /* mli.iconset in Resources */,
@@ -1066,6 +1389,144 @@
 			buildActionMask = 2147483647;
 			files = (
 				55244AC21AA2583600E6099D /* main_UpdaterHelper.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55244ACF1AA258DE00E6099D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55244AD01AA258DE00E6099D /* XmlReader.cpp in Sources */,
+				55244AD11AA258DE00E6099D /* XmlWriter.cpp in Sources */,
+				55244AD21AA258DE00E6099D /* MLIException.cpp in Sources */,
+				55244AD31AA258DE00E6099D /* OSXMain.mm in Sources */,
+				55244AD41AA258DE00E6099D /* tinyxml2.cpp in Sources */,
+				55244AD51AA258DE00E6099D /* FileFunctions.cpp in Sources */,
+				55244AD61AA258DE00E6099D /* KeyboardHelper.cpp in Sources */,
+				55244AD71AA258DE00E6099D /* NSFileManagerDirectoryLocations.m in Sources */,
+				55244AD81AA258DE00E6099D /* globals.cpp in Sources */,
+				55244AD91AA258DE00E6099D /* LocalizableContent.cpp in Sources */,
+				55244ADA1AA258DE00E6099D /* Utils.cpp in Sources */,
+				55244ADB1AA258DE00E6099D /* Version.cpp in Sources */,
+				55244ADC1AA258DE00E6099D /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55244AFC1AA2594000E6099D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55244AFD1AA2594000E6099D /* PartnerManager.cpp in Sources */,
+				55244AFE1AA2594000E6099D /* DialogCutsceneManager.cpp in Sources */,
+				55244AFF1AA2594000E6099D /* ResourceLoader.cpp in Sources */,
+				55244B001AA2594000E6099D /* AudioManager.cpp in Sources */,
+				55244B011AA2594000E6099D /* EvidenceManager.cpp in Sources */,
+				55244B021AA2594000E6099D /* EasingFunctions.cpp in Sources */,
+				55244B031AA2594000E6099D /* Area.cpp in Sources */,
+				55244B041AA2594000E6099D /* AnimationManager.cpp in Sources */,
+				55244B051AA2594000E6099D /* XmlReader.cpp in Sources */,
+				55244B061AA2594000E6099D /* TextWidget.cpp in Sources */,
+				55244B071AA2594000E6099D /* XmlWriter.cpp in Sources */,
+				55244B081AA2594000E6099D /* ForegroundElement.cpp in Sources */,
+				55244B091AA2594000E6099D /* LocalizableContent.cpp in Sources */,
+				55244B0A1AA2594000E6099D /* Location.cpp in Sources */,
+				55244B0B1AA2594000E6099D /* Crowd.cpp in Sources */,
+				55244B0C1AA2594000E6099D /* ContentManager.cpp in Sources */,
+				55244B0D1AA2594000E6099D /* miniz.c in Sources */,
+				55244B0E1AA2594000E6099D /* EventProviders.cpp in Sources */,
+				55244B0F1AA2594000E6099D /* Condition.cpp in Sources */,
+				55244B101AA2594000E6099D /* SpriteManager.cpp in Sources */,
+				55244B111AA2594000E6099D /* PartnerInformation.cpp in Sources */,
+				55244B121AA2594000E6099D /* MouseHelper.cpp in Sources */,
+				55244B131AA2594000E6099D /* AnimationSound.cpp in Sources */,
+				55244B141AA2594000E6099D /* HeightMap.cpp in Sources */,
+				55244B151AA2594000E6099D /* mli_audio.cpp in Sources */,
+				55244B161AA2594000E6099D /* FontManager.cpp in Sources */,
+				55244B171AA2594000E6099D /* OSXMain.mm in Sources */,
+				55244B181AA2594000E6099D /* MLIException.cpp in Sources */,
+				55244B191AA2594000E6099D /* OptionsScreen.cpp in Sources */,
+				55244B1A1AA2594000E6099D /* FieldCharacterManager.cpp in Sources */,
+				55244B1B1AA2594000E6099D /* FileFunctions.cpp in Sources */,
+				55244B1C1AA2594000E6099D /* LogoScreen.cpp in Sources */,
+				55244B1D1AA2594000E6099D /* Arrow.cpp in Sources */,
+				55244B1E1AA2594000E6099D /* CheckForUpdatesScreen.cpp in Sources */,
+				55244B1F1AA2594000E6099D /* FieldCutsceneManager.cpp in Sources */,
+				55244B201AA2594000E6099D /* SelectionScreen.cpp in Sources */,
+				55244B211AA2594000E6099D /* Notification.cpp in Sources */,
+				55244B221AA2594000E6099D /* ZoomedView.cpp in Sources */,
+				55244B231AA2594000E6099D /* Selector.cpp in Sources */,
+				55244B241AA2594000E6099D /* ImageButton.cpp in Sources */,
+				55244B251AA2594000E6099D /* Case.cpp in Sources */,
+				55244B261AA2594000E6099D /* Line.cpp in Sources */,
+				55244B271AA2594000E6099D /* Sprite.cpp in Sources */,
+				55244B281AA2594000E6099D /* ButtonArray.cpp in Sources */,
+				55244B291AA2594000E6099D /* KeyboardHelper.cpp in Sources */,
+				55244B2A1AA2594000E6099D /* Encounter.cpp in Sources */,
+				55244B2B1AA2594000E6099D /* Animation.cpp in Sources */,
+				55244B2C1AA2594000E6099D /* Tab.cpp in Sources */,
+				55244B2D1AA2594000E6099D /* NSFileManagerDirectoryLocations.m in Sources */,
+				55244B2E1AA2594000E6099D /* FieldCutscene.cpp in Sources */,
+				55244B2F1AA2594000E6099D /* CommonCaseResources.cpp in Sources */,
+				55244B301AA2594000E6099D /* tinyxml2.cpp in Sources */,
+				55244B311AA2594000E6099D /* GameScreen.cpp in Sources */,
+				55244B321AA2594000E6099D /* enums.cpp in Sources */,
+				55244B331AA2594000E6099D /* Polygon.cpp in Sources */,
+				55244B341AA2594000E6099D /* SkipArrow.cpp in Sources */,
+				55244B351AA2594000E6099D /* Slider.cpp in Sources */,
+				55244B361AA2594000E6099D /* Video.cpp in Sources */,
+				55244B371AA2594000E6099D /* MLIFont.cpp in Sources */,
+				55244B381AA2594000E6099D /* Color.cpp in Sources */,
+				55244B391AA2594000E6099D /* globals.cpp in Sources */,
+				55244B3A1AA2594000E6099D /* State.cpp in Sources */,
+				55244B3B1AA2594000E6099D /* Utils.cpp in Sources */,
+				55244B3C1AA2594000E6099D /* EvidenceDescription.cpp in Sources */,
+				55244B3D1AA2594000E6099D /* Dialog.cpp in Sources */,
+				55244B3E1AA2594000E6099D /* Game.cpp in Sources */,
+				55244B3F1AA2594000E6099D /* TextButton.cpp in Sources */,
+				55244B401AA2594000E6099D /* Collisions.cpp in Sources */,
+				55244B411AA2594000E6099D /* Version.cpp in Sources */,
+				55244B421AA2594000E6099D /* main.cpp in Sources */,
+				55244B431AA2594000E6099D /* DialogCharacterManager.cpp in Sources */,
+				55244B441AA2594000E6099D /* PromptOverlay.cpp in Sources */,
+				55244B451AA2594000E6099D /* FieldCharacter.cpp in Sources */,
+				55244B461AA2594000E6099D /* Interfaces.cpp in Sources */,
+				55244B471AA2594000E6099D /* Rectangle.cpp in Sources */,
+				55244B481AA2594000E6099D /* TitleScreen.cpp in Sources */,
+				55244B491AA2594000E6099D /* Image.cpp in Sources */,
+				55244B4A1AA2594000E6099D /* Conversation.cpp in Sources */,
+				55244B4B1AA2594000E6099D /* Vector2.cpp in Sources */,
+				55244B4C1AA2594000E6099D /* EvidenceSelector.cpp in Sources */,
+				55244B4D1AA2594000E6099D /* FlagManager.cpp in Sources */,
+				55244B4E1AA2594000E6099D /* TextInputHelper.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55244B661AA2597B00E6099D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55244B671AA2597B00E6099D /* XmlReader.cpp in Sources */,
+				55244B681AA2597B00E6099D /* XmlWriter.cpp in Sources */,
+				55244B691AA2597B00E6099D /* MLIException.cpp in Sources */,
+				55244B6A1AA2597B00E6099D /* OSXMain.mm in Sources */,
+				55244B6B1AA2597B00E6099D /* EasingFunctions.cpp in Sources */,
+				55244B6C1AA2597B00E6099D /* tinyxml2.cpp in Sources */,
+				55244B6D1AA2597B00E6099D /* FileFunctions.cpp in Sources */,
+				55244B6E1AA2597B00E6099D /* Game.cpp in Sources */,
+				55244B6F1AA2597B00E6099D /* KeyboardHelper.cpp in Sources */,
+				55244B701AA2597B00E6099D /* Color.cpp in Sources */,
+				55244B711AA2597B00E6099D /* NSFileManagerDirectoryLocations.m in Sources */,
+				55244B721AA2597B00E6099D /* globals.cpp in Sources */,
+				55244B731AA2597B00E6099D /* Rectangle.cpp in Sources */,
+				55244B741AA2597B00E6099D /* LocalizableContent.cpp in Sources */,
+				55244B751AA2597B00E6099D /* CheckForUpdatesScreen.cpp in Sources */,
+				55244B761AA2597B00E6099D /* Utils.cpp in Sources */,
+				55244B771AA2597B00E6099D /* Image.cpp in Sources */,
+				55244B781AA2597B00E6099D /* Version.cpp in Sources */,
+				55244B791AA2597B00E6099D /* Vector2.cpp in Sources */,
+				55244B7A1AA2597B00E6099D /* main.cpp in Sources */,
+				55244B7B1AA2597B00E6099D /* MLIFont.cpp in Sources */,
+				55244B7C1AA2597B00E6099D /* enums.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1201,6 +1662,21 @@
 			target = 55244ABA1AA2581700E6099D /* UpdaterHelper */;
 			targetProxy = 55244AC91AA2584E00E6099D /* PBXContainerItemProxy */;
 		};
+		55244AFA1AA2593400E6099D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55244ABA1AA2581700E6099D /* UpdaterHelper */;
+			targetProxy = 55244AF91AA2593400E6099D /* PBXContainerItemProxy */;
+		};
+		553BDE601AA25AA80047ADBE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55244AFB1AA2594000E6099D /* Bare Game */;
+			targetProxy = 553BDE5F1AA25AA80047ADBE /* PBXContainerItemProxy */;
+		};
+		553BDE621AA25AA80047ADBE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55244B651AA2597B00E6099D /* Bare Updater */;
+			targetProxy = 553BDE611AA25AA80047ADBE /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -1320,6 +1796,216 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		55244AF31AA258DE00E6099D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "mli-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = LAUNCHER;
+				HEADER_SEARCH_PATHS = (
+					/Library/Frameworks/SDL2.framework/Headers,
+					/Library/Frameworks/SDL2_mixer.framework/Headers,
+					/Library/Frameworks/SDL2_image.framework/Headers,
+					/Library/Frameworks/SDL2_ttf.framework/Headers,
+					"$(SRC_ROOT)/../src",
+					"$(SRC_ROOT)/Dependancies",
+					"$(inherited)",
+					/opt/local/include,
+				);
+				INFOPLIST_FILE = "MLI Launch copy2-Info.plist";
+				LIBRARY_SEARCH_PATHS = /opt/local/lib;
+				OTHER_LDFLAGS = (
+					"-lcryptopp",
+					"-lavcodec",
+					"-lswscale",
+					"-lavutil",
+					"-lavformat",
+				);
+				PRODUCT_NAME = "MLI Launch copy";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		55244AF41AA258DE00E6099D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "mli-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = LAUNCHER;
+				HEADER_SEARCH_PATHS = (
+					/Library/Frameworks/SDL2.framework/Headers,
+					/Library/Frameworks/SDL2_mixer.framework/Headers,
+					/Library/Frameworks/SDL2_image.framework/Headers,
+					/Library/Frameworks/SDL2_ttf.framework/Headers,
+					"$(SRC_ROOT)/../src",
+					"$(SRC_ROOT)/Dependancies",
+					"$(inherited)",
+					/opt/local/include,
+				);
+				INFOPLIST_FILE = "MLI Launch copy2-Info.plist";
+				LIBRARY_SEARCH_PATHS = /opt/local/lib;
+				OTHER_LDFLAGS = (
+					"-lcryptopp",
+					"-lavcodec",
+					"-lswscale",
+					"-lavutil",
+					"-lavformat",
+				);
+				PRODUCT_NAME = "MLI Launch copy";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		55244B611AA2594000E6099D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "mli-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GAME_EXECUTABLE;
+				HEADER_SEARCH_PATHS = (
+					/Library/Frameworks/SDL2.framework/Headers,
+					/Library/Frameworks/SDL2_mixer.framework/Headers,
+					/Library/Frameworks/SDL2_image.framework/Headers,
+					/Library/Frameworks/SDL2_ttf.framework/Headers,
+					"$(SRC_ROOT)/../src",
+					"$(SRC_ROOT)/Dependancies",
+					"$(inherited)",
+					/opt/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = /opt/local/lib;
+				OTHER_LDFLAGS = (
+					"-lcryptopp",
+					"-lavcodec",
+					"-lswscale",
+					"-lavutil",
+					"-lavformat",
+				);
+				PRODUCT_NAME = MyLittleInvestigations;
+			};
+			name = Debug;
+		};
+		55244B621AA2594000E6099D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "mli-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GAME_EXECUTABLE;
+				HEADER_SEARCH_PATHS = (
+					/Library/Frameworks/SDL2.framework/Headers,
+					/Library/Frameworks/SDL2_mixer.framework/Headers,
+					/Library/Frameworks/SDL2_image.framework/Headers,
+					/Library/Frameworks/SDL2_ttf.framework/Headers,
+					"$(SRC_ROOT)/../src",
+					"$(SRC_ROOT)/Dependancies",
+					"$(inherited)",
+					/opt/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = /opt/local/lib;
+				OTHER_LDFLAGS = (
+					"-lcryptopp",
+					"-lavcodec",
+					"-lswscale",
+					"-lavutil",
+					"-lavformat",
+				);
+				PRODUCT_NAME = MyLittleInvestigations;
+			};
+			name = Release;
+		};
+		55244B901AA2597B00E6099D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "mli-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = UPDATER;
+				HEADER_SEARCH_PATHS = (
+					/Library/Frameworks/SDL2.framework/Headers,
+					/Library/Frameworks/SDL2_mixer.framework/Headers,
+					/Library/Frameworks/SDL2_image.framework/Headers,
+					/Library/Frameworks/SDL2_ttf.framework/Headers,
+					"$(SRC_ROOT)/../src",
+					"$(SRC_ROOT)/Dependancies",
+					"$(inherited)",
+					/opt/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = /opt/local/lib;
+				OTHER_LDFLAGS = (
+					"-lcryptopp",
+					"-lavcodec",
+					"-lswscale",
+					"-lavutil",
+					"-lavformat",
+				);
+				PRODUCT_NAME = MyLittleInvestigationsUpdater;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		55244B911AA2597B00E6099D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "mli-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = UPDATER;
+				HEADER_SEARCH_PATHS = (
+					/Library/Frameworks/SDL2.framework/Headers,
+					/Library/Frameworks/SDL2_mixer.framework/Headers,
+					/Library/Frameworks/SDL2_image.framework/Headers,
+					/Library/Frameworks/SDL2_ttf.framework/Headers,
+					"$(SRC_ROOT)/../src",
+					"$(SRC_ROOT)/Dependancies",
+					"$(inherited)",
+					/opt/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = /opt/local/lib;
+				OTHER_LDFLAGS = (
+					"-lcryptopp",
+					"-lavcodec",
+					"-lswscale",
+					"-lavutil",
+					"-lavformat",
+				);
+				PRODUCT_NAME = MyLittleInvestigationsUpdater;
+				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
@@ -1564,6 +2250,7 @@
 				55244A871AA2560800E6099D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		55244AA91AA2561700E6099D /* Build configuration list for PBXNativeTarget "MLI Updater" */ = {
 			isa = XCConfigurationList;
@@ -1581,6 +2268,34 @@
 				55244AC11AA2581700E6099D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55244AF21AA258DE00E6099D /* Build configuration list for PBXNativeTarget "all together" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55244AF31AA258DE00E6099D /* Debug */,
+				55244AF41AA258DE00E6099D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55244B601AA2594000E6099D /* Build configuration list for PBXNativeTarget "Bare Game" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55244B611AA2594000E6099D /* Debug */,
+				55244B621AA2594000E6099D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55244B8F1AA2597B00E6099D /* Build configuration list for PBXNativeTarget "Bare Updater" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55244B901AA2597B00E6099D /* Debug */,
+				55244B911AA2597B00E6099D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5533C69718FB62DB0055B22B /* Build configuration list for PBXNativeTarget "MLI Launch" */ = {
 			isa = XCConfigurationList;

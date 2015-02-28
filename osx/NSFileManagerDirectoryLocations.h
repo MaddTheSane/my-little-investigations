@@ -33,6 +33,5 @@
 	error:(NSError **)errorOut;
 - (NSString *)userApplicationSupportDirectory;
 - (NSString *)localApplicationSupportDirectory;
-- (NSBundle *)gameBundle;
 
 @end
