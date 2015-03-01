@@ -46,8 +46,6 @@
 		55244A9D1AA2561700E6099D /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CC18F75543009BED51 /* SDL2_mixer.framework */; };
 		55244A9E1AA2561700E6099D /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; };
 		55244AA01AA2561700E6099D /* MyLittleInvestigations.plist in Resources */ = {isa = PBXBuildFile; fileRef = 551D57DF18F9B5250087AAA0 /* MyLittleInvestigations.plist */; };
-		55244AA11AA2561700E6099D /* xdelta3 in Resources */ = {isa = PBXBuildFile; fileRef = 551D57E518F9B53E0087AAA0 /* xdelta3 */; };
-		55244AA21AA2561700E6099D /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 551D57E418F9B53E0087AAA0 /* COPYING */; };
 		55244AA51AA2561700E6099D /* SDL2_ttf.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55244AA61AA2561700E6099D /* SDL2_mixer.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CC18F75543009BED51 /* SDL2_mixer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55244AA71AA2561700E6099D /* SDL2_image.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401918F7446C00DEB259 /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -89,8 +87,6 @@
 		55244AE71AA258DE00E6099D /* CelestiaMediumRedux1.5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5562B31118FC4FC300373B26 /* CelestiaMediumRedux1.5.ttf */; };
 		55244AE81AA258DE00E6099D /* MyLittleInvestigations.plist in Resources */ = {isa = PBXBuildFile; fileRef = 551D57DF18F9B5250087AAA0 /* MyLittleInvestigations.plist */; };
 		55244AE91AA258DE00E6099D /* common.dat in Resources */ = {isa = PBXBuildFile; fileRef = 5562B31218FC4FC300373B26 /* common.dat */; };
-		55244AEA1AA258DE00E6099D /* xdelta3 in Resources */ = {isa = PBXBuildFile; fileRef = 551D57E518F9B53E0087AAA0 /* xdelta3 */; };
-		55244AEB1AA258DE00E6099D /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 551D57E418F9B53E0087AAA0 /* COPYING */; };
 		55244AEE1AA258DE00E6099D /* SDL2_ttf.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55244AEF1AA258DE00E6099D /* SDL2_mixer.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CC18F75543009BED51 /* SDL2_mixer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55244AF01AA258DE00E6099D /* SDL2_image.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401918F7446C00DEB259 /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -226,8 +222,6 @@
 		5533C68A18FB62DB0055B22B /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401918F7446C00DEB259 /* SDL2_image.framework */; };
 		5533C68B18FB62DB0055B22B /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CC18F75543009BED51 /* SDL2_mixer.framework */; };
 		5533C68C18FB62DB0055B22B /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; };
-		5533C68E18FB62DB0055B22B /* xdelta3 in Resources */ = {isa = PBXBuildFile; fileRef = 551D57E518F9B53E0087AAA0 /* xdelta3 */; };
-		5533C68F18FB62DB0055B22B /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 551D57E418F9B53E0087AAA0 /* COPYING */; };
 		5533C69318FB62DB0055B22B /* SDL2_ttf.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5533C69418FB62DB0055B22B /* SDL2_mixer.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CC18F75543009BED51 /* SDL2_mixer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5533C69518FB62DB0055B22B /* SDL2_image.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401918F7446C00DEB259 /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -250,14 +244,6 @@
 		5562B31518FC4FC300373B26 /* common.dat in Resources */ = {isa = PBXBuildFile; fileRef = 5562B31218FC4FC300373B26 /* common.dat */; };
 		5562B31718FC4FD200373B26 /* Cases in Resources */ = {isa = PBXBuildFile; fileRef = 5562B31618FC4FD200373B26 /* Cases */; };
 		5562B31818FC545E00373B26 /* MyLittleInvestigations.plist in Resources */ = {isa = PBXBuildFile; fileRef = 551D57DF18F9B5250087AAA0 /* MyLittleInvestigations.plist */; };
-		55735C9F1AA39FF5004552D8 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55735C9D1AA39FF5004552D8 /* AppIcon.icns */; };
-		55735CA01AA39FF5004552D8 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55735C9D1AA39FF5004552D8 /* AppIcon.icns */; };
-		55735CA11AA39FF5004552D8 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55735C9D1AA39FF5004552D8 /* AppIcon.icns */; };
-		55735CA21AA39FF5004552D8 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55735C9D1AA39FF5004552D8 /* AppIcon.icns */; };
-		55735CA31AA39FF5004552D8 /* LockIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55735C9E1AA39FF5004552D8 /* LockIcon.icns */; };
-		55735CA41AA39FF5004552D8 /* LockIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55735C9E1AA39FF5004552D8 /* LockIcon.icns */; };
-		55735CA51AA39FF5004552D8 /* LockIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55735C9E1AA39FF5004552D8 /* LockIcon.icns */; };
-		55735CA61AA39FF5004552D8 /* LockIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55735C9E1AA39FF5004552D8 /* LockIcon.icns */; };
 		558C3ED218F73F7200DEB259 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558C3ED118F73F7200DEB259 /* Cocoa.framework */; };
 		558C3F0E18F7407500DEB259 /* NSFileManagerDirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0918F7407500DEB259 /* NSFileManagerDirectoryLocations.m */; };
 		558C3F0F18F7407500DEB259 /* OSXMain.mm in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0B18F7407500DEB259 /* OSXMain.mm */; };
@@ -337,6 +323,15 @@
 		558C401418F7413900DEB259 /* XmlWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3FC218F7413900DEB259 /* XmlWriter.cpp */; };
 		558C401718F7431B00DEB259 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401618F7431B00DEB259 /* SDL2.framework */; };
 		558C401A18F7446C00DEB259 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401918F7446C00DEB259 /* SDL2_image.framework */; };
+		55A21E8A1AA3AEE600791D43 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55A21E881AA3AEE600791D43 /* AppIcon.icns */; };
+		55A21E8B1AA3AEE600791D43 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55A21E881AA3AEE600791D43 /* AppIcon.icns */; };
+		55A21E8C1AA3AEE600791D43 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55A21E881AA3AEE600791D43 /* AppIcon.icns */; };
+		55A21E8D1AA3AEE600791D43 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55A21E881AA3AEE600791D43 /* AppIcon.icns */; };
+		55A21E8E1AA3AEE600791D43 /* LockIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55A21E891AA3AEE600791D43 /* LockIcon.icns */; };
+		55A21E8F1AA3AEE600791D43 /* LockIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55A21E891AA3AEE600791D43 /* LockIcon.icns */; };
+		55A21E901AA3AEE600791D43 /* LockIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55A21E891AA3AEE600791D43 /* LockIcon.icns */; };
+		55A21E911AA3AEE600791D43 /* LockIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55A21E891AA3AEE600791D43 /* LockIcon.icns */; };
+		55A21E921AA3AFFD00791D43 /* deltatool in Copy Executables */ = {isa = PBXBuildFile; fileRef = 55A21E861AA3AE9F00791D43 /* deltatool */; };
 		55FC88CD18F75543009BED51 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CC18F75543009BED51 /* SDL2_mixer.framework */; };
 		55FC88D018F75D71009BED51 /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; };
 		55FC88D418F76443009BED51 /* SDL2_ttf.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -444,6 +439,7 @@
 				553BDE5D1AA25A9F0047ADBE /* MyLittleInvestigations in Copy Executables */,
 				553BDE5E1AA25A9F0047ADBE /* MyLittleInvestigationsUpdater in Copy Executables */,
 				55244AF81AA2592D00E6099D /* UpdaterHelper in Copy Executables */,
+				55A21E921AA3AFFD00791D43 /* deltatool in Copy Executables */,
 			);
 			name = "Copy Executables";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -480,8 +476,6 @@
 
 /* Begin PBXFileReference section */
 		551D57DF18F9B5250087AAA0 /* MyLittleInvestigations.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MyLittleInvestigations.plist; sourceTree = "<group>"; };
-		551D57E418F9B53E0087AAA0 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
-		551D57E518F9B53E0087AAA0 /* xdelta3 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = xdelta3; sourceTree = "<group>"; };
 		55244AAC1AA2561700E6099D /* My Little Investigations Updater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Little Investigations Updater.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55244AAD1AA2561A00E6099D /* MLI Launch copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MLI Launch copy-Info.plist"; sourceTree = SOURCE_ROOT; };
 		55244ABB1AA2581700E6099D /* UpdaterHelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = UpdaterHelper; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -515,8 +509,6 @@
 		5562B31218FC4FC300373B26 /* common.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = common.dat; sourceTree = "<group>"; };
 		5562B31618FC4FD200373B26 /* Cases */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Cases; sourceTree = "<group>"; };
 		556326361AA02C8F003DF2C1 /* symbols.exp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.exports; path = symbols.exp; sourceTree = "<group>"; };
-		55735C9D1AA39FF5004552D8 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
-		55735C9E1AA39FF5004552D8 /* LockIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LockIcon.icns; sourceTree = "<group>"; };
 		558C3ECE18F73F7200DEB259 /* My Little Investigations Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Little Investigations Game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		558C3ED118F73F7200DEB259 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		558C3ED418F73F7200DEB259 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -691,6 +683,10 @@
 		558C401518F741E200DEB259 /* mli-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mli-Prefix.pch"; sourceTree = "<group>"; };
 		558C401618F7431B00DEB259 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = /Library/Frameworks/SDL2.framework; sourceTree = "<absolute>"; };
 		558C401918F7446C00DEB259 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = /Library/Frameworks/SDL2_image.framework; sourceTree = "<absolute>"; };
+		55A21E861AA3AE9F00791D43 /* deltatool */ = {isa = PBXFileReference; lastKnownFileType = folder; name = deltatool; path = Contents/MacOS/deltatool; sourceTree = "<group>"; };
+		55A21E881AA3AEE600791D43 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = AppIcon.icns; path = Contents/Resources/AppIcon.icns; sourceTree = "<group>"; };
+		55A21E891AA3AEE600791D43 /* LockIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = LockIcon.icns; path = Contents/Resources/LockIcon.icns; sourceTree = "<group>"; };
+		55A21E931AA3B04D00791D43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Contents/Info.plist; sourceTree = "<group>"; };
 		55FC88CC18F75543009BED51 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = /Library/Frameworks/SDL2_mixer.framework; sourceTree = "<absolute>"; };
 		55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = /Library/Frameworks/SDL2_ttf.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -789,26 +785,14 @@
 		551D57DB18F9B5250087AAA0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				5562B30E18FC4FC300373B26 /* data */,
+				55A21E871AA3AECF00791D43 /* Staging */,
 				558C3F1118F7410E00DEB259 /* Info.plist */,
 				5533C69B18FB62DB0055B22B /* mli copy-Info.plist */,
 				55244AAD1AA2561A00E6099D /* MLI Launch copy-Info.plist */,
 				55244AF61AA258E000E6099D /* MLI Launch copy2-Info.plist */,
-				55735C9D1AA39FF5004552D8 /* AppIcon.icns */,
-				55735C9E1AA39FF5004552D8 /* LockIcon.icns */,
-				551D57E318F9B53E0087AAA0 /* deltatool */,
 				551D57DF18F9B5250087AAA0 /* MyLittleInvestigations.plist */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		551D57E318F9B53E0087AAA0 /* deltatool */ = {
-			isa = PBXGroup;
-			children = (
-				551D57E418F9B53E0087AAA0 /* COPYING */,
-				551D57E518F9B53E0087AAA0 /* xdelta3 */,
-			);
-			path = deltatool;
 			sourceTree = "<group>";
 		};
 		553B8B7719B3DC9F007C2C64 /* tinyxml2 */ = {
@@ -847,8 +831,8 @@
 				5562B31218FC4FC300373B26 /* common.dat */,
 			);
 			name = data;
-			path = ../../data;
-			sourceTree = "<group>";
+			path = ../data;
+			sourceTree = SOURCE_ROOT;
 		};
 		558C3EC518F73F7200DEB259 = {
 			isa = PBXGroup;
@@ -908,6 +892,7 @@
 				558C3F0918F7407500DEB259 /* NSFileManagerDirectoryLocations.m */,
 				558C3F0B18F7407500DEB259 /* OSXMain.mm */,
 				558C401518F741E200DEB259 /* mli-Prefix.pch */,
+				5562B30E18FC4FC300373B26 /* data */,
 				551D57DB18F9B5250087AAA0 /* Resources */,
 				556326361AA02C8F003DF2C1 /* symbols.exp */,
 			);
@@ -1136,6 +1121,18 @@
 			path = UserInterface;
 			sourceTree = "<group>";
 		};
+		55A21E871AA3AECF00791D43 /* Staging */ = {
+			isa = PBXGroup;
+			children = (
+				55A21E931AA3B04D00791D43 /* Info.plist */,
+				55A21E881AA3AEE600791D43 /* AppIcon.icns */,
+				55A21E891AA3AEE600791D43 /* LockIcon.icns */,
+				55A21E861AA3AE9F00791D43 /* deltatool */,
+			);
+			name = Staging;
+			path = AppFileStaging;
+			sourceTree = SOURCE_ROOT;
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1298,10 +1295,10 @@
 				558C3ECD18F73F7200DEB259 /* MLI Game */,
 				55244A881AA2561700E6099D /* MLI Updater */,
 				55244ABA1AA2581700E6099D /* UpdaterHelper */,
+				55244A841AA2560600E6099D /* all */,
 				55244ACE1AA258DE00E6099D /* all together */,
 				55244AFB1AA2594000E6099D /* Bare Game */,
 				55244B651AA2597B00E6099D /* Bare Updater */,
-				55244A841AA2560600E6099D /* all */,
 			);
 		};
 /* End PBXProject section */
@@ -1311,11 +1308,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55735CA51AA39FF5004552D8 /* LockIcon.icns in Resources */,
 				55244AA01AA2561700E6099D /* MyLittleInvestigations.plist in Resources */,
-				55735CA11AA39FF5004552D8 /* AppIcon.icns in Resources */,
-				55244AA11AA2561700E6099D /* xdelta3 in Resources */,
-				55244AA21AA2561700E6099D /* COPYING in Resources */,
+				55A21E8C1AA3AEE600791D43 /* AppIcon.icns in Resources */,
+				55A21E901AA3AEE600791D43 /* LockIcon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1323,14 +1318,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55A21E8D1AA3AEE600791D43 /* AppIcon.icns in Resources */,
 				55244AE61AA258DE00E6099D /* Cases in Resources */,
+				55A21E911AA3AEE600791D43 /* LockIcon.icns in Resources */,
 				55244AE71AA258DE00E6099D /* CelestiaMediumRedux1.5.ttf in Resources */,
-				55735CA61AA39FF5004552D8 /* LockIcon.icns in Resources */,
 				55244AE81AA258DE00E6099D /* MyLittleInvestigations.plist in Resources */,
-				55735CA21AA39FF5004552D8 /* AppIcon.icns in Resources */,
 				55244AE91AA258DE00E6099D /* common.dat in Resources */,
-				55244AEA1AA258DE00E6099D /* xdelta3 in Resources */,
-				55244AEB1AA258DE00E6099D /* COPYING in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1338,14 +1331,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55A21E8A1AA3AEE600791D43 /* AppIcon.icns in Resources */,
 				55244ACB1AA258A600E6099D /* Cases in Resources */,
+				55A21E8E1AA3AEE600791D43 /* LockIcon.icns in Resources */,
 				55244ACC1AA258AF00E6099D /* CelestiaMediumRedux1.5.ttf in Resources */,
-				55735CA31AA39FF5004552D8 /* LockIcon.icns in Resources */,
 				5562B31818FC545E00373B26 /* MyLittleInvestigations.plist in Resources */,
-				55735C9F1AA39FF5004552D8 /* AppIcon.icns in Resources */,
 				55244ACD1AA258AF00E6099D /* common.dat in Resources */,
-				5533C68E18FB62DB0055B22B /* xdelta3 in Resources */,
-				5533C68F18FB62DB0055B22B /* COPYING in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1353,9 +1344,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55735CA01AA39FF5004552D8 /* AppIcon.icns in Resources */,
+				55A21E8B1AA3AEE600791D43 /* AppIcon.icns in Resources */,
 				5562B31718FC4FD200373B26 /* Cases in Resources */,
-				55735CA41AA39FF5004552D8 /* LockIcon.icns in Resources */,
+				55A21E8F1AA3AEE600791D43 /* LockIcon.icns in Resources */,
 				551D57E218F9B5250087AAA0 /* MyLittleInvestigations.plist in Resources */,
 				5562B31418FC4FC300373B26 /* CelestiaMediumRedux1.5.ttf in Resources */,
 				5562B31518FC4FC300373B26 /* common.dat in Resources */,
@@ -1728,13 +1719,7 @@
 				);
 				INFOPLIST_FILE = "MLI Launch copy-Info.plist";
 				LIBRARY_SEARCH_PATHS = /opt/local/lib;
-				OTHER_LDFLAGS = (
-					"-lcryptopp",
-					"-lavcodec",
-					"-lswscale",
-					"-lavutil",
-					"-lavformat",
-				);
+				OTHER_LDFLAGS = "-lcryptopp";
 				PRODUCT_NAME = "My Little Investigations Updater";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1764,13 +1749,7 @@
 				);
 				INFOPLIST_FILE = "MLI Launch copy-Info.plist";
 				LIBRARY_SEARCH_PATHS = /opt/local/lib;
-				OTHER_LDFLAGS = (
-					"-lcryptopp",
-					"-lavcodec",
-					"-lswscale",
-					"-lavutil",
-					"-lavformat",
-				);
+				OTHER_LDFLAGS = "-lcryptopp";
 				PRODUCT_NAME = "My Little Investigations Updater";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1784,10 +1763,6 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1833,13 +1808,7 @@
 				);
 				INFOPLIST_FILE = "MLI Launch copy2-Info.plist";
 				LIBRARY_SEARCH_PATHS = /opt/local/lib;
-				OTHER_LDFLAGS = (
-					"-lcryptopp",
-					"-lavcodec",
-					"-lswscale",
-					"-lavutil",
-					"-lavformat",
-				);
+				OTHER_LDFLAGS = "-lcryptopp";
 				PRODUCT_NAME = "MLI Launch copy";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1869,13 +1838,7 @@
 				);
 				INFOPLIST_FILE = "MLI Launch copy2-Info.plist";
 				LIBRARY_SEARCH_PATHS = /opt/local/lib;
-				OTHER_LDFLAGS = (
-					"-lcryptopp",
-					"-lavcodec",
-					"-lswscale",
-					"-lavutil",
-					"-lavformat",
-				);
+				OTHER_LDFLAGS = "-lcryptopp";
 				PRODUCT_NAME = "MLI Launch copy";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1972,13 +1935,7 @@
 					/opt/local/include,
 				);
 				LIBRARY_SEARCH_PATHS = /opt/local/lib;
-				OTHER_LDFLAGS = (
-					"-lcryptopp",
-					"-lavcodec",
-					"-lswscale",
-					"-lavutil",
-					"-lavformat",
-				);
+				OTHER_LDFLAGS = "-lcryptopp";
 				PRODUCT_NAME = MyLittleInvestigationsUpdater;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2007,13 +1964,7 @@
 					/opt/local/include,
 				);
 				LIBRARY_SEARCH_PATHS = /opt/local/lib;
-				OTHER_LDFLAGS = (
-					"-lcryptopp",
-					"-lavcodec",
-					"-lswscale",
-					"-lavutil",
-					"-lavformat",
-				);
+				OTHER_LDFLAGS = "-lcryptopp";
 				PRODUCT_NAME = MyLittleInvestigationsUpdater;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2043,13 +1994,7 @@
 				);
 				INFOPLIST_FILE = "mli copy-Info.plist";
 				LIBRARY_SEARCH_PATHS = /opt/local/lib;
-				OTHER_LDFLAGS = (
-					"-lcryptopp",
-					"-lavcodec",
-					"-lswscale",
-					"-lavutil",
-					"-lavformat",
-				);
+				OTHER_LDFLAGS = "-lcryptopp";
 				PRODUCT_NAME = "My Little Investigations";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2079,13 +2024,7 @@
 				);
 				INFOPLIST_FILE = "mli copy-Info.plist";
 				LIBRARY_SEARCH_PATHS = /opt/local/lib;
-				OTHER_LDFLAGS = (
-					"-lcryptopp",
-					"-lavcodec",
-					"-lswscale",
-					"-lavutil",
-					"-lavformat",
-				);
+				OTHER_LDFLAGS = "-lcryptopp";
 				PRODUCT_NAME = "My Little Investigations";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2117,10 +2056,8 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					ENABLE_DEBUG_MODE,
-					"$(inherited)",
-					TIXML_USE_TICPP,
-					TIXML_USE_STL,
 					__OSX,
+					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -2162,10 +2099,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					TIXML_USE_TICPP,
-					TIXML_USE_STL,
 					__OSX,
+					"$(inherited)",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;

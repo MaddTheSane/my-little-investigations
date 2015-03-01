@@ -16,6 +16,9 @@ extern "C" {
 #include <vector>
 #include <string>
 #include <limits>
+
+#include "enums.h"
+#include "Version.h"
 #endif
 
 #define Comment AIFFComment
