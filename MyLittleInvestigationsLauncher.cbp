@@ -106,6 +106,7 @@
 				<Compiler>
 					<Add option="-O3" />
 					<Add option="-I/usr/local/include" />
+					<Add option="-D__unix" />
 				</Compiler>
 				<Linker>
 					<Add option="-lSDL2main" />
@@ -136,6 +137,7 @@
 				<Compiler>
 					<Add option="-O3" />
 					<Add option="-I/usr/local/include" />
+					<Add option="-D__unix" />
 				</Compiler>
 				<Linker>
 					<Add option="-lSDL2main" />
