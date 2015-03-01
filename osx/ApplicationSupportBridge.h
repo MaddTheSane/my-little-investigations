@@ -15,7 +15,7 @@ extern string pSavesPath;
 vector<string> GetCaseFilePathsOSX();
 vector<string> GetSaveFilePathsForCaseOSX(const string &caseUuid);
 string GetVersionStringOSX();
-char * GetPropertyListXMLForVersionStringOSX(string pPropertyListFilePath, string pVersionString, unsigned long *pVersionStringLength);
+char * GetPropertyListXMLForVersionStringOSX(const string &pPropertyListFilePath, const string &pVersionString, unsigned long *pVersionStringLength);
 string GetGameExecutable();
 bool CopyCaseUserOSX(const string &caseFilePath, const string &caseUuid);
 

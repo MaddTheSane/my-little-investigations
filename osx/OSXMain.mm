@@ -208,7 +208,7 @@ string GetVersionStringOSX()
     AUTORELEASE_POOL_STOP
 }
 
-char *GetPropertyListXMLForVersionStringOSX(string PropertyListFilePath, string pVersionString, unsigned long *pVersionStringLength)
+char *GetPropertyListXMLForVersionStringOSX(const string &pPropertyListFilePath, const string &pVersionString, unsigned long *pVersionStringLength)
 {
     AUTORELEASE_POOL_START
     *pVersionStringLength = 0;
@@ -217,9 +217,9 @@ char *GetPropertyListXMLForVersionStringOSX(string PropertyListFilePath, string 
     NSString *pErrorDesc = nil;
     //TODO: Save the NSString as, say, a static pointer.
     NSString *pProperyListPath = [defaultManager
-								  stringWithFileSystemRepresentation:PropertyListFilePath.c_str()
-								  length: PropertyListFilePath.size()];
-	pProperyListPath = pProperyListPath.stringByStandardizingPath;
+								  stringWithFileSystemRepresentation:pPropertyListFilePath.c_str()
+								  length: pPropertyListFilePath.size()];
+	pProperyListPath = [pProperyListPath stringByStandardizingPath];
 
     if (![defaultManager fileExistsAtPath:pProperyListPath])
     {
@@ -227,7 +227,7 @@ char *GetPropertyListXMLForVersionStringOSX(string PropertyListFilePath, string 
     }
 
     NSMutableDictionary *plistDict =
-        [NSMutableDictionary dictionaryWithContentsOfFile:pProperyListPath];
+        [[NSMutableDictionary alloc] initWithContentsOfFile:pProperyListPath];
 
     if (plistDict == NULL)
     {
@@ -242,6 +242,7 @@ char *GetPropertyListXMLForVersionStringOSX(string PropertyListFilePath, string 
         dataFromPropertyList:plistDict
         format:NSPropertyListXMLFormat_v1_0
         errorDescription:&pErrorDesc];
+    [plistDict release];
 
     if (pData == NULL)
     {
