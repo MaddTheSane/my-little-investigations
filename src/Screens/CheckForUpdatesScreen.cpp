@@ -321,7 +321,7 @@ void CheckForUpdatesScreen::CheckForUpdates()
                     {
                     #ifdef __WINDOWS
                         fileName = versionReader.ReadTextElement("FileNameWindows");
-                    #elif defined(__OSX)
+                    #elif __OSX
                         fileName = versionReader.ReadTextElement("FileNameOSX");
                     #elif __unix
                         fileName = versionReader.ReadTextElement("FileNameUnix");
@@ -345,7 +345,7 @@ void CheckForUpdatesScreen::CheckForUpdates()
                         {
                         #ifdef __WINDOWS
                             deltaSize = versionReader.ReadIntElement("DeltaSizeWindows");
-                        #elif defined(__OSX)
+                        #elif __OSX
                             deltaSize = versionReader.ReadIntElement("DeltaSizeOSX");
                         #elif __unix
                             fileName = versionReader.ReadTextElement("DeltaSizeUnix");
@@ -367,7 +367,7 @@ void CheckForUpdatesScreen::CheckForUpdates()
                         {
                         #ifdef __WINDOWS
                             deltaLocation = versionReader.ReadTextElement("DeltaLocationWindows");
-                        #elif defined(__OSX)
+                        #elif __OSX
                             deltaLocation = versionReader.ReadTextElement("DeltaLocationOSX");
                         #elif __unix
                             deltaLocation = versionReader.ReadTextElement("DeltaLocationUnix");
@@ -389,7 +389,7 @@ void CheckForUpdatesScreen::CheckForUpdates()
                         {
                         #ifdef __WINDOWS
                             signature = versionReader.ReadTextElement("SignatureWindows");
-                        #elif defined(__OSX)
+                        #elif __OSX
                             signature = versionReader.ReadTextElement("SignatureOSX");
                         #elif __unix
                             signature = versionReader.ReadTextElement("SignatureUnix");

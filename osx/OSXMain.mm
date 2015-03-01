@@ -23,6 +23,8 @@ static NSString *NSSavesPath;
 
 #define kCaseExt @"mlicase"
 
+// Only use the autorelease directive on OS X 10.7 or later SDKs
+// as they should a recent enough version of Clang to use it.
 #if __clang__ && defined(MAC_OS_X_VERSION_10_7)
 #define AUTORELEASE_POOL @autoreleasepool
 #define AUTORELEASE_POOL_START @autoreleasepool {

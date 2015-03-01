@@ -55,7 +55,6 @@
 #include <string>
 #include <math.h>
 
-#include <cryptopp/sha.h>
 #ifdef __OSX
 #include "../osx/ApplicationSupportBridge.h"
 #endif

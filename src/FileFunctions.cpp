@@ -75,7 +75,7 @@ tstring StringToTString(string str)
 
     return tstr;
 }
-#elif defined(__OSX)
+#elif __OSX
 #include "../osx/ApplicationSupportBridge.h"
 
 #include <Security/Authorization.h>
@@ -192,7 +192,7 @@ void LoadFilePathsAndCaseUuids(string executableFilePath)
             if (ftyp == INVALID_FILE_ATTRIBUTES) CreateDirectory(szPath, NULL);
             savesPath = TStringToString(tstring(szPath));
         }
-    #elif defined(__OSX)
+#elif __OSX
         pathSeparator = "/";
         otherPathSeparator = "\\";
 
@@ -292,10 +292,10 @@ vector<string> GetCaseFilePaths()
 
             FindClose(hFind);
         }
-    #elif defined(__OSX)
-        vector<string> ppCaseFilePaths = GetCaseFilePathsOSX();
+#elif __OSX
+        vector<string> caseFilePaths = GetCaseFilePathsOSX();
 
-        for (vector<string>::const_iterator iter = ppCaseFilePaths.begin(); iter != ppCaseFilePaths.end(); ++iter)
+        for (vector<string>::const_iterator iter = caseFilePaths.begin(); iter != caseFilePaths.end(); ++iter)
         {
             if (iter->find(".mlicase") != string::npos)
             {
@@ -548,7 +548,7 @@ void WriteNewVersion(Version newVersion)
     }
 
     RegCloseKey(hKey);
-#elif defined(__OSX)
+#elif __OSX
     unsigned long propertyListXmlDataLength = 0;
     char *pPropertyListXmlData = GetPropertyListXMLForVersionStringOSX(GetPropertyListPath(), newVersion, &propertyListXmlDataLength);
 
@@ -857,10 +857,10 @@ vector<string> GetSaveFilePathsForCase(const string &caseUuid)
 
             FindClose(hFind);
         }
-    #elif defined(__OSX)
-        vector<string> ppSaveFilePaths = GetSaveFilePathsForCaseOSX(caseUuid);
+#elif __OSX
+        vector<string> saveFilePaths = GetSaveFilePathsForCaseOSX(caseUuid);
 
-        for (vector<string>::const_iterator iter = ppSaveFilePaths.begin(); iter != ppSaveFilePaths.end(); ++iter)
+        for (vector<string>::const_iterator iter = saveFilePaths.begin(); iter != saveFilePaths.end(); ++iter)
         {
             if (iter->find(".sav") != string::npos)
             {
@@ -1202,7 +1202,7 @@ bool LaunchExecutable(const char *pExecutablePath, vector<string> commandLineArg
 
         success = ShellExecuteEx(&shExecInfo);
     }
-#elif defined(__OSX)
+#elif __OSX
     if (asAdmin)
     {
         if (authorizationRef != NULL)
@@ -1327,8 +1327,6 @@ bool LaunchExecutable(const char *pExecutablePath, vector<string> commandLineArg
     return success;
 }
 
-#include "SDL_messagebox.h"
-
 void LaunchGameExecutable()
 {
 #ifdef __WINDOWS
@@ -1363,7 +1361,7 @@ bool ApplyDeltaFile(const string &oldFilePath, const string &deltaFilePath, cons
     commandLineArguments.push_back(oldFilePath);
     commandLineArguments.push_back(deltaFilePath);
     commandLineArguments.push_back(newFilePath);
-#elif defined(__OSX)
+#elif __OSX
     string executablePath = GetUpdaterHelperFilePath();
 
     vector<string> commandLineArguments;
@@ -1397,7 +1395,7 @@ bool ApplyDeltaFile(const string &oldFilePath, const string &deltaFilePath, cons
             true /* waitForCompletion */,
 #if defined(__WINDOWS) || defined(__unix)
             false /* asAdmin */
-#elif defined(__OSX)
+#elif __OSX
             true /* asAdmin */
 #else
 #warning Unknown or unsupported architecture
@@ -1430,7 +1428,7 @@ bool RenameFile(const string &oldFilePath, const string &newFilePath)
 {
 #if defined(__WINDOWS) || defined(__unix)
     return rename(oldFilePath.c_str(), newFilePath.c_str()) == 0;
-#elif defined(__OSX)
+#elif __OSX
     string executablePath = GetUpdaterHelperFilePath();
 
     vector<string> commandLineArguments;
@@ -1476,7 +1474,7 @@ bool LaunchUpdater(const string &versionsXmlFilePath)
         false /* waitForCompletion */,
 #if defined(__WINDOWS) || defined(__unix)
         true /* asAdmin */
-#elif defined(__OSX)
+#elif __OSX
         false /* asAdmin */
 #else
 #warning Unknown or unsupported architecture

@@ -48,7 +48,6 @@
 		55244AA01AA2561700E6099D /* MyLittleInvestigations.plist in Resources */ = {isa = PBXBuildFile; fileRef = 551D57DF18F9B5250087AAA0 /* MyLittleInvestigations.plist */; };
 		55244AA11AA2561700E6099D /* xdelta3 in Resources */ = {isa = PBXBuildFile; fileRef = 551D57E518F9B53E0087AAA0 /* xdelta3 */; };
 		55244AA21AA2561700E6099D /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 551D57E418F9B53E0087AAA0 /* COPYING */; };
-		55244AA31AA2561700E6099D /* mli.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 558C3F0718F7407500DEB259 /* mli.iconset */; };
 		55244AA51AA2561700E6099D /* SDL2_ttf.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55244AA61AA2561700E6099D /* SDL2_mixer.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CC18F75543009BED51 /* SDL2_mixer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55244AA71AA2561700E6099D /* SDL2_image.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401918F7446C00DEB259 /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -92,7 +91,6 @@
 		55244AE91AA258DE00E6099D /* common.dat in Resources */ = {isa = PBXBuildFile; fileRef = 5562B31218FC4FC300373B26 /* common.dat */; };
 		55244AEA1AA258DE00E6099D /* xdelta3 in Resources */ = {isa = PBXBuildFile; fileRef = 551D57E518F9B53E0087AAA0 /* xdelta3 */; };
 		55244AEB1AA258DE00E6099D /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 551D57E418F9B53E0087AAA0 /* COPYING */; };
-		55244AEC1AA258DE00E6099D /* mli.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 558C3F0718F7407500DEB259 /* mli.iconset */; };
 		55244AEE1AA258DE00E6099D /* SDL2_ttf.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55244AEF1AA258DE00E6099D /* SDL2_mixer.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CC18F75543009BED51 /* SDL2_mixer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55244AF01AA258DE00E6099D /* SDL2_image.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401918F7446C00DEB259 /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -230,7 +228,6 @@
 		5533C68C18FB62DB0055B22B /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; };
 		5533C68E18FB62DB0055B22B /* xdelta3 in Resources */ = {isa = PBXBuildFile; fileRef = 551D57E518F9B53E0087AAA0 /* xdelta3 */; };
 		5533C68F18FB62DB0055B22B /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 551D57E418F9B53E0087AAA0 /* COPYING */; };
-		5533C69118FB62DB0055B22B /* mli.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 558C3F0718F7407500DEB259 /* mli.iconset */; };
 		5533C69318FB62DB0055B22B /* SDL2_ttf.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5533C69418FB62DB0055B22B /* SDL2_mixer.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CC18F75543009BED51 /* SDL2_mixer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5533C69518FB62DB0055B22B /* SDL2_image.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 558C401918F7446C00DEB259 /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -253,8 +250,15 @@
 		5562B31518FC4FC300373B26 /* common.dat in Resources */ = {isa = PBXBuildFile; fileRef = 5562B31218FC4FC300373B26 /* common.dat */; };
 		5562B31718FC4FD200373B26 /* Cases in Resources */ = {isa = PBXBuildFile; fileRef = 5562B31618FC4FD200373B26 /* Cases */; };
 		5562B31818FC545E00373B26 /* MyLittleInvestigations.plist in Resources */ = {isa = PBXBuildFile; fileRef = 551D57DF18F9B5250087AAA0 /* MyLittleInvestigations.plist */; };
+		55735C9F1AA39FF5004552D8 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55735C9D1AA39FF5004552D8 /* AppIcon.icns */; };
+		55735CA01AA39FF5004552D8 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55735C9D1AA39FF5004552D8 /* AppIcon.icns */; };
+		55735CA11AA39FF5004552D8 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55735C9D1AA39FF5004552D8 /* AppIcon.icns */; };
+		55735CA21AA39FF5004552D8 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55735C9D1AA39FF5004552D8 /* AppIcon.icns */; };
+		55735CA31AA39FF5004552D8 /* LockIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55735C9E1AA39FF5004552D8 /* LockIcon.icns */; };
+		55735CA41AA39FF5004552D8 /* LockIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55735C9E1AA39FF5004552D8 /* LockIcon.icns */; };
+		55735CA51AA39FF5004552D8 /* LockIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55735C9E1AA39FF5004552D8 /* LockIcon.icns */; };
+		55735CA61AA39FF5004552D8 /* LockIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55735C9E1AA39FF5004552D8 /* LockIcon.icns */; };
 		558C3ED218F73F7200DEB259 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558C3ED118F73F7200DEB259 /* Cocoa.framework */; };
-		558C3F0D18F7407500DEB259 /* mli.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 558C3F0718F7407500DEB259 /* mli.iconset */; };
 		558C3F0E18F7407500DEB259 /* NSFileManagerDirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0918F7407500DEB259 /* NSFileManagerDirectoryLocations.m */; };
 		558C3F0F18F7407500DEB259 /* OSXMain.mm in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0B18F7407500DEB259 /* OSXMain.mm */; };
 		558C3FC418F7413900DEB259 /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F1318F7413900DEB259 /* Animation.cpp */; };
@@ -511,6 +515,8 @@
 		5562B31218FC4FC300373B26 /* common.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = common.dat; sourceTree = "<group>"; };
 		5562B31618FC4FD200373B26 /* Cases */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Cases; sourceTree = "<group>"; };
 		556326361AA02C8F003DF2C1 /* symbols.exp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.exports; path = symbols.exp; sourceTree = "<group>"; };
+		55735C9D1AA39FF5004552D8 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
+		55735C9E1AA39FF5004552D8 /* LockIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LockIcon.icns; sourceTree = "<group>"; };
 		558C3ECE18F73F7200DEB259 /* My Little Investigations Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Little Investigations Game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		558C3ED118F73F7200DEB259 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		558C3ED418F73F7200DEB259 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -518,7 +524,6 @@
 		558C3ED618F73F7200DEB259 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		558C3EF018F73F7200DEB259 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		558C3F0618F7407500DEB259 /* ApplicationSupportBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationSupportBridge.h; sourceTree = "<group>"; };
-		558C3F0718F7407500DEB259 /* mli.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = mli.iconset; sourceTree = "<group>"; };
 		558C3F0818F7407500DEB259 /* NSFileManagerDirectoryLocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSFileManagerDirectoryLocations.h; sourceTree = "<group>"; };
 		558C3F0918F7407500DEB259 /* NSFileManagerDirectoryLocations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSFileManagerDirectoryLocations.m; sourceTree = "<group>"; };
 		558C3F0B18F7407500DEB259 /* OSXMain.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OSXMain.mm; sourceTree = "<group>"; usesTabs = 0; };
@@ -789,9 +794,10 @@
 				5533C69B18FB62DB0055B22B /* mli copy-Info.plist */,
 				55244AAD1AA2561A00E6099D /* MLI Launch copy-Info.plist */,
 				55244AF61AA258E000E6099D /* MLI Launch copy2-Info.plist */,
+				55735C9D1AA39FF5004552D8 /* AppIcon.icns */,
+				55735C9E1AA39FF5004552D8 /* LockIcon.icns */,
 				551D57E318F9B53E0087AAA0 /* deltatool */,
 				551D57DF18F9B5250087AAA0 /* MyLittleInvestigations.plist */,
-				558C3F0718F7407500DEB259 /* mli.iconset */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1305,10 +1311,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55735CA51AA39FF5004552D8 /* LockIcon.icns in Resources */,
 				55244AA01AA2561700E6099D /* MyLittleInvestigations.plist in Resources */,
+				55735CA11AA39FF5004552D8 /* AppIcon.icns in Resources */,
 				55244AA11AA2561700E6099D /* xdelta3 in Resources */,
 				55244AA21AA2561700E6099D /* COPYING in Resources */,
-				55244AA31AA2561700E6099D /* mli.iconset in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1318,11 +1325,12 @@
 			files = (
 				55244AE61AA258DE00E6099D /* Cases in Resources */,
 				55244AE71AA258DE00E6099D /* CelestiaMediumRedux1.5.ttf in Resources */,
+				55735CA61AA39FF5004552D8 /* LockIcon.icns in Resources */,
 				55244AE81AA258DE00E6099D /* MyLittleInvestigations.plist in Resources */,
+				55735CA21AA39FF5004552D8 /* AppIcon.icns in Resources */,
 				55244AE91AA258DE00E6099D /* common.dat in Resources */,
 				55244AEA1AA258DE00E6099D /* xdelta3 in Resources */,
 				55244AEB1AA258DE00E6099D /* COPYING in Resources */,
-				55244AEC1AA258DE00E6099D /* mli.iconset in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1332,11 +1340,12 @@
 			files = (
 				55244ACB1AA258A600E6099D /* Cases in Resources */,
 				55244ACC1AA258AF00E6099D /* CelestiaMediumRedux1.5.ttf in Resources */,
+				55735CA31AA39FF5004552D8 /* LockIcon.icns in Resources */,
 				5562B31818FC545E00373B26 /* MyLittleInvestigations.plist in Resources */,
+				55735C9F1AA39FF5004552D8 /* AppIcon.icns in Resources */,
 				55244ACD1AA258AF00E6099D /* common.dat in Resources */,
 				5533C68E18FB62DB0055B22B /* xdelta3 in Resources */,
 				5533C68F18FB62DB0055B22B /* COPYING in Resources */,
-				5533C69118FB62DB0055B22B /* mli.iconset in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1344,10 +1353,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55735CA01AA39FF5004552D8 /* AppIcon.icns in Resources */,
 				5562B31718FC4FD200373B26 /* Cases in Resources */,
+				55735CA41AA39FF5004552D8 /* LockIcon.icns in Resources */,
 				551D57E218F9B5250087AAA0 /* MyLittleInvestigations.plist in Resources */,
 				5562B31418FC4FC300373B26 /* CelestiaMediumRedux1.5.ttf in Resources */,
-				558C3F0D18F7407500DEB259 /* mli.iconset in Resources */,
 				5562B31518FC4FC300373B26 /* common.dat in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

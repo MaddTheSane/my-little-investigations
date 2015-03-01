@@ -279,7 +279,7 @@ bool CheckIfUpdatesExist(string *pVersionsXmlContent)
 
     if (retrievedVersionsXmlContent &&
         retrievedVersionsXmlSignature &&
-        SignatureIsValid((const byte *)versionsXmlContent.c_str(), (unsigned int)versionsXmlContent.length(), versionsXmlSignatureHexEncoded))
+        SignatureIsValid((const byte *)versionsXmlContent.c_str(), versionsXmlContent.length(), versionsXmlSignatureHexEncoded))
     {
         try
         {
@@ -329,7 +329,7 @@ bool CheckIfUpdatesExist(string *pVersionsXmlContent)
                         {
                         #ifdef __WINDOWS
                             deltaSize = versionReader.ReadIntElement("DeltaSizeWindows");
-                        #elif defined(__OSX)
+                        #elif __OSX
                             deltaSize = versionReader.ReadIntElement("DeltaSizeOSX");
                         #elif __unix
                             deltaSize = versionReader.ReadIntElement("DeltaSizeUnix");
