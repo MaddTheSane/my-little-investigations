@@ -332,6 +332,19 @@
 		55A21E901AA3AEE600791D43 /* LockIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55A21E891AA3AEE600791D43 /* LockIcon.icns */; };
 		55A21E911AA3AEE600791D43 /* LockIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55A21E891AA3AEE600791D43 /* LockIcon.icns */; };
 		55A21E921AA3AFFD00791D43 /* deltatool in Copy Executables */ = {isa = PBXBuildFile; fileRef = 55A21E861AA3AE9F00791D43 /* deltatool */; };
+		55A7D8B01C9641FF00839A80 /* LanguageScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55A7D8AD1C9641FF00839A80 /* LanguageScreen.cpp */; };
+		55A7D8B51C96422C00839A80 /* SharedUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55A7D8B21C96422C00839A80 /* SharedUtils.cpp */; };
+		55A7D8B61C96422C00839A80 /* SharedUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55A7D8B21C96422C00839A80 /* SharedUtils.cpp */; };
+		55A7D8B91C96426D00839A80 /* XmlStorableObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55A7D8B71C96426D00839A80 /* XmlStorableObject.cpp */; };
+		55A7D8BA1C96426D00839A80 /* XmlStorableObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55A7D8B71C96426D00839A80 /* XmlStorableObject.cpp */; };
+		55A7D8BB1C96426D00839A80 /* XmlStorableObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55A7D8B71C96426D00839A80 /* XmlStorableObject.cpp */; };
+		55A7D8BC1C96449800839A80 /* ResourceLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F8018F7413900DEB259 /* ResourceLoader.cpp */; };
+		55A7D8BD1C96449900839A80 /* ResourceLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F8018F7413900DEB259 /* ResourceLoader.cpp */; };
+		55A7D8BE1C9644BE00839A80 /* miniz.c in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F7318F7413900DEB259 /* miniz.c */; };
+		55A7D8BF1C9644C000839A80 /* miniz.c in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F7318F7413900DEB259 /* miniz.c */; };
+		55A7D8C01C9644C100839A80 /* miniz.c in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F7318F7413900DEB259 /* miniz.c */; };
+		55A7D8C11C9644C600839A80 /* ResourceLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F8018F7413900DEB259 /* ResourceLoader.cpp */; };
+		55A7D8C21C9644E700839A80 /* Rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F7C18F7413900DEB259 /* Rectangle.cpp */; };
 		55FC88CD18F75543009BED51 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CC18F75543009BED51 /* SDL2_mixer.framework */; };
 		55FC88D018F75D71009BED51 /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; };
 		55FC88D418F76443009BED51 /* SDL2_ttf.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -687,6 +700,12 @@
 		55A21E881AA3AEE600791D43 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = AppIcon.icns; path = Contents/Resources/AppIcon.icns; sourceTree = "<group>"; };
 		55A21E891AA3AEE600791D43 /* LockIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = LockIcon.icns; path = Contents/Resources/LockIcon.icns; sourceTree = "<group>"; };
 		55A21E931AA3B04D00791D43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Contents/Info.plist; sourceTree = "<group>"; };
+		55A7D8AD1C9641FF00839A80 /* LanguageScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LanguageScreen.cpp; sourceTree = "<group>"; };
+		55A7D8AE1C9641FF00839A80 /* LanguageScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageScreen.h; sourceTree = "<group>"; };
+		55A7D8B21C96422C00839A80 /* SharedUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SharedUtils.cpp; sourceTree = "<group>"; };
+		55A7D8B31C96422C00839A80 /* SharedUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedUtils.h; sourceTree = "<group>"; };
+		55A7D8B71C96426D00839A80 /* XmlStorableObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XmlStorableObject.cpp; sourceTree = "<group>"; };
+		55A7D8B81C96426D00839A80 /* XmlStorableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XmlStorableObject.h; sourceTree = "<group>"; };
 		55FC88CC18F75543009BED51 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = /Library/Frameworks/SDL2_mixer.framework; sourceTree = "<absolute>"; };
 		55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = /Library/Frameworks/SDL2_ttf.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -959,6 +978,8 @@
 				558C3F8218F7413900DEB259 /* Screens */,
 				558C3F9018F7413900DEB259 /* Sprite.cpp */,
 				558C3F9118F7413900DEB259 /* Sprite.h */,
+				55A7D8B21C96422C00839A80 /* SharedUtils.cpp */,
+				55A7D8B31C96422C00839A80 /* SharedUtils.h */,
 				558C3F9218F7413900DEB259 /* State.cpp */,
 				558C3F9318F7413900DEB259 /* State.h */,
 				558C3F9418F7413900DEB259 /* TextInputHelper.cpp */,
@@ -975,6 +996,8 @@
 				558C3FBF18F7413900DEB259 /* Video.h */,
 				558C3FC018F7413900DEB259 /* XmlReader.cpp */,
 				558C3FC118F7413900DEB259 /* XmlReader.h */,
+				55A7D8B71C96426D00839A80 /* XmlStorableObject.cpp */,
+				55A7D8B81C96426D00839A80 /* XmlStorableObject.h */,
 				558C3FC218F7413900DEB259 /* XmlWriter.cpp */,
 				558C3FC318F7413900DEB259 /* XmlWriter.h */,
 				553B8B8219B3DCD5007C2C64 /* MLIException.cpp */,
@@ -985,6 +1008,7 @@
 			name = src;
 			path = ../src;
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		558C3F1718F7413900DEB259 /* CaseContent */ = {
 			isa = PBXGroup;
@@ -1076,6 +1100,8 @@
 				558C3F8418F7413900DEB259 /* CheckForUpdatesScreen.h */,
 				558C3F8518F7413900DEB259 /* GameScreen.cpp */,
 				558C3F8618F7413900DEB259 /* GameScreen.h */,
+				55A7D8AD1C9641FF00839A80 /* LanguageScreen.cpp */,
+				55A7D8AE1C9641FF00839A80 /* LanguageScreen.h */,
 				558C3F8718F7413900DEB259 /* LogoScreen.cpp */,
 				558C3F8818F7413900DEB259 /* LogoScreen.h */,
 				558C3F8918F7413900DEB259 /* OptionsScreen.cpp */,
@@ -1368,6 +1394,8 @@
 				55244A8E1AA2561700E6099D /* tinyxml2.cpp in Sources */,
 				55244A8F1AA2561700E6099D /* FileFunctions.cpp in Sources */,
 				55244AB61AA2578400E6099D /* Game.cpp in Sources */,
+				55A7D8BC1C96449800839A80 /* ResourceLoader.cpp in Sources */,
+				55A7D8B61C96422C00839A80 /* SharedUtils.cpp in Sources */,
 				55244A901AA2561700E6099D /* KeyboardHelper.cpp in Sources */,
 				55244AAE1AA256C000E6099D /* Color.cpp in Sources */,
 				55244A911AA2561700E6099D /* NSFileManagerDirectoryLocations.m in Sources */,
@@ -1375,8 +1403,10 @@
 				55244AB21AA2570400E6099D /* Rectangle.cpp in Sources */,
 				55244A931AA2561700E6099D /* LocalizableContent.cpp in Sources */,
 				55244AB31AA2571100E6099D /* CheckForUpdatesScreen.cpp in Sources */,
+				55A7D8BE1C9644BE00839A80 /* miniz.c in Sources */,
 				55244A941AA2561700E6099D /* Utils.cpp in Sources */,
 				55244AB01AA256E200E6099D /* Image.cpp in Sources */,
+				55A7D8BB1C96426D00839A80 /* XmlStorableObject.cpp in Sources */,
 				55244A951AA2561700E6099D /* Version.cpp in Sources */,
 				55244AB41AA2572700E6099D /* Vector2.cpp in Sources */,
 				55244A961AA2561700E6099D /* main.cpp in Sources */,
@@ -1508,7 +1538,9 @@
 			files = (
 				55244B671AA2597B00E6099D /* XmlReader.cpp in Sources */,
 				55244B681AA2597B00E6099D /* XmlWriter.cpp in Sources */,
+				55A7D8C11C9644C600839A80 /* ResourceLoader.cpp in Sources */,
 				55244B691AA2597B00E6099D /* MLIException.cpp in Sources */,
+				55A7D8C01C9644C100839A80 /* miniz.c in Sources */,
 				55244B6A1AA2597B00E6099D /* OSXMain.mm in Sources */,
 				55244B6B1AA2597B00E6099D /* EasingFunctions.cpp in Sources */,
 				55244B6C1AA2597B00E6099D /* tinyxml2.cpp in Sources */,
@@ -1537,6 +1569,7 @@
 			files = (
 				5533C63D18FB62DB0055B22B /* XmlReader.cpp in Sources */,
 				5533C63E18FB62DB0055B22B /* XmlWriter.cpp in Sources */,
+				55A7D8BD1C96449900839A80 /* ResourceLoader.cpp in Sources */,
 				553B8B8419B3DCD5007C2C64 /* MLIException.cpp in Sources */,
 				5533C64F18FB62DB0055B22B /* OSXMain.mm in Sources */,
 				553B8B7A19B3DC9F007C2C64 /* tinyxml2.cpp in Sources */,
@@ -1544,10 +1577,13 @@
 				5541EC31194BA02100EB5089 /* KeyboardHelper.cpp in Sources */,
 				5533C66618FB62DB0055B22B /* NSFileManagerDirectoryLocations.m in Sources */,
 				5533C67218FB62DB0055B22B /* globals.cpp in Sources */,
+				55A7D8B91C96426D00839A80 /* XmlStorableObject.cpp in Sources */,
+				55A7D8C21C9644E700839A80 /* Rectangle.cpp in Sources */,
 				554F15AF19F9127500577DDD /* LocalizableContent.cpp in Sources */,
 				5533C67418FB62DB0055B22B /* Utils.cpp in Sources */,
 				5533C67918FB62DB0055B22B /* Version.cpp in Sources */,
 				5533C67A18FB62DB0055B22B /* main.cpp in Sources */,
+				55A7D8BF1C9644C000839A80 /* miniz.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1569,6 +1605,7 @@
 				558C3FCD18F7413900DEB259 /* ForegroundElement.cpp in Sources */,
 				554F15B819F912CC00577DDD /* LocalizableContent.cpp in Sources */,
 				558C3FCE18F7413900DEB259 /* Location.cpp in Sources */,
+				55A7D8BA1C96426D00839A80 /* XmlStorableObject.cpp in Sources */,
 				558C3FC818F7413900DEB259 /* Crowd.cpp in Sources */,
 				558C3FD518F7413900DEB259 /* ContentManager.cpp in Sources */,
 				558C3FEF18F7413900DEB259 /* miniz.c in Sources */,
@@ -1599,6 +1636,7 @@
 				558C3FEC18F7413900DEB259 /* Line.cpp in Sources */,
 				558C3FFC18F7413900DEB259 /* Sprite.cpp in Sources */,
 				558C400518F7413900DEB259 /* ButtonArray.cpp in Sources */,
+				55A7D8B51C96422C00839A80 /* SharedUtils.cpp in Sources */,
 				5541EC32194BA02100EB5089 /* KeyboardHelper.cpp in Sources */,
 				558C3FCA18F7413900DEB259 /* Encounter.cpp in Sources */,
 				558C3FC418F7413900DEB259 /* Animation.cpp in Sources */,
@@ -1636,6 +1674,7 @@
 				558C401018F7413900DEB259 /* Vector2.cpp in Sources */,
 				558C400718F7413900DEB259 /* EvidenceSelector.cpp in Sources */,
 				558C3FDB18F7413900DEB259 /* FlagManager.cpp in Sources */,
+				55A7D8B01C9641FF00839A80 /* LanguageScreen.cpp in Sources */,
 				558C3FFE18F7413900DEB259 /* TextInputHelper.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
