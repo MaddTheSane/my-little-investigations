@@ -204,7 +204,7 @@ vector<string> GetSaveFilePathsForCaseOSX(const string &caseUuid)
 
 vector<string> GetLocalizedCommonResourcesFilePathsOSX()
 {
-    NSAutoreleasePool *pool = [NSAutoreleasePool new];
+    AUTORELEASE_POOL_START
     NSError *error = nil;
     NSFileManager *defaultManager = [NSFileManager defaultManager];
 
@@ -218,22 +218,20 @@ vector<string> GetLocalizedCommonResourcesFilePathsOSX()
 
     vector<string> ppLocalizedCommonResourcesFileList;
 
-    for (NSUInteger i = 0; i < [pLocalizedCommonResourcesFileList count]; i++)
+    for (NSString *fileName in pLocalizedCommonResourcesFileList)
     {
-        NSString *pStrLocalizedCommonResouresFileName = [pLocalizedCommonResourcesFileList objectAtIndex:i];
-
        //Ignore UNIX hidden files, like OS X's .DS_Store
-        if ([pStrLocalizedCommonResouresFileName hasPrefix:@"."])
+        if ([fileName hasPrefix:@"."])
         {
             continue;
         }
 
-        NSString *pStrLocalizedCommonResourcesFilePath = [localizedCommonResourcesPath stringByAppendingPathComponent:pStrLocalizedCommonResouresFileName];
+        NSString *pStrLocalizedCommonResourcesFilePath = [localizedCommonResourcesPath stringByAppendingPathComponent:fileName];
 		ppLocalizedCommonResourcesFileList.push_back(string([pStrLocalizedCommonResourcesFilePath fileSystemRepresentation]));
     }
 
-    [pool drain];
     return ppLocalizedCommonResourcesFileList;
+    AUTORELEASE_POOL_STOP
 }
 
 string GetVersionStringOSX()
