@@ -93,7 +93,6 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
-					<Add option="-fexpensive-optimizations" />
 					<Add option="-O3" />
 					<Add option="-mmacosx-version-min=10.7" />
 					<Add option="-stdlib=libc++" />
@@ -177,8 +176,8 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-std=c++11" />
 			<Add option="-Wall" />
-			<Add option="-fexceptions" />
 			<Add option="-DUPDATER" />
 			<Add option="-D__STDC_CONSTANT_MACROS" />
 		</Compiler>
@@ -216,15 +215,21 @@
 		<Unit filename="src/Game.h" />
 		<Unit filename="src/Image.cpp" />
 		<Unit filename="src/Image.h" />
+		<Unit filename="src/LocalizableContent.cpp" />
+		<Unit filename="src/LocalizableContent.h" />
 		<Unit filename="src/MLIException.cpp" />
 		<Unit filename="src/MLIException.h" />
 		<Unit filename="src/MLIFont.cpp" />
 		<Unit filename="src/MLIFont.h" />
 		<Unit filename="src/Rectangle.cpp" />
 		<Unit filename="src/Rectangle.h" />
+		<Unit filename="src/ResourceLoader.cpp" />
+		<Unit filename="src/ResourceLoader.h" />
 		<Unit filename="src/Screens/CheckForUpdatesScreen.cpp" />
 		<Unit filename="src/Screens/CheckForUpdatesScreen.h" />
 		<Unit filename="src/Screens/MLIScreen.h" />
+		<Unit filename="src/SharedUtils.cpp" />
+		<Unit filename="src/SharedUtils.h" />
 		<Unit filename="src/State.h" />
 		<Unit filename="src/Utils.cpp" />
 		<Unit filename="src/Utils.h" />
@@ -235,6 +240,8 @@
 		<Unit filename="src/XmlIncludes.h" />
 		<Unit filename="src/XmlReader.cpp" />
 		<Unit filename="src/XmlReader.h" />
+		<Unit filename="src/XmlStorableObject.cpp" />
+		<Unit filename="src/XmlStorableObject.h" />
 		<Unit filename="src/XmlWriter.cpp" />
 		<Unit filename="src/XmlWriter.h" />
 		<Unit filename="src/enums.cpp" />
@@ -242,6 +249,10 @@
 		<Unit filename="src/globals.cpp" />
 		<Unit filename="src/globals.h" />
 		<Unit filename="src/main.cpp" />
+		<Unit filename="src/miniz.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/miniz.h" />
 		<Unit filename="src/resource.h">
 			<Option target="Debug (Win32)" />
 			<Option target="Release (Win32)" />

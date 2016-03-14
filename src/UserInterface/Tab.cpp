@@ -78,7 +78,7 @@ void Tab::Initialize(int dialogRowYPosition, int bottomRowYPosition, Image *pDow
         for (unsigned int x = 0; x < 5 && i + x < 33; x++)
         {
             char spriteId[256];
-            sprintf(spriteId, pulseSpriteIdFormat.c_str(), i + x);
+            snprintf(spriteId, 256, pulseSpriteIdFormat.c_str(), i + x);
 
             CommonCaseResources::GetInstance()->GetSpriteManager()->AddSprite(string(spriteId), pulseSpriteSheetId, RectangleWH(x * 217, y * 72, 217, 72));
         }
@@ -346,7 +346,7 @@ void Tab::Draw(double xOffset, double yOffset)
         int clipTop = hideAnimationOffset < 0 ? -hideAnimationOffset : 0;
         int clipHeight = TabHeight - (hideAnimationOffset > 0 ? hideAnimationOffset : clipTop);
 
-        pBackgroundSprite->Draw(Vector2(xPosition + xOffset, yPosition + hideAnimationOffset + clipTop), RectangleWH(0, clipTop, TabWidth, clipHeight), false, false, 1.0, Color::White);
+        pBackgroundSprite->Draw(Vector2(xPosition + xOffset, yPosition + hideAnimationOffset + clipTop), RectangleWH(0, clipTop, TabWidth, clipHeight), false, false, 1.0, 1.0, Color::White);
         pFont->Draw(GetText(), textPosition, textColor, RectangleWH(xPosition + xOffset - textPosition.GetX(), yPosition - textPosition.GetY() + clipTop, TabWidth, clipHeight));
 
         if (GetTabImage() != NULL)
@@ -414,14 +414,14 @@ void Tab::Init(int xPosition, bool isClickable, const string &text, bool useCanc
     {
         char animationId[256];
 
-        sprintf(animationId, "PulseAnimation%d", ++pulseAnimationCount);
+        snprintf(animationId, 256, "PulseAnimation%d", ++pulseAnimationCount);
         CommonCaseResources::GetInstance()->GetAnimationManager()->AddAnimation(string(animationId), &pPulseAnimation);
 
         for (unsigned int i = 0; i < 33; i++)
         {
             char spriteId[256];
 
-            sprintf(spriteId, pulseSpriteIdFormat.c_str(), i);
+            snprintf(spriteId, 256, pulseSpriteIdFormat.c_str(), i);
             pPulseAnimation->AddFrame(42, string(spriteId));
         }
     }

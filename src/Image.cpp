@@ -287,28 +287,137 @@ void Image::FlagFontSource(MLIFont *pFont)
     pSource = new FontSource(pFont);
 }
 
-void Image::Draw(Vector2 position)
+void Image::Draw(const Vector2 &position)
 {
-    Draw(position, RectangleWH(0, 0, width, height), false, false, 1.0, Color::White);
+    Draw(position, RectangleWH(0, 0, width, height), false, false, 1.0, 1.0, Color::White);
 }
 
-void Image::Draw(Vector2 position, Color color)
+void Image::Draw(const Vector2 &position, const Color &color)
 {
-    Draw(position, RectangleWH(0, 0, width, height), false, false, 1.0, color);
+    Draw(position, RectangleWH(0, 0, width, height), false, false, 1.0, 1.0, color);
 }
 
-void Image::Draw(Vector2 position, bool flipHorizontally, bool flipVertically, Color color)
+void Image::Draw(const Vector2 &position, bool flipHorizontally, bool flipVertically, const Color &color)
 {
-    Draw(position, RectangleWH(0, 0, width, height), flipHorizontally, flipVertically, 1.0, color);
+    Draw(position, RectangleWH(0, 0, width, height), flipHorizontally, flipVertically, 1.0, 1.0, color);
+}
+
+void Image::DrawNineGrid(const Vector2 &position, double drawWidth, double drawHeight, double left, double top, double right, double bottom)
+{
+    double leftXPosition = 0;
+    double centerXPosition = left;
+    double rightXPosition = drawWidth - right;
+    double topYPosition = 0;
+    double centerYPosition = top;
+    double bottomYPosition = drawHeight - bottom;
+
+    double centerDrawWidth = drawWidth - right - left;
+    double centerDrawHeight = drawHeight - bottom - top;
+
+    double leftX = 0;
+    double centerX = left;
+    double rightX = width - right;
+    double leftWidth = left;
+    double centerWidth = width - right - left;
+    double rightWidth = right;
+
+    double topY = 0;
+    double centerY = top;
+    double bottomY = height - bottom;
+    double topHeight = top;
+    double centerHeight = height - bottom - top;
+    double bottomHeight = bottom;
+
+    double currentXPosition = 0;
+    double currentYPosition = 0;
+    double remainingWidth = 0;
+    double remainingHeight = 0;
+
+    // Top-left corner
+    Draw(position + Vector2(leftXPosition, topYPosition), RectangleWH(leftX, topY, leftWidth, topHeight), false /* flipHorizontally */, false /* flipVertically */, 1.0, 1.0, Color::White);
+
+    // Top side
+    for (currentXPosition = centerXPosition, remainingWidth = centerDrawWidth;
+        currentXPosition + centerWidth < centerDrawWidth;
+        currentXPosition += centerWidth, remainingWidth -= centerWidth)
+    {
+        Draw(position + Vector2(currentXPosition, topYPosition), RectangleWH(centerX, topY, centerWidth, topHeight), false /* flipHorizontally */, false /* flipVertically */, 1.0, 1.0, Color::White);
+    }
+
+    Draw(position + Vector2(currentXPosition, topYPosition), RectangleWH(centerX, topY, remainingWidth, topHeight), false /* flipHorizontally */, false /* flipVertically */, 1.0, 1.0, Color::White);
+
+    // Top-right corner
+    Draw(position + Vector2(rightXPosition, topYPosition), RectangleWH(rightX, topY, rightWidth, topHeight), false /* flipHorizontally */, false /* flipVertically */, 1.0, 1.0, Color::White);
+
+    // Left side
+    for (currentYPosition = centerYPosition, remainingHeight = centerDrawHeight;
+        currentYPosition + centerHeight < centerDrawHeight;
+        currentYPosition += centerHeight, remainingHeight -= centerHeight)
+    {
+        Draw(position + Vector2(leftXPosition, currentYPosition), RectangleWH(leftX, centerY, leftWidth, centerHeight), false /* flipHorizontally */, false /* flipVertically */, 1.0, 1.0, Color::White);
+    }
+
+    Draw(position + Vector2(leftXPosition, currentYPosition), RectangleWH(leftX, centerY, leftWidth, remainingHeight), false /* flipHorizontally */, false /* flipVertically */, 1.0, 1.0, Color::White);
+
+    // Center
+    for (currentYPosition = centerYPosition, remainingHeight = centerDrawHeight;
+        currentYPosition + centerHeight < centerDrawHeight;
+        currentYPosition += centerHeight, remainingHeight -= centerHeight)
+    {
+        for (currentXPosition = centerXPosition, remainingWidth = centerDrawWidth;
+            currentXPosition + centerWidth < centerDrawWidth;
+            currentXPosition += centerWidth, remainingWidth -= centerWidth)
+        {
+            Draw(position + Vector2(currentXPosition, currentYPosition), RectangleWH(centerX, centerY, centerWidth, centerHeight), false /* flipHorizontally */, false /* flipVertically */, 1.0, 1.0, Color::White);
+        }
+
+        Draw(position + Vector2(currentXPosition, currentYPosition), RectangleWH(centerX, topY, remainingWidth, topHeight), false /* flipHorizontally */, false /* flipVertically */, 1.0, 1.0, Color::White);
+    }
+
+    for (currentXPosition = centerXPosition, remainingWidth = centerDrawWidth;
+        currentXPosition + centerWidth < centerDrawWidth;
+        currentXPosition += centerWidth, remainingWidth -= centerWidth)
+    {
+        Draw(position + Vector2(currentXPosition, currentYPosition), RectangleWH(centerX, centerY, centerWidth, remainingHeight), false /* flipHorizontally */, false /* flipVertically */, 1.0, 1.0, Color::White);
+    }
+
+    Draw(position + Vector2(currentXPosition, currentYPosition), RectangleWH(centerX, centerY, remainingWidth, remainingHeight), false /* flipHorizontally */, false /* flipVertically */, 1.0, 1.0, Color::White);
+
+    // Right side
+    for (currentYPosition = centerYPosition, remainingHeight = centerDrawHeight;
+        currentYPosition + centerHeight < centerDrawHeight;
+        currentYPosition += centerHeight, remainingHeight -= centerHeight)
+    {
+        Draw(position + Vector2(rightXPosition, currentYPosition), RectangleWH(rightX, centerY, leftWidth, centerHeight), false /* flipHorizontally */, false /* flipVertically */, 1.0, 1.0, Color::White);
+    }
+
+    Draw(position + Vector2(rightXPosition, centerYPosition), RectangleWH(rightX, centerY, rightWidth, remainingHeight), false /* flipHorizontally */, false /* flipVertically */, 1.0, 1.0, Color::White);
+
+    // Bottom-left corner
+    Draw(position + Vector2(leftXPosition, bottomYPosition), RectangleWH(leftX, bottomY, leftWidth, bottomHeight), false /* flipHorizontally */, false /* flipVertically */, 1.0, 1.0, Color::White);
+
+    // Bottom side
+    for (currentXPosition = centerXPosition, remainingWidth = centerDrawWidth;
+        currentXPosition + centerWidth < centerDrawWidth;
+        currentXPosition += centerWidth, remainingWidth -= centerWidth)
+    {
+        Draw(position + Vector2(currentXPosition, bottomYPosition), RectangleWH(centerX, bottomY, centerWidth, bottomHeight), false /* flipHorizontally */, false /* flipVertically */, 1.0, 1.0, Color::White);
+    }
+
+    Draw(position + Vector2(currentXPosition, bottomYPosition), RectangleWH(centerX, bottomY, remainingWidth, bottomHeight), false /* flipHorizontally */, false /* flipVertically */, 1.0, 1.0, Color::White);
+
+    // Bottom-right corner
+    Draw(position + Vector2(rightXPosition, bottomYPosition), RectangleWH(rightX, bottomY, rightWidth, bottomHeight), false /* flipHorizontally */, false /* flipVertically */, 1.0, 1.0, Color::White);
 }
 
 void Image::Draw(
-    Vector2 position,
-    RectangleWH clipRect,
+    const Vector2 &position,
+    const RectangleWH &clipRect,
     bool flipHorizontally,
     bool flipVertically,
-    double scale,
-    Color color)
+    double xScale,
+    double yScale,
+    const Color &color)
 {
     EnsureUIThread();
 
@@ -321,7 +430,7 @@ void Image::Draw(
     if (textureList.size() == 1)
     {
         // If we only have one texture, then we can just draw it without any processing.
-        Image::Draw(textureList[0], position, clipRect, flipHorizontally, flipVertically, scale, color, useScreenScaling);
+        Image::Draw(textureList[0], position, clipRect, flipHorizontally, flipVertically, xScale, yScale, color, useScreenScaling);
     }
     else
     {
@@ -378,7 +487,7 @@ void Image::Draw(
                     portionClipRect.SetWidth(portionClipRect.GetHeight() - (textureHeight - portionClipRect.GetY()));
                 }
 
-                Image::Draw(pTexture, Vector2(startX, startY), portionClipRect, flipHorizontally, flipVertically, scale, color, useScreenScaling);
+                Image::Draw(pTexture, Vector2(startX, startY), portionClipRect, flipHorizontally, flipVertically, xScale, yScale, color, useScreenScaling);
 
                 if (!flipHorizontally)
                 {
@@ -400,8 +509,9 @@ void Image::Draw(
     RectangleWH clipRect,
     bool flipHorizontally,
     bool flipVertically,
-    double scale,
-    Color color,
+    double xScale,
+    double yScale,
+    const Color &color,
     bool useScreenScaling)
 {
     // If the alpha channel of the color overlay is zero (i.e., completely transparent),
@@ -514,8 +624,8 @@ void Image::Draw(
         {
             (Sint16)(horizontalOffsetToUse + position.GetX() * horizontalScaleToUse + 0.5),
             (Sint16)(verticalOffsetToUse + position.GetY() * verticalScaleToUse + 0.5),
-            (Uint16)(clipRect.GetWidth() * (useScreenScaling ? horizontalScaleToUse : 1.0) * scale + 0.5),
-            (Uint16)(clipRect.GetHeight() * (useScreenScaling ? verticalScaleToUse : 1.0) * scale + 0.5)
+            (Uint16)(clipRect.GetWidth() * (useScreenScaling ? horizontalScaleToUse : 1.0) * xScale + 0.5),
+            (Uint16)(clipRect.GetHeight() * (useScreenScaling ? verticalScaleToUse : 1.0) * yScale + 0.5)
         };
 
     SDL_RendererFlip flags = SDL_FLIP_NONE;

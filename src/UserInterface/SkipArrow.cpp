@@ -55,21 +55,31 @@ void SkipArrow::Initialize(Image *pArrowImage,
     SkipArrow::pInvertedFont = CommonCaseResources::GetInstance()->GetFontManager()->GetFontFromId("SkipArrow/InvertedFont");
 }
 
-SkipArrow::SkipArrow(int xPosition, int yPosition, int bounceDistance, bool isClickable, bool isFFwd)
+SkipArrow::SkipArrow(int xPosition, HAlignment hAlignment, int yPosition, int bounceDistance, bool isClickable, bool isFFwd)
 {
     this->xPosition = xPosition;
+    this->hAlignment = hAlignment;
     this->yPosition = yPosition;
 
     textWidget.SetX(xPosition);
     textWidget.SetY(yPosition);
 
-    textWidget.SetText(isFFwd ? pgLocalizableContent->GetText("SkipArrow/FastForwardText") : pgLocalizableContent->GetText("SkipArrow/SkipText"));
+    textWidget.SetTextId(isFFwd ? "SkipArrow/FastForwardText" : "SkipArrow/SkipText");
     textWidget.SetFont(pFont);
     textWidget.SetTextColor(NormalColor);
     textWidget.FitSizeToContent();
 
     width = (pArrowImage->width + ArrowSeparation + textWidget.GetWidth());
     height = max(pArrowImage->height, (Uint16)textWidget.GetHeight());
+
+    if (hAlignment == HAlignmentCenter)
+    {
+        textWidget.SetX(xPosition - width / 2);
+    }
+    else if (hAlignment == HAlignmentRight)
+    {
+        textWidget.SetX(xPosition - width);
+    }
 
     this->bounceDistance = bounceDistance;
 
@@ -88,6 +98,7 @@ SkipArrow::SkipArrow(int xPosition, int yPosition, int bounceDistance, bool isCl
 SkipArrow::SkipArrow(const SkipArrow& other)
 {
     xPosition = other.xPosition;
+    hAlignment = other.hAlignment;
     yPosition = other.yPosition;
     bounceDistance = other.bounceDistance;
 

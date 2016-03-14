@@ -73,6 +73,7 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-mmacosx-version-min=10.7" />
+					<Add option="-std=c++11" />
 					<Add option="-stdlib=libc++" />
 					<Add option="-DMLI_DEBUG" />
 					<Add option="-D__OSX" />
@@ -104,9 +105,9 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
-					<Add option="-fexpensive-optimizations" />
 					<Add option="-O3" />
 					<Add option="-mmacosx-version-min=10.7" />
+					<Add option="-std=c++11" />
 					<Add option="-stdlib=libc++" />
 					<Add option="-D__OSX" />
 					<Add directory="osx" />
@@ -204,6 +205,7 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-std=c++11" />
 			<Add option="-Wall" />
 			<Add option="-DGAME_EXECUTABLE" />
 			<Add option="-D__STDC_CONSTANT_MACROS" />
@@ -221,6 +223,8 @@
 			<Option compilerVar="CC" />
 			<Option compile="1" />
 			<Option link="1" />
+			<Option compiler="gcc" use="1" buildCommand="$compiler -Wall -DGAME_EXECUTABLE -D__STDC_CONSTANT_MACROS -g -DMACOSX_DEPLOYMENT_TARGET=10.6 -DMLI_DEBUG -D__OSX $includes -c $file -o $object" />
+			<Option compiler="clang" use="1" buildCommand="$compiler -Wall -DGAME_EXECUTABLE -D__STDC_CONSTANT_MACROS -g -DMACOSX_DEPLOYMENT_TARGET=10.6 -DMLI_DEBUG -D__OSX $includes -c $file -o $object" />
 			<Option target="Debug (OS X)" />
 			<Option target="Release (OS X)" />
 		</Unit>
@@ -228,6 +232,8 @@
 			<Option compilerVar="CC" />
 			<Option compile="1" />
 			<Option link="1" />
+			<Option compiler="gcc" use="1" buildCommand="$compiler -Wall -DGAME_EXECUTABLE -D__STDC_CONSTANT_MACROS -g -DMACOSX_DEPLOYMENT_TARGET=10.6 -DMLI_DEBUG -D__OSX $includes -c $file -o $object" />
+			<Option compiler="clang" use="1" buildCommand="$compiler -Wall -DGAME_EXECUTABLE -D__STDC_CONSTANT_MACROS -g -DMACOSX_DEPLOYMENT_TARGET=10.6 -DMLI_DEBUG -D__OSX $includes -c $file -o $object" />
 			<Option target="Debug (OS X)" />
 			<Option target="Release (OS X)" />
 		</Unit>
@@ -337,6 +343,8 @@
 		<Unit filename="src/ResourceLoader.h" />
 		<Unit filename="src/Screens/GameScreen.cpp" />
 		<Unit filename="src/Screens/GameScreen.h" />
+		<Unit filename="src/Screens/LanguageScreen.cpp" />
+		<Unit filename="src/Screens/LanguageScreen.h" />
 		<Unit filename="src/Screens/LogoScreen.cpp" />
 		<Unit filename="src/Screens/LogoScreen.h" />
 		<Unit filename="src/Screens/MLIScreen.h" />
@@ -346,6 +354,8 @@
 		<Unit filename="src/Screens/SelectionScreen.h" />
 		<Unit filename="src/Screens/TitleScreen.cpp" />
 		<Unit filename="src/Screens/TitleScreen.h" />
+		<Unit filename="src/SharedUtils.cpp" />
+		<Unit filename="src/SharedUtils.h" />
 		<Unit filename="src/Sprite.cpp" />
 		<Unit filename="src/Sprite.h" />
 		<Unit filename="src/State.cpp" />
@@ -390,6 +400,8 @@
 		<Unit filename="src/XmlIncludes.h" />
 		<Unit filename="src/XmlReader.cpp" />
 		<Unit filename="src/XmlReader.h" />
+		<Unit filename="src/XmlStorableObject.cpp" />
+		<Unit filename="src/XmlStorableObject.h" />
 		<Unit filename="src/XmlWriter.cpp" />
 		<Unit filename="src/XmlWriter.h" />
 		<Unit filename="src/enums.cpp" />
@@ -399,6 +411,8 @@
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/miniz.c">
 			<Option compilerVar="CC" />
+			<Option compiler="gcc" use="1" buildCommand="$compiler -Wall $includes -c $file -o $object" />
+			<Option compiler="clang" use="1" buildCommand="$compiler -Wall $includes -c $file -o $object" />
 		</Unit>
 		<Unit filename="src/miniz.h" />
 		<Unit filename="src/mli_audio.cpp" />
@@ -418,6 +432,10 @@
 		</Unit>
 		<Unit filename="src/tinyxml2/tinyxml2.cpp" />
 		<Unit filename="src/tinyxml2/tinyxml2.h" />
+		<Unit filename="src/utf8cpp/utf8.h" />
+		<Unit filename="src/utf8cpp/utf8/checked.h" />
+		<Unit filename="src/utf8cpp/utf8/core.h" />
+		<Unit filename="src/utf8cpp/utf8/unchecked.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

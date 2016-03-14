@@ -225,7 +225,7 @@ void GameScreen::Draw()
 
         string loadStage = Case::GetInstance()->GetLoadStage();
 
-        sprintf(loadingStringForWidth, pgLocalizableContent->GetText("GameScreen/LoadingFormatTextForWidth").c_str(), loadStage.c_str());
+        snprintf(loadingStringForWidth, 256, gpLocalizableContent->GetText("GameScreen/LoadingFormatTextForWidth").c_str(), loadStage.c_str());
 
         MLIFont *pFont = CommonCaseResources::GetInstance()->GetFontManager()->GetFontFromId("MouseOverFont");
         int stringWidth = pFont->GetWidth(string(loadingStringForWidth));
@@ -233,19 +233,19 @@ void GameScreen::Draw()
         switch (loadingTextStage)
         {
         case 0:
-            sprintf(loadingString, pgLocalizableContent->GetText("GameScreen/LoadingFormatText0").c_str(), loadStage.c_str());
+            snprintf(loadingString, 256, gpLocalizableContent->GetText("GameScreen/LoadingFormatText0").c_str(), loadStage.c_str());
             break;
 
         case 1:
-            sprintf(loadingString, pgLocalizableContent->GetText("GameScreen/LoadingFormatText1").c_str(), loadStage.c_str());
+            snprintf(loadingString, 256, gpLocalizableContent->GetText("GameScreen/LoadingFormatText1").c_str(), loadStage.c_str());
             break;
 
         case 2:
-            sprintf(loadingString, pgLocalizableContent->GetText("GameScreen/LoadingFormatText2").c_str(), loadStage.c_str());
+            snprintf(loadingString, 256, gpLocalizableContent->GetText("GameScreen/LoadingFormatText2").c_str(), loadStage.c_str());
             break;
 
         default:
-            throw MLIException("We should never enter loading text stage 3 or higher.");
+            ThrowException("We should never enter loading text stage 3 or higher.");
         }
 
         pFont->Draw(string(loadingString), (Vector2(gScreenWidth, gScreenHeight) * 0.5) - (Vector2(stringWidth, pFont->GetLineHeight()) * 0.5));

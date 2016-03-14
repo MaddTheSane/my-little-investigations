@@ -69,6 +69,7 @@ private:
     TextButton *pNewGameButton;
     TextButton *pLoadGameButton;
     TextButton *pOptionsButton;
+    TextButton *pSelectLanguageButton;
     TextButton *pExitButton;
 
     TextButton *pTestButton;

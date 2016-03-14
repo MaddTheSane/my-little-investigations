@@ -46,20 +46,32 @@
 #include "Vector2.h"
 #include "Cache.h"
 
+#if defined(GAME_EXECUTABLE) || defined(UPDATER)
+#include "LocalizableContent.h"
+#endif
+
 using namespace std;
 
 class MLIFont
+#if defined(GAME_EXECUTABLE) || defined(UPDATER)
+    : public ILocalizableFont
+#endif
 {
 public:
     MLIFont(const string &ttfFilePath, int fontSize, int strokeWidth, bool invertedColors);
 
-#ifdef GAME_EXECUTABLE
+#if defined(GAME_EXECUTABLE) || defined(UPDATER)
     MLIFont(const string &fontId, int strokeWidth, bool invertedColors);
 #endif
 
-    ~MLIFont();
+    virtual ~MLIFont();
 
     void Reinit();
+
+#if defined(GAME_EXECUTABLE) || defined(UPDATER)
+    void ReloadFontInfo() override;
+#endif
+
     void Draw(const string &s, Vector2 position);
     void Draw(const string &s, Vector2 position, double scale);
     void Draw(const string &s, Vector2 position, Color color);
@@ -92,10 +104,11 @@ private:
         MLIFont *pMLIFont;
     };
 
+    string fontId;
+
     string ttfFilePath;
     int fontSize;
     int strokeWidth;
-    bool isBold;
 
     MRUCache<uint32_t, Image *> cache;
     map<pair<uint32_t, uint32_t>, int> kernedWidthCache;

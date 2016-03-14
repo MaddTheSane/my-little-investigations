@@ -34,6 +34,10 @@
 #include <SDL2/SDL.h>
 #endif
 
+#ifdef UPDATER
+#include "MLIFont.h"
+#endif
+
 SDL_Window *gpWindow = NULL;
 SDL_Renderer *gpRenderer = NULL;
 Uint16 gScreenWidth = 0;
@@ -74,7 +78,11 @@ bool gEnableDebugMode = false;
 double gBackgroundMusicVolume = 0.2;
 double gSoundEffectsVolume = 0.67;
 double gVoiceVolume = 0.5;
+#endif
 
+string gLocalizedResourcesFileName = "common_en-US.dat";
+
+#ifdef GAME_EXECUTABLE
 bool gEnableTutorialsDefault = gEnableTutorials;
 bool gEnableHintsDefault = gEnableHints;
 bool gEnableFullscreenDefault = gEnableFullscreen;
@@ -101,11 +109,11 @@ Version gVersion(1, 0, 0);
 
 #ifdef UPDATER
 string gVersionsXmlFilePath = "";
+string gUpdateScriptFilePath = "";
+MLIFont *gpUpdatingFont = NULL;
 #endif
 
-#ifdef GAME_EXECUTABLE
-LocalizableContent *pgLocalizableContent = NULL;
-#endif
+LocalizableContent *gpLocalizableContent = NULL;
 
 void EnsureUIThread()
 {
@@ -114,7 +122,7 @@ void EnsureUIThread()
 
     if (currentThreadId != gUiThreadId)
     {
-        throw new MLIException("This method can only be called on the UI thread.");
+        ThrowException("This method can only be called on the UI thread.");
     }
 #endif
 }

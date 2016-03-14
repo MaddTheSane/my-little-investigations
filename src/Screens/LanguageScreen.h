@@ -1,5 +1,5 @@
 /**
- * Basic header/include file for SpriteManager.cpp.
+ * Basic header/include file for LanguageScreen.cpp.
  *
  * @author GabuEx, dawnmew
  * @since 1.0
@@ -27,39 +27,56 @@
  * SOFTWARE.
  */
 
-#ifndef SPRITEMANAGER_H
-#define SPRITEMANAGER_H
+#ifndef LANGUAGESCREEN_H
+#define LANGUAGESCREEN_H
 
-#include "../enums.h"
+#include "MLIScreen.h"
+#include "../Animation.h"
+#include "../EasingFunctions.h"
 #include "../Image.h"
-#include "../Sprite.h"
-#include <map>
+#include "../Video.h"
+#include "../Events/TextButtonEventProvider.h"
+#include "../Events/PromptOverlayEventProvider.h"
+#include "../Events/SelectorEventProvider.h"
+#include "../UserInterface/PromptOverlay.h"
+#include "../UserInterface/Selector.h"
+#include "../UserInterface/TextWidget.h"
 
-class XmlReader;
-
-class SpriteManager
+class LanguageScreen : public MLIScreen, public TextButtonEventListener, public SelectorEventListener
 {
 public:
-    SpriteManager(ManagerSource managerSource);
-    ~SpriteManager();
+    LanguageScreen();
+    ~LanguageScreen();
 
-    Sprite * GetSpriteFromId(const string &id);
-    Image * GetImageFromId(const string &id);
-    void AddSprite(const string &id, const string &spriteSheetId, const RectangleWH &spriteClipRect);
-    void AddImage(const string &id, Image *pImage);
-    void LoadImageFromFilePath(const string &id);
-    void DeleteImage(const string &id);
-    void LoadFromXml(XmlReader *pReader);
-    void FinishUpdateLoadedTextures(const string &newLocationId);
+    void LoadResources();
     void UnloadResources();
+    void Init();
+    void Update(int delta);
+    void Draw();
+
+    void OnSelectorSelectionChanged(Selector *pSender, SelectorItem *pSelectedItem);
+    void OnButtonClicked(TextButton *pSender);
 
 private:
-    map<string, Sprite *> spriteByIdMap;
-    map<string, Image *> smartSpriteByIdMap;
-    map<string, string> smartSpriteFilePathByIdMap;
+    void DeleteSelectorItems();
 
-    ManagerSource managerSource;
-    SDL_sem *pImageByIdSemaphore;
+    Image *pFadeSprite;
+
+    double fadeOpacity;
+    EasingFunction *pFadeInEase;
+    EasingFunction *pFadeOutEase;
+
+    Video *pBackgroundVideo;
+
+    Selector *pSelector;
+
+    string localizedResourcesFileName;
+    string languageName;
+
+    TextButton *pApplyButton;
+    TextButton *pBackButton;
+
+    bool finishedLoadingAnimations;
 };
 
 #endif

@@ -140,7 +140,7 @@ void Video::AddSound(unsigned int frameIndex, const string &sfxId)
 {
     if (frameIndex >= frameList.size())
     {
-        throw MLIException("Invalid frame index!");
+        ThrowException("Invalid frame index!");
     }
 
     frameList[frameIndex]->pSound = new SpecifiedSound(sfxId);
@@ -167,34 +167,34 @@ void Video::Update(int delta)
     }
 }
 
-void Video::Draw(Vector2 position)
+void Video::Draw(const Vector2 &position)
 {
     Draw(position, false /* flipHorizontally */, Color::White);
 }
 
-void Video::Draw(Vector2 position, bool flipHorizontally)
+void Video::Draw(const Vector2 &position, bool flipHorizontally)
 {
     Draw(position, flipHorizontally, Color::White);
 }
 
-void Video::Draw(Vector2 position, Color color)
+void Video::Draw(const Vector2 &position, const Color &color)
 {
     Draw(position, false /* flipHorizontally */, color);
 }
 
-void Video::Draw(Vector2 position, bool flipHorizontally, Color color)
+void Video::Draw(const Vector2 &position, bool flipHorizontally, const Color &color)
 {
     Draw(position, flipHorizontally, color, RectangleWH(0, 0, width, height));
 }
 
-void Video::Draw(Vector2 position, bool flipHorizontally, Color color, RectangleWH clipRect)
+void Video::Draw(const Vector2 &position, bool flipHorizontally, const Color &color, const RectangleWH &clipRect)
 {
     if (IsFinished())
     {
         return;
     }
 
-    Image::Draw(pTexture, position, clipRect, flipHorizontally, false /* flipVertically */, 1.0 /* scale */, color);
+    Image::Draw(pTexture, position, clipRect, flipHorizontally, false /* flipVertically */, 1.0 /* scale */, 1.0 /* scale */, color);
 }
 
 void Video::Reset()

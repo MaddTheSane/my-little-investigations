@@ -12,6 +12,7 @@
 #include <unistd.h>
 
 string pLocalApplicationSupportPath;
+string pLocalizedCommonResourcesPath;
 string pCasesPath;
 string pUserApplicationSupportPath;
 string pDialogSeenListsPath;
@@ -58,10 +59,12 @@ void BeginOSX()
     NSString *userAppSupport = [defaultManager userApplicationSupportDirectory];
 
     /* Next, create the folders that the executable will need during execution if they don't already exist. */
+    NSString *pStrLocalizedCommonResourcesPath = nil;
     NSString *localGameAppSupportPath = localAppSupport;
     NSString *userGameAppSupportPath = [userAppSupport stringByAppendingPathComponent:@"My Little Investigations"];
     NSString *dialogSeenPath = [userGameAppSupportPath stringByAppendingPathComponent:@"DialogSeenLists"];
 
+    pStrLocalizedCommonResourcesPath = [localGameAppSupportPath stringByAppendingPathComponent:@"Languages"];
     NSCasesPath = [[localGameAppSupportPath stringByAppendingPathComponent:@"Cases"] retain];
     NSUserCasesPath = [[userGameAppSupportPath stringByAppendingPathComponent:@"Cases"] retain];
     NSSavesPath = [[userGameAppSupportPath stringByAppendingPathComponent:@"Saves"] retain];
@@ -91,6 +94,7 @@ void BeginOSX()
     pUserApplicationSupportPath = [userGameAppSupportPath fileSystemRepresentation];
     pDialogSeenListsPath = [dialogSeenPath fileSystemRepresentation];
     pSavesPath = [NSSavesPath fileSystemRepresentation];
+    pLocalizedCommonResourcesPath = [pStrLocalizedCommonResourcesPath fileSystemRepresentation];
 
     AUTORELEASE_POOL_STOP
 }
@@ -196,6 +200,40 @@ vector<string> GetSaveFilePathsForCaseOSX(const string &caseUuid)
 
     AUTORELEASE_POOL_STOP
     return ppSaveFilePathList;
+}
+
+vector<string> GetLocalizedCommonResourcesFilePathsOSX()
+{
+    NSAutoreleasePool *pool = [NSAutoreleasePool new];
+    NSError *error = nil;
+    NSFileManager *defaultManager = [NSFileManager defaultManager];
+
+    //TODO: Save the NSString as, say, a static pointer.
+    NSString *localizedCommonResourcesPath = [defaultManager stringWithFileSystemRepresentation:pLocalizedCommonResourcesPath.c_str() length: pLocalizedCommonResourcesPath.size()];
+
+    NSArray *pLocalizedCommonResourcesFileList =
+        [defaultManager
+            contentsOfDirectoryAtPath: localizedCommonResourcesPath
+            error:&error];
+
+    vector<string> ppLocalizedCommonResourcesFileList;
+
+    for (NSUInteger i = 0; i < [pLocalizedCommonResourcesFileList count]; i++)
+    {
+        NSString *pStrLocalizedCommonResouresFileName = [pLocalizedCommonResourcesFileList objectAtIndex:i];
+
+       //Ignore UNIX hidden files, like OS X's .DS_Store
+        if ([pStrLocalizedCommonResouresFileName hasPrefix:@"."])
+        {
+            continue;
+        }
+
+        NSString *pStrLocalizedCommonResourcesFilePath = [localizedCommonResourcesPath stringByAppendingPathComponent:pStrLocalizedCommonResouresFileName];
+		ppLocalizedCommonResourcesFileList.push_back(string([pStrLocalizedCommonResourcesFilePath fileSystemRepresentation]));
+    }
+
+    [pool drain];
+    return ppLocalizedCommonResourcesFileList;
 }
 
 string GetVersionStringOSX()

@@ -39,7 +39,7 @@
 #include "CaseCreator/CaseContent/CaseContent.h"
 #endif
 
-XmlWriter::XmlWriter(const char *pFilePath, const char *pFilePathExtension, bool makeHumanReadable)
+XmlWriter::XmlWriter(const char *pFilePath, const char *pFilePathExtension, bool makeHumanReadable, int formattingVersion)
 {
     filePath = string(pFilePath);
 
@@ -58,6 +58,8 @@ XmlWriter::XmlWriter(const char *pFilePath, const char *pFilePathExtension, bool
     {
         stringStream << endl;
     }
+
+    WriteIntElement("FormattingVersion", formattingVersion);
 }
 
 XmlWriter::~XmlWriter()
@@ -83,12 +85,12 @@ XmlWriter::~XmlWriter()
     fileStream.close();
 }
 
-void XmlWriter::StartElement(const XmlReaderString &elementName)
+void XmlWriter::StartElement(const XmlString &elementName)
 {
     StartElement(elementName, true /* addCarriageReturn */);
 }
 
-void XmlWriter::StartElement(const XmlReaderString &elementName, bool addCarriageReturn)
+void XmlWriter::StartElement(const XmlString &elementName, bool addCarriageReturn)
 {
     if (makeHumanReadable)
     {
@@ -98,7 +100,7 @@ void XmlWriter::StartElement(const XmlReaderString &elementName, bool addCarriag
         }
     }
 
-    stringStream << "<" << XmlReaderStringToCharArray(elementName) << ">";
+    stringStream << "<" << XmlStringToCharArray(elementName) << ">";
 
     if (makeHumanReadable && addCarriageReturn)
     {
@@ -108,6 +110,24 @@ void XmlWriter::StartElement(const XmlReaderString &elementName, bool addCarriag
 
     elementNameStack.push(elementName);
     shouldUnindentStack.push(addCarriageReturn);
+}
+
+void XmlWriter::VerifyCurrentElement(const XmlString &expectedElementName)
+{
+#ifdef QT_DEBUG
+    XmlString actualCurrentElement;
+
+    if (elementNameStack.empty() || expectedElementName != (actualCurrentElement = XmlStringToCharArray(elementNameStack.top())))
+    {
+        char buffer[256];
+
+        snprintf(buffer, 256, "XML: Expected element named '%s', instead found '%s'.",
+                XmlStringToCharArray(expectedElementName),
+                (elementNameStack.empty() ? "NULL" : XmlStringToCharArray(actualCurrentElement)));
+
+        ThrowException(buffer);
+    }
+#endif
 }
 
 void XmlWriter::EndElement()
@@ -128,7 +148,7 @@ void XmlWriter::EndElement()
         }
     }
 
-    stringStream << "</" << XmlReaderStringToCharArray(elementNameStack.top()) << ">";
+    stringStream << "</" << XmlStringToCharArray(elementNameStack.top()) << ">";
     elementNameStack.pop();
 
     if (makeHumanReadable)
@@ -137,36 +157,54 @@ void XmlWriter::EndElement()
     }
 }
 
-void XmlWriter::WriteIntElement(const XmlReaderString &elementName, int elementValue)
+void XmlWriter::WriteEmptyElement(const XmlString &elementName)
+{
+    if (makeHumanReadable)
+    {
+        for (int i = 0; i < indentLevel; i++)
+        {
+            stringStream << "    ";
+        }
+    }
+
+    stringStream << "<" << XmlStringToCharArray(elementName) << " />";
+
+    if (makeHumanReadable)
+    {
+        stringStream << endl;
+    }
+}
+
+void XmlWriter::WriteIntElement(const XmlString &elementName, int elementValue)
 {
     StartElement(elementName, false /* addCarriageReturn */);
     stringStream << elementValue;
     EndElement();
 }
 
-void XmlWriter::WriteDoubleElement(const XmlReaderString &elementName, double elementValue)
+void XmlWriter::WriteDoubleElement(const XmlString &elementName, double elementValue)
 {
     StartElement(elementName, false /* addCarriageReturn */);
     stringStream << elementValue;
     EndElement();
 }
 
-void XmlWriter::WriteBooleanElement(const XmlReaderString &elementName, bool elementValue)
+void XmlWriter::WriteBooleanElement(const XmlString &elementName, bool elementValue)
 {
     StartElement(elementName, false /* addCarriageReturn */);
     stringStream << (elementValue ? "true" : "false");
     EndElement();
 }
 
-void XmlWriter::WriteTextElement(const XmlReaderString &elementName, const XmlReaderString &elementValue)
+void XmlWriter::WriteTextElement(const XmlString &elementName, const XmlString &elementValue)
 {
     StartElement(elementName, false /* addCarriageReturn */);
-    stringStream << XmlReaderStringToCharArray(elementValue);
+    stringStream << XmlStringToCharArray(elementValue);
     EndElement();
 }
 
 #ifdef CASE_CREATOR
-void XmlWriter::WriteFilePathElement(const XmlReaderString &elementName, const XmlReaderString &elementValue)
+void XmlWriter::WriteFilePathElement(const XmlString &elementName, const XmlString &elementValue)
 {
     // We always store file paths as relative paths but use them as absolute paths,
     // so convert this to a relative path before returning it.
@@ -176,9 +214,9 @@ void XmlWriter::WriteFilePathElement(const XmlReaderString &elementName, const X
 #endif
 
 #ifndef CASE_CREATOR
-void XmlWriter::WritePngElement(const XmlReaderString &elementName, void *pElementValue, size_t elementSize)
+void XmlWriter::WritePngElement(const XmlString &elementName, void *pElementValue, size_t elementSize)
 #else
-void XmlWriter::WritePngElement(const XmlReaderString &, void *, size_t )
+void XmlWriter::WritePngElement(const XmlString &, void *, size_t )
 #endif
 {
 #ifndef CASE_CREATOR

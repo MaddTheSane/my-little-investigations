@@ -32,6 +32,8 @@
 #include "Game.h"
 #include "FileFunctions.h"
 #include "globals.h"
+#include "Rectangle.h"
+#include "SharedUtils.h"
 
 #ifdef GAME_EXECUTABLE
 #include "mli_audio.h"
@@ -47,6 +49,7 @@
 #include "Screens/TitleScreen.h"
 #include "Screens/GameScreen.h"
 #include "Screens/OptionsScreen.h"
+#include "Screens/LanguageScreen.h"
 #include "Screens/SelectionScreen.h"
 #include "UserInterface/Slider.h"
 #include "UserInterface/Selector.h"
@@ -117,7 +120,6 @@ bool Game::CreateAndInit()
     }
 
 #ifdef GAME_EXECUTABLE
-    LoadConfigurations();
     LoadCompletedCases();
     PopulateCaseSignatureMap();
 #endif
@@ -272,11 +274,9 @@ bool Game::CreateAndInit()
     {
         ResourceLoader::GetInstance()->PreloadSound(sfxIdList[i], "SFX/" + sfxIdList[i]);
     }
-#endif
 
     TTF_Init();
 
-#ifdef GAME_EXECUTABLE
     MouseHelper::Init();
     KeyboardHelper::Init();
     TextInputHelper::Init();
@@ -297,6 +297,7 @@ void Game::PrepareGameMode()
 {
     screenFromIdMap[TITLE_SCREEN_ID]->UnloadResources();
     screenFromIdMap[CASE_SELECTION_SCREEN_ID]->UnloadResources();
+    screenFromIdMap[LANGUAGE_SCREEN_ID]->UnloadResources();
     screenFromIdMap[GAME_SCREEN_ID]->LoadResources();
     screenFromIdMap[SAVE_SCREEN_ID]->LoadResources();
 }
@@ -307,6 +308,7 @@ void Game::PrepareMenuMode()
     screenFromIdMap[SAVE_SCREEN_ID]->UnloadResources();
     screenFromIdMap[TITLE_SCREEN_ID]->LoadResources();
     screenFromIdMap[CASE_SELECTION_SCREEN_ID]->LoadResources();
+    screenFromIdMap[LANGUAGE_SCREEN_ID]->LoadResources();
 }
 
 void Game::SetOverlayById(const string &overlayId)
@@ -366,7 +368,7 @@ void Game::Update(int delta)
             }
             else
             {
-                throw MLIException("Unknown screen ID.");
+                ThrowException("Unknown screen ID.");
             }
         }
     }
@@ -437,10 +439,10 @@ void Game::Finish()
     delete pInstance;
     pInstance = NULL;
 
+#ifdef GAME_EXECUTABLE
     // Close all open fonts and shut down the font thread.
     TTF_Quit();
 
-#ifdef GAME_EXECUTABLE
     EventProviders::Close();
 #endif
 
@@ -573,8 +575,8 @@ void Game::Init()
         pEvidenceSelectorDescriptionFont);
 
     Dialog::Initialize(
-        3, 370, 954, 167,
-        30,
+        dialogTextArea.GetX(), dialogTextArea.GetY(), dialogTextArea.GetWidth(), dialogTextArea.GetHeight(),
+        dialogPadding,
         pDialogFont);
 
     Notification::Initialize(
@@ -616,12 +618,13 @@ void Game::Init()
     screenFromIdMap[TITLE_SCREEN_ID] = new TitleScreen();
     screenFromIdMap[GAME_SCREEN_ID] = new GameScreen();
     screenFromIdMap[OPTIONS_SCREEN_ID] = new OptionsScreen();
+    screenFromIdMap[LANGUAGE_SCREEN_ID] = new LanguageScreen();
     screenFromIdMap[CASE_SELECTION_SCREEN_ID] = new SelectionScreen(SelectionScreenTypeCaseSelection);
     screenFromIdMap[LOAD_SCREEN_ID] = new SelectionScreen(SelectionScreenTypeLoadGame);
     screenFromIdMap[SAVE_SCREEN_ID] = new SelectionScreen(SelectionScreenTypeSaveGame);
 #endif
 #ifdef UPDATER
-    screenFromIdMap[CHECK_FOR_UPDATES_SCREEN_ID] = new CheckForUpdatesScreen(new MLIFont(GetLauncherFontFilePath(), 30, 1, false));
+    screenFromIdMap[CHECK_FOR_UPDATES_SCREEN_ID] = new CheckForUpdatesScreen(gpUpdatingFont);
 #endif
 
 #ifdef GAME_EXECUTABLE
@@ -644,6 +647,7 @@ void Game::Init()
 #ifdef GAME_EXECUTABLE
     screenFromIdMap[OPTIONS_SCREEN_ID]->LoadResources();
     screenFromIdMap[CASE_SELECTION_SCREEN_ID]->LoadResources();
+    screenFromIdMap[LANGUAGE_SCREEN_ID]->LoadResources();
     screenFromIdMap[LOAD_SCREEN_ID]->LoadResources();
 #endif
 }

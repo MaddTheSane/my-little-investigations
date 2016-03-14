@@ -33,12 +33,13 @@
 
 #include "KeyboardHelper.h"
 
+#include "SharedUtils.h"
 #include "Utils.h"
 #include "XmlReader.h"
 #include "XmlWriter.h"
+#include "globals.h"
 
 #ifdef GAME_EXECUTABLE
-#include "globals.h"
 #include "ResourceLoader.h"
 #endif
 
@@ -138,6 +139,7 @@ string pathSeparator;
 string otherPathSeparator;
 
 string commonAppDataPath;
+string localizedCommonResourcesPath;
 string casesPath;
 string userAppDataPath;
 string dialogSeenListsPath;
@@ -205,6 +207,7 @@ void LoadFilePathsAndCaseUuids(string executableFilePath)
         // stringByAppendingPathComponent has no way of doing this
         // explicitly, though.
         commonAppDataPath = pLocalApplicationSupportPath + "/";
+        localizedCommonResourcesPath = pLocalizedCommonResourcesPath + "/";
         casesPath = pCasesPath + "/";
         userAppDataPath = pUserApplicationSupportPath + "/";
         dialogSeenListsPath = pDialogSeenListsPath + "/";
@@ -250,7 +253,22 @@ void LoadFilePathsAndCaseUuids(string executableFilePath)
 #error NOT IMPLEMENTED
 #endif
 
+// If we're in debug mode for the updater, then we want to have hard-coded executable file paths,
+// since otherwise we'll fail to update.  We want to test updating the actual executable,
+// not the one in our compiler's bin directory.
+#if defined(MLI_DEBUG) && defined (UPDATER)
+
+#ifdef __WINDOWS
+    executableFilePath = "C:\\Program Files (x86)\\My Little Investigations\\MyLittleInvestigations.exe";
+#endif
+#ifdef __OSX
+    executableFilePath = "/Applications/MyLittleInvestigations.app/Contents/MacOS/MyLittleInvestigations";
+#endif
+
+#else
     executableFilePath = ConvertSeparatorsInPath(executableFilePath);
+#endif
+
     executionPath = executableFilePath.substr(0, executableFilePath.find_last_of(pathSeparator)) + pathSeparator;
 }
 
@@ -441,6 +459,53 @@ bool CopyCaseFileToCaseFolder(const string &caseFilePath, const string &caseUuid
 
     return success;
 }
+
+vector<string> GetLanguageResourcesFilePaths()
+{
+    vector<string> filePaths;
+
+#ifdef __WINDOWS
+        tstring tstrPath = StringToTString(GetLocalizedCommonResourcesDirectoryPath()) + tstring(TEXT("*.dat"));
+
+        WIN32_FIND_DATA ffd;
+        HANDLE hFind = FindFirstFile(tstrPath.c_str(), &ffd);
+
+        if (INVALID_HANDLE_VALUE != hFind)
+        {
+            do
+            {
+                filePaths.push_back(GetLocalizedCommonResourcesDirectoryPath() + TStringToString(tstring(ffd.cFileName)));
+            }
+            while (FindNextFile(hFind, &ffd) != 0);
+
+            FindClose(hFind);
+        }
+#elif __OSX
+        vector<string> localizedCommonResourcesFilePaths = GetLocalizedCommonResourcesFilePathsOSX();
+
+        for (unsigned int i = 0; i < localizedCommonResourcesFilePaths.size(); i++)
+        {
+            string localizedCommonResourcesFilePath = localizedCommonResourcesFilePaths[i];
+
+            if (localizedCommonResourcesFilePath.find(".dat") != string::npos)
+            {
+                filePaths.push_back(localizedCommonResourcesFilePath);
+            }
+        }
+#elif __unix
+        FOR_EACH_FILE(localizedCommonResourcesFilePath,localizedCommonResourcesFilePaths)
+        {
+            if (localizedCommonResourcesFilePath.find(".dat") != string::npos)
+            {
+                filePaths.push_back(localizedCommonResourcesFilePath);
+            }
+        }
+#else
+#error NOT IMPLEMENTED
+#endif
+
+    return filePaths;
+}
 #endif
 
 string ConvertSeparatorsInPath(string &path)
@@ -461,6 +526,11 @@ string GetFileNameFromFilePath(const string &path)
 string GetCommonResourcesFilePath()
 {
     return commonAppDataPath + "common.dat";
+}
+
+string GetLocalizedCommonResourcesDirectoryPath()
+{
+    return commonAppDataPath + pathSeparator + "Languages" + pathSeparator;
 }
 
 #ifdef __OSX
@@ -485,7 +555,7 @@ Version GetCurrentVersion()
     DWORD dwType = REG_SZ;
     DWORD dwSize = 255;
 
-    if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\MyLittleInvestigations", 0, KEY_QUERY_VALUE, &hKey) == ERROR_SUCCESS &&
+    if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\MyLittleInvestigations", 0, KEY_QUERY_VALUE, &hKey) == ERROR_SUCCESS &&
         RegQueryValueEx(hKey, TEXT("DisplayVersion"), NULL, &dwType, (LPBYTE)&stringValue, &dwSize) == ERROR_SUCCESS)
     {
         versionString = TStringToString(stringValue);
@@ -521,74 +591,6 @@ Version GetCurrentVersion()
     }
 }
 
-#ifdef UPDATER
-void WriteNewVersion(Version newVersion)
-{
-#ifdef __WINDOWS
-    tstring versionString = StringToTString((string)newVersion);
-    const TCHAR *pVersionString = versionString.c_str();
-
-    TCHAR stringValue[255];
-    HKEY hKey = NULL;
-    DWORD dwType = REG_SZ;
-    DWORD dwSize = versionString.length() + 1;
-
-    for (unsigned int i = 0; i < versionString.length(); i++)
-    {
-        stringValue[i] = pVersionString[i];
-    }
-
-    stringValue[versionString.length()] = 0;
-
-    if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\MyLittleInvestigations", 0, KEY_SET_VALUE, &hKey) != ERROR_SUCCESS ||
-        RegSetValueEx(hKey, TEXT("DisplayVersion"), 0, dwType, (LPBYTE)stringValue, dwSize) != ERROR_SUCCESS)
-    {
-        XmlWriter versionWriter(GetVersionFilePath().c_str());
-        newVersion.SaveToXml(&versionWriter);
-    }
-
-    RegCloseKey(hKey);
-#elif __OSX
-    unsigned long propertyListXmlDataLength = 0;
-    char *pPropertyListXmlData = GetPropertyListXMLForVersionStringOSX(GetPropertyListPath(), newVersion, &propertyListXmlDataLength);
-
-    if (pPropertyListXmlData != NULL && propertyListXmlDataLength > 0)
-    {
-        string tempPropertyListPath = GetTempDirectoryPath() + "MyLittleInvestigations.plist";
-
-        ofstream propertyListStream(tempPropertyListPath.c_str(), ios::out | ios::trunc);
-        propertyListStream.write(pPropertyListXmlData, propertyListXmlDataLength);
-        propertyListStream.close();
-
-        RenameFile(tempPropertyListPath, GetPropertyListPath());
-    }
-    else
-    {
-        XmlWriter versionWriter(GetVersionFilePath().c_str());
-        newVersion.SaveToXml(&versionWriter);
-    }
-
-    delete [] pPropertyListXmlData;
-#elif __unix
-    string versionFilePath = commonAppDataPath + string(".version");
-    ofstream versionFile (versionFilePath.c_str());
-    if(versionFile.is_open())
-    {
-        versionFile << (string)newVersion;
-        versionFile.close();
-    }
-    else
-    {
-        XmlWriter versionWriter(GetVersionFilePath().c_str());
-        newVersion.SaveToXml(&versionWriter);
-    }
-#else
-#error NOT IMPLEMENTED
-#endif
-}
-#endif
-
-#ifdef GAME_EXECUTABLE
 string GetConfigFilePath()
 {
     return userAppDataPath + "Config.xml";
@@ -601,6 +603,7 @@ bool ConfigFileExists()
     return configFileStream.is_open();
 }
 
+#ifdef GAME_EXECUTABLE
 void SaveConfigurations()
 {
     XmlWriter configWriter(GetConfigFilePath().c_str());
@@ -616,11 +619,14 @@ void SaveConfigurations()
     configWriter.WriteDoubleElement("BackgroundMusicVolume", gBackgroundMusicVolume);
     configWriter.WriteDoubleElement("SoundEffectsVolume", gSoundEffectsVolume);
     configWriter.WriteDoubleElement("VoiceVolume", gVoiceVolume);
+    configWriter.WriteTextElement("LocalizedResourcesFileName", gLocalizedResourcesFileName);
 
     KeyboardHelper::WriteConfig(configWriter);
 
     configWriter.EndElement();
 }
+
+#endif
 
 void LoadConfigurations()
 {
@@ -628,6 +634,7 @@ void LoadConfigurations()
     {
         try
         {
+#ifdef GAME_EXECUTABLE
             bool enableTutorials = gEnableTutorials;
             bool enableHints = gEnableHints;
             bool enableFullscreen = gEnableFullscreen;
@@ -638,6 +645,8 @@ void LoadConfigurations()
             double backgroundMusicVolume = gBackgroundMusicVolume;
             double soundEffectsVolume = gSoundEffectsVolume;
             double voiceVolume = gVoiceVolume;
+#endif
+            string localizedResourcesFileName = gLocalizedResourcesFileName;
 
             XmlReader configReader(GetConfigFilePath().c_str());
 
@@ -645,6 +654,7 @@ void LoadConfigurations()
             {
                 configReader.StartElement("Configurations");
 
+#ifdef GAME_EXECUTABLE
                 if (configReader.ElementExists("EnableTutorials"))
                 {
                     enableTutorials = configReader.ReadBooleanElement("EnableTutorials");
@@ -686,12 +696,21 @@ void LoadConfigurations()
                 {
                     voiceVolume = configReader.ReadDoubleElement("VoiceVolume");
                 }
+#endif
 
+                if (configReader.ElementExists("LocalizedResourcesFileName"))
+                {
+                    localizedResourcesFileName = configReader.ReadTextElement("LocalizedResourcesFileName");
+                }
+
+#ifdef GAME_EXECUTABLE
                 KeyboardHelper::ReadConfig(configReader);
+#endif
 
                 configReader.EndElement();
             }
 
+#ifdef GAME_EXECUTABLE
             gEnableTutorials = enableTutorials;
             gEnableHints = enableHints;
             gEnableFullscreen = enableFullscreen;
@@ -702,6 +721,8 @@ void LoadConfigurations()
             gBackgroundMusicVolume = backgroundMusicVolume;
             gSoundEffectsVolume = soundEffectsVolume;
             gVoiceVolume = voiceVolume;
+#endif
+            gLocalizedResourcesFileName = localizedResourcesFileName;
         }
         catch (MLIException e)
         {
@@ -710,6 +731,7 @@ void LoadConfigurations()
     }
 }
 
+#ifdef GAME_EXECUTABLE
 string GetCompletedCasesFilePath()
 {
     return userAppDataPath + "CompletedCases.xml";
@@ -1018,11 +1040,6 @@ string GetTempDirectoryPath()
     return tempDirectoryPath;
 }
 
-string GetLauncherFontFilePath()
-{
-    return commonAppDataPath + "CelestiaMediumRedux1.5.ttf";
-}
-
 #ifdef __OSX
 string GetUpdaterHelperFilePath()
 {
@@ -1121,6 +1138,33 @@ BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam)
     return TRUE;
 }
 #endif
+
+string GetGameExecutablePath()
+{
+#ifdef __WINDOWS
+    return executionPath + "MyLittleInvestigations.exe";
+#elif defined(__OSX) || defined(__unix)
+    return executionPath + "MyLittleInvestigations";
+#else
+#error NOT IMPLEMENTED
+#endif
+}
+
+string GetUpdaterExecutableName()
+{
+#ifdef __WINDOWS
+    return "MyLittleInvestigationsUpdater.exe";
+#elif defined(__OSX) || defined(__unix)
+    return "MyLittleInvestigationsUpdater";
+#else
+#error NOT IMPLEMENTED
+#endif
+}
+
+string GetUpdaterExecutablePath()
+{
+    return executionPath + GetUpdaterExecutableName();
+}
 
 bool LaunchExecutable(const char *pExecutablePath, vector<string> commandLineArguments, bool waitForCompletion, bool asAdmin)
 {
@@ -1327,20 +1371,45 @@ bool LaunchExecutable(const char *pExecutablePath, vector<string> commandLineArg
     return success;
 }
 
-void LaunchGameExecutable()
+bool LaunchUpdaterScript(const string &scriptFilePath)
 {
+    string executablePath;
+
 #ifdef __WINDOWS
-    string executablePath = executionPath + "MyLittleInvestigations.exe";
+    TCHAR szPath[MAX_PATH] = { 0 };
+    if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_SYSTEM, NULL, 0, szPath)))
+    {
+        PathAppend(szPath, TEXT("cmd.exe"));
+        executablePath = TStringToString(tstring(szPath));
+    }
+    else
+    {
+        return false;
+    }
 #elif defined(__OSX) || defined(__unix)
-    string executablePath = executionPath + "MyLittleInvestigations";
+    executablePath = "/bin/sh";
 #else
 #error NOT IMPLEMENTED
 #endif
 
+    vector<string> commandLineArguments;
+    commandLineArguments.push_back(string("/C ") + scriptFilePath);
+
+    if (!LaunchExecutable(executablePath.c_str(), commandLineArguments, false /* waitForCompletion */, true /* asAdmin */))
+    {
+        return false;
+    }
+
+    return true;
+}
+
+void LaunchGameExecutable()
+{
+    string executablePath = GetGameExecutablePath();
     if (!LaunchExecutable(executablePath.c_str(), vector<string>(), false /* waitForCompletion */, false /* asAdmin */))
     {
         char error[256];
-        sprintf(error, "Error: Couldn't find MLI executable at %s!", executablePath.c_str());
+        snprintf(error, 256, "Error: Couldn't find MLI executable at %s!", executablePath.c_str());
 
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error starting MLI", error, NULL);
     }
@@ -1442,17 +1511,231 @@ bool RenameFile(const string &oldFilePath, const string &newFilePath)
 #error NOT IMPLEMENTED
 #endif
 }
+
+string GetNewlineString()
+{
+    return "\n";
+}
+
+string GetNullRedirectionString()
+{
+#ifdef __WINDOWS
+    return " > nul";
+#elif defined(__OSX) || defined(__unix)
+    return " > /dev/null";
+#else
+#error NOT IMPLEMENTED
+#endif
+}
+
+string GetScriptInstructionsHeader()
+{
+#ifdef __WINDOWS
+    return "@echo off" + GetNewlineString() + GetNewlineString();
+#elif defined(__OSX) || defined(__unix)
+    return "";
+#else
+#error NOT IMPLEMENTED
+#endif
+}
+
+string GetWaitForExitScriptInstructions()
+{
+    string scriptInstructions = GetPrintStringScriptInstructions(gpLocalizableContent->GetText("Updater/WaitingForProcessToCompleteText"));
+
+#ifdef __WINDOWS
+    scriptInstructions += ":WaitingForProcessLoop" + GetNewlineString();
+    scriptInstructions += "tasklist | find /i " + GetUpdaterExecutableName() + GetNullRedirectionString() + " 2>&1" + GetNewlineString();
+    scriptInstructions += "if %ERRORLEVEL% equ 0 (" + GetNewlineString();
+    scriptInstructions += "timeout /t 1 /nobreak" + GetNullRedirectionString() + GetNewlineString();
+    scriptInstructions += "goto :WaitingForProcessLoop" + GetNewlineString();
+    scriptInstructions += ")" + GetNewlineString();
+#elif defined(__OSX) || defined(__unix)
+    scriptInstructions = "while pgrep -u root process_name > /dev/null; do sleep 1; done;" + GetNewlineString();
+#else
+#error NOT IMPLEMENTED
+#endif
+
+    return scriptInstructions;
+}
+
+string GetPrintStringScriptInstructions(const string &s)
+{
+    return string("echo ") + s + GetNewlineString();
+}
+
+string GetPrintEmptyLineScriptInstructions()
+{
+    string scriptInstructions;
+
+#ifdef __WINDOWS
+    scriptInstructions = "echo.";
+#elif defined(__OSX) || defined(__unix)
+    scriptInstructions = "echo";
+#else
+#error NOT IMPLEMENTED
+#endif
+
+    return scriptInstructions + GetNewlineString() + GetNewlineString();
+}
+
+string GetApplyDeltaFileScriptInstructions(const string &oldFilePath, const string &deltaFilePath, const string &newFilePath)
+{
+    string scriptInstructions;
+
+#ifdef __WINDOWS
+    scriptInstructions = "\"" + executionPath + "deltatool" + pathSeparator + "xdelta3.exe\" -f -d -s \"" + oldFilePath + "\" \"" + deltaFilePath + "\" \"" + newFilePath + "\"";
+#elif __OSX
+    scriptInstructions = "\"" + GetUpdaterHelperFilePath() + "\" update \"" + oldFilePath + "\" \"" + deltaFilePath + "\" \"" + newFilePath + "\"";
+#elif __unix
+    scriptInstructions = "xdelta3 -f -d -s \"" + oldFilePath + "\" \"" + deltaFilePath + "\" \"" + newFilePath + "\"";
+#else
+#error NOT IMPLEMENTED
+#endif
+
+    return scriptInstructions + GetNullRedirectionString() + GetNewlineString();
+}
+
+string GetRemoveFileScriptInstructions(const string &filePath)
+{
+    string scriptInstructions;
+
+#ifdef __WINDOWS
+    scriptInstructions = string("if exist \"") + filePath + "\" del \"" + filePath + "\"";
+#elif defined(__OSX) || defined(__unix)
+    scriptInstructions = string("if [ -f \"") + filePath + "\" ] then rm \"" + filePath + "\" fi";
+#else
+#error NOT IMPLEMENTED
+#endif
+
+    return scriptInstructions + GetNullRedirectionString() + GetNewlineString();
+}
+
+string GetRenameFileScriptInstructions(const string &oldFilePath, const string &newFilePath)
+{
+    string scriptInstructions;
+
+#ifdef __WINDOWS
+    scriptInstructions = string("if exist \"") + oldFilePath + "\" move \"" + oldFilePath + "\" \"" + newFilePath + "\"";
+#elif defined(__OSX) || defined(__unix)
+    scriptInstructions = string("if [ -f \"") + oldFilePath + "\" ] then mv \"" + oldFilePath + "\" \"" + newFilePath + "\" fi";
+#else
+#error NOT IMPLEMENTED
+#endif
+
+    return scriptInstructions + GetNullRedirectionString() + GetNewlineString();
+}
+
+string GetCheckReturnValueScriptInstructions(unsigned int versionUpdateIndex, unsigned int versionUpdateSubIndex)
+{
+    string scriptInstructions = GetNewlineString();
+
+#ifdef __WINDOWS
+    string errorLabelNameToCall = ":HandleError" + IntegerToString(versionUpdateIndex) + IntegerToString(versionUpdateSubIndex);
+
+    scriptInstructions += "if %ERRORLEVEL% neq 0 (" + GetNewlineString();
+    scriptInstructions += "call " + errorLabelNameToCall + GetNewlineString();
+    scriptInstructions += GetPrintStringScriptInstructions("Update failed! Sorry about that. Try again later.");
+    scriptInstructions += GetPrintStringScriptInstructions("Press enter to continue...");
+    scriptInstructions += "pause" + GetNullRedirectionString() + GetNewlineString();
+    scriptInstructions += GetStartGameScriptInstructions();
+    scriptInstructions += "goto :eof" + GetNewlineString();
+    scriptInstructions += ")" + GetNewlineString();
+#elif defined(__OSX) || defined(__unix)
+    string errorFunctionNameToCall = "HandleError" + IntegerToString(versionUpdateIndex) + IntegerToString(versionUpdateSubIndex);
+
+    scriptInstructions += "if [ $? -eq 0 ] then" + GetNewlineString();
+    scriptInstructions += errorFunctionNameToCall + GetNewlineString();
+    scriptInstructions += GetPrintStringScriptInstructions("Update failed!  Sorry about that.  Try again later.");
+    scriptInstructions += "read -p \"Press enter to continue...\"" + GetNewlineString();
+    scriptInstructions += GetStartGameScriptInstructions();
+    scriptInstructions += "exit" + GetNewlineString();
+    scriptInstructions += "fi" + GetNewlineString();
+#else
+#error NOT IMPLEMENTED
+#endif
+
+    return scriptInstructions + GetNewlineString();
+}
+
+string GetWriteNewVersionScriptInstructions(const string &newVersionString)
+{
+#ifdef __WINDOWS
+    return string("reg add \"HKEY_LOCAL_MACHINE\\Software\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\MyLittleInvestigations\" /v DisplayVersion /t REG_SZ /d ") + newVersionString + " /f" + GetNullRedirectionString() + GetNewlineString();
+#elif __OSX
+    string scriptInstructions;
+
+    unsigned long propertyListXmlDataLength = 0;
+    char *pPropertyListXmlData = GetPropertyListXMLForVersionStringOSX(GetPropertyListPath(), newVersionString, &propertyListXmlDataLength);
+
+    deque<string> propertyListXmlDataLines = split(string(pPropertyListXmlData, propertyListXmlDataLength), '\n');
+
+    bool firstLine = true;
+    string tempPropertyListPath = GetTempDirectoryPath() + "MyLittleInvestigations.plist";
+
+    for (string propertyListXmlDataLine : propertyListXmlDataLines)
+    {
+        string redirectionString = firstLine ? ">" : ">>";
+        scriptInstructions += "echo \"" + propertyListXmlDataLine + "\" " + redirectionString + " \"" + tempPropertyListPath + "\"" + GetNewlineString();
+        firstLine = false;
+    }
+
+    scriptInstructions += GetNewlineString();
+    scriptInstructions += GetRenameFileScriptInstructions(tempPropertyListPath, GetPropertyListPath());
+
+    delete [] pPropertyListXmlData;
+
+    return scriptInstructions;
+#elif __unix
+    return "echo \"" + newVersionString + "\" > \"" + commonAppDataPath + string(".version") + "\"" + GetNewlineString();
+#endif
+}
+
+string GetStartGameScriptInstructions()
+{
+    string scriptInstructions;
+
+#ifdef __WINDOWS
+    scriptInstructions = "start \"\" \"" + GetGameExecutablePath() + "\"";
+#elif defined(__OSX) || defined(__unix)
+    scriptInstructions = "\"" + GetGameExecutablePath() + "\"";
+#else
+#error NOT IMPLEMENTED
+#endif
+
+    return scriptInstructions + GetNullRedirectionString() + GetNewlineString();
+}
+
+string CreateUpdateScript(const string &scriptContents)
+{
+    string updateScriptFilePath = GetTempDirectoryPath();
+
+#ifdef __WINDOWS
+    updateScriptFilePath += "update.cmd";
+#elif defined(__OSX) || defined(__unix)
+    updateScriptFilePath += "update.sh";
+#else
+#error NOT IMPLEMENTED
+#endif
+
+    ofstream scriptFileStream(updateScriptFilePath, ios_base::out | ios_base::trunc);
+
+    if (scriptFileStream)
+    {
+        // We'll add on an instruction to make the script delete itself right at the end,
+        // in order to ensure that that's the last thing it does, always.
+        scriptFileStream.write((scriptContents + GetRemoveFileScriptInstructions(updateScriptFilePath)).c_str(), scriptContents.length());
+        scriptFileStream.close();
+    }
+
+    return updateScriptFilePath;
+}
+
 #endif
 #ifdef LAUNCHER
 bool LaunchUpdater(const string &versionsXmlFilePath)
 {
-#ifdef __WINDOWS
-    string executablePath = executionPath + "MyLittleInvestigationsUpdater.exe";
-#elif defined(__OSX) || defined(__unix)
-    string executablePath = executionPath + "MyLittleInvestigationsUpdater";
-#else
-#error NOT IMPLEMENTED
-#endif
+    string executablePath = GetUpdaterExecutablePath();
 
     vector<string> commandLineArguments;
     commandLineArguments.push_back(versionsXmlFilePath);

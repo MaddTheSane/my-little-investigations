@@ -70,7 +70,7 @@ Conversation::UnlockCondition * Conversation::UnlockCondition::LoadFromXml(XmlRe
     }
     else
     {
-        throw MLIException("Unknown unlock condition type.");
+        ThrowException("Unknown unlock condition type.");
     }
 }
 
@@ -247,12 +247,12 @@ void Conversation::Begin(State *pState)
 {
     if (pSkipTab == NULL)
     {
-        pSkipTab = new Tab(gScreenWidth - (TabWidth + 7), true /* isClickable */, pgLocalizableContent->GetText("Conversation/FastForwardText"), false /* useCancelClickSoundEffect */, TabRowTop);
+        pSkipTab = new Tab(gScreenWidth - (TabWidth + 7), true /* isClickable */, gpLocalizableContent->GetText("Conversation/FastForwardText"), false /* useCancelClickSoundEffect */, TabRowTop);
     }
 
     if (pSkipArrow == NULL)
     {
-        pSkipArrow = new SkipArrow(789, 8 + TabHeight, 10, false /* isClickable */, true /* isFFwd */);
+        pSkipArrow = new SkipArrow(951, HAlignmentRight, 8 + TabHeight, 10, false /* isClickable */, true /* isFFwd */);
     }
 
     this->Reset();
@@ -264,7 +264,7 @@ void Conversation::Begin(State *pState)
     pState->SetCurrentConfrontation(NULL);
 
     pSkipTab->Reset();
-    pSkipTab->SetText(pgLocalizableContent->GetText("Conversation/FastForwardText"));
+    pSkipTab->SetText(gpLocalizableContent->GetText("Conversation/FastForwardText"));
     pSkipArrow->Reset();
 
     Case::GetInstance()->GetAudioManager()->LowerMusicVolumeForDialog();
@@ -298,11 +298,11 @@ void Conversation::Update(int delta)
 
             if (pState->GetIsFastForwarding())
             {
-                pSkipTab->SetText(pgLocalizableContent->GetText("Conversation/StopText"));
+                pSkipTab->SetText(gpLocalizableContent->GetText("Conversation/StopText"));
             }
             else
             {
-                pSkipTab->SetText(pgLocalizableContent->GetText("Conversation/FastForwardText"));
+                pSkipTab->SetText(gpLocalizableContent->GetText("Conversation/FastForwardText"));
             }
         }
     }
@@ -310,7 +310,7 @@ void Conversation::Update(int delta)
     {
         pState->SetIsFastForwarding(false);
         pSkipTab->Reset();
-        pSkipTab->SetText(pgLocalizableContent->GetText("Conversation/FastForwardText"));
+        pSkipTab->SetText(gpLocalizableContent->GetText("Conversation/FastForwardText"));
     }
 
     if (pState->GetIsFastForwarding())
@@ -510,7 +510,7 @@ Conversation * Conversation::LoadFromXml(XmlReader *pReader)
     }
     else
     {
-        throw MLIException("Invalid conversation type.");
+        ThrowException("Invalid conversation type.");
     }
 }
 
@@ -755,7 +755,7 @@ Conversation::Action * Conversation::GetActionForNextElement(XmlReader *pReader)
     }
     else
     {
-        throw MLIException("Unknown action type.");
+        ThrowException("Unknown action type.");
     }
 }
 
@@ -1109,7 +1109,7 @@ void Conversation::ShowDialogAction::Begin(State *pState)
 
     if (speakerPosition == CharacterPositionUnknown)
     {
-        speakerName = pgLocalizableContent->GetText("Conversation/UnknownCharacterNameText");
+        speakerName = gpLocalizableContent->GetText("Conversation/UnknownCharacterNameText");
     }
     else if (speakerPosition == CharacterPositionOffscreen)
     {
@@ -2340,7 +2340,7 @@ Conversation::BeginMultipleChoiceAction::BeginMultipleChoiceAction(XmlReader *pR
 
     if (optionTexts.size() != optionIndexes.size())
     {
-        throw MLIException("optionTexts and optionIndexes must be the same size.");
+        ThrowException("optionTexts and optionIndexes must be the same size.");
     }
 
     pButtonArray = new ButtonArray((int)optionTexts.size(), 0, 0, 960, 360, 30);
@@ -2633,7 +2633,7 @@ void Interrogation::ShowInterrogationAction::Update(int delta)
         }
         else
         {
-            throw MLIException("At least one of NextInterrogationIndex and InterrogationFinishIndex must be set.");
+            ThrowException("At least one of NextInterrogationIndex and InterrogationFinishIndex must be set.");
         }
 
         // If we're done and the next index hasn't been set yet,
@@ -2668,7 +2668,7 @@ void Interrogation::ShowInterrogationAction::OnDialogDirectlyNavigated(Dialog *p
     {
         if (GetPreviousInterrogationIndex() < 0)
         {
-            throw MLIException("Cannot navigate back when there is nowhere to navigate back to.");
+            ThrowException("Cannot navigate back when there is nowhere to navigate back to.");
         }
 
         pState->SetActionIndex(GetPreviousInterrogationIndex());
@@ -3257,8 +3257,8 @@ void Confrontation::Draw(double xOffset, double yOffset)
         char playerHealthCStr[16] = { '\0' };
         char opponentHealthCStr[16] = { '\0' };
 
-        sprintf(&playerHealthCStr[0], "%d", GetPlayerHealth());
-        sprintf(&opponentHealthCStr[0], "%d", GetOpponentHealth());
+        snprintf(&playerHealthCStr[0], 16, "%d", GetPlayerHealth());
+        snprintf(&opponentHealthCStr[0], 16, "%d", GetOpponentHealth());
 
         string playerHealthString = playerHealthCStr;
         string opponentHealthString = opponentHealthCStr;
@@ -3743,11 +3743,13 @@ void Confrontation::InitializeBeginConfrontationTopicSelectionAction::Draw(doubl
         false /* flipHorizontally */,
         false /* flipVertically */,
         1.0,
+        1.0,
         Color::White);
     pConfrontationEntranceBlockSprite->Draw(
         Vector2(gScreenWidth / 2 - blockPosition, yOffset), RectangleWH(0, 0, pConfrontationEntranceBlockSprite->width, pConfrontationEntranceBlockSprite->height),
         true /* flipHorizontally */,
         false /* flipVertically */,
+        1.0,
         1.0,
         Color::White);
 

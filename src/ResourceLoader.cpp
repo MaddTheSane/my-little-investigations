@@ -36,6 +36,7 @@
 
 ResourceLoader * ResourceLoader::pInstance = NULL;
 
+#ifdef GAME_EXECUTABLE
 void ResourceLoader::LoadImageStep::Execute()
 {
     Case::GetInstance()->GetSpriteManager()->LoadImageFromFilePath(spriteId);
@@ -55,6 +56,7 @@ void ResourceLoader::DeleteVideoStep::Execute()
 {
     pVideo->UnloadFile();
 }
+#endif
 
 void ResourceLoader::Close()
 {
@@ -62,19 +64,66 @@ void ResourceLoader::Close()
     pInstance = NULL;
 }
 
-bool ResourceLoader::Init(const string &commonResourcesFilePath)
+#ifdef GAME_EXECUTABLE
+bool ResourceLoader::Init(const string &commonResourcesFilePath, const string &commonLocalizedResourcesFilePath)
 {
     ArchiveSource *pCommonResourcesSource = NULL;
+    ArchiveSource *pCommonLocalizedResourcesSource = NULL;
 
     if (!ArchiveSource::CreateAndInit(commonResourcesFilePath, &pCommonResourcesSource))
     {
         return false;
     }
 
+    if (!ArchiveSource::CreateAndInit(commonLocalizedResourcesFilePath, &pCommonLocalizedResourcesSource))
+    {
+        return false;
+    }
+
     this->pCommonResourcesSource = pCommonResourcesSource;
+    this->pCommonLocalizedResourcesSource = pCommonLocalizedResourcesSource;
+    this->pCachedCommonLocalizedResourcesSource = NULL;
+    this->pCaseResourcesSource = NULL;
+    this->pCachedCaseResourcesSource = NULL;
     return true;
 }
 
+bool ResourceLoader::LoadNewCommonLocalizedResources(const string &commonLocalizedResourcesFilePath)
+{
+    bool retVal;
+
+    SDL_SemWait(pLoadingSemaphore);
+    delete pCommonLocalizedResourcesSource;
+    retVal = ArchiveSource::CreateAndInit(commonLocalizedResourcesFilePath, &pCommonLocalizedResourcesSource);
+    SDL_SemPost(pLoadingSemaphore);
+
+    return retVal;
+}
+#endif
+
+bool ResourceLoader::LoadTemporaryCommonLocalizedResources(const string &commonLocalizedResourcesFilePath)
+{
+    pCachedCommonLocalizedResourcesSource = pCommonLocalizedResourcesSource;
+    pCommonLocalizedResourcesSource = NULL;
+
+    bool retVal = ArchiveSource::CreateAndInit(commonLocalizedResourcesFilePath, &pCommonLocalizedResourcesSource);
+
+    if (!retVal)
+    {
+        UnloadTemporaryCommonLocalizedResources();
+    }
+
+    return retVal;
+}
+
+void ResourceLoader::UnloadTemporaryCommonLocalizedResources()
+{
+    delete pCommonLocalizedResourcesSource;
+    pCommonLocalizedResourcesSource = pCachedCommonLocalizedResourcesSource;
+    pCachedCommonLocalizedResourcesSource = NULL;
+}
+
+#ifdef GAME_EXECUTABLE
 bool ResourceLoader::LoadCase(const string &caseFilePath)
 {
     bool retVal;
@@ -182,23 +231,32 @@ void ResourceLoader::ReloadImage(Image *pSprite, const string &originFilePath)
 
     free(pMemToFree);
 }
+#endif
 
 tinyxml2::XMLDocument * ResourceLoader::LoadDocument(const string &relativeFilePath)
 {
+#if defined(GAME_EXECUTABLE) || defined(UPDATER)
     void *pMemToFree = NULL;
     SDL_RWops * pRW = NULL;
 
+#ifdef GAME_EXECUTABLE
     if (pLoadingSemaphore != NULL)
     {
         SDL_SemWait(pLoadingSemaphore);
-        pRW = pCommonResourcesSource->LoadFile(relativeFilePath, &pMemToFree);
+#endif
+        if (pCommonLocalizedResourcesSource != NULL)
+        {
+            pRW = pCommonLocalizedResourcesSource->LoadFile(relativeFilePath, &pMemToFree);
+        }
 
+#ifdef GAME_EXECUTABLE
         if (pRW == NULL && pCaseResourcesSource != NULL)
         {
             pRW = pCaseResourcesSource->LoadFile(relativeFilePath, &pMemToFree);
         }
         SDL_SemPost(pLoadingSemaphore);
     }
+#endif
 
     if (pRW == NULL) return NULL;
     tinyxml2::XMLDocument * pDocument = new tinyxml2::XMLDocument();
@@ -206,26 +264,48 @@ tinyxml2::XMLDocument * ResourceLoader::LoadDocument(const string &relativeFileP
     SDL_RWclose(pRW);
     free(pMemToFree);
     return pDocument;
+#endif
+#ifdef LAUNCHER
+    stringstream ss;
+
+    if (pCommonLocalizedResourcesSource != NULL)
+    {
+        pCommonLocalizedResourcesSource->LoadFile(relativeFilePath, ss);
+    }
+
+    if (!ss) return NULL;
+    tinyxml2::XMLDocument * pDocument = new tinyxml2::XMLDocument();
+    pDocument->LoadFile(ss);
+    return pDocument;
+#endif
 }
 
+#if defined(GAME_EXECUTABLE) || defined(UPDATER)
 TTF_Font * ResourceLoader::LoadFont(const string &relativeFilePath, int ptSize, void **ppMemToFree)
 {
     *ppMemToFree = NULL;
     SDL_RWops * pRW = NULL;
 
+#ifdef GAME_EXECUTABLE
     SDL_SemWait(pLoadingSemaphore);
-    pRW = pCommonResourcesSource->LoadFile(relativeFilePath, ppMemToFree);
+#endif
+    pRW = pCommonLocalizedResourcesSource->LoadFile(relativeFilePath, ppMemToFree);
 
+#ifdef GAME_EXECUTABLE
     if (pRW == NULL && pCaseResourcesSource != NULL)
     {
         pRW = pCaseResourcesSource->LoadFile(relativeFilePath, ppMemToFree);
     }
     SDL_SemPost(pLoadingSemaphore);
+#endif
+
     if (pRW == NULL) return NULL;
     TTF_Font *pFont = TTF_OpenFontRW(pRW, 1, ptSize);
     return pFont;
 }
+#endif
 
+#ifdef GAME_EXECUTABLE
 void ResourceLoader::LoadVideo(
     const string &relativeFilePath,
     RWOpsIOContext **ppRWOpsIOContext,
@@ -276,12 +356,12 @@ void ResourceLoader::LoadVideo(
 
     if (avformat_open_input(&pFormatContext, NULL, NULL, NULL) < 0)
     {
-        throw MLIException("Couldn't open video file!");
+        ThrowException("Couldn't open video file!");
     }
 
     if (avformat_find_stream_info(pFormatContext, NULL) < 0)
     {
-        throw MLIException("Couldn't find video stream info!");
+        ThrowException("Couldn't find video stream info!");
     }
 
     int videoStream = -1;
@@ -300,7 +380,7 @@ void ResourceLoader::LoadVideo(
 
     if (avcodec_open2(pCodecContext, pCodec, NULL) < 0)
     {
-        throw MLIException("Couldn't open codec!");
+        ThrowException("Couldn't open codec!");
     }
 
     *ppRWOpsIOContext = pRWOpsIOContext;
@@ -418,6 +498,11 @@ void * ResourceLoader::LoadFileToMemory(const string &relativeFilePath, unsigned
     SDL_SemWait(pLoadingSemaphore);
     p = pCommonResourcesSource->LoadFileToMemory(relativeFilePath, &fileSize);
 
+    if (p == NULL)
+    {
+        p = pCommonLocalizedResourcesSource->LoadFileToMemory(relativeFilePath, &fileSize);
+    }
+
     if (p == NULL && pCaseResourcesSource != NULL)
     {
         p = pCaseResourcesSource->LoadFileToMemory(relativeFilePath, &fileSize);
@@ -435,6 +520,11 @@ void ResourceLoader::HashFile(const string &relativeFilePath, byte hash[])
 
     SDL_SemWait(pLoadingSemaphore);
     p = pCommonResourcesSource->LoadFileToMemory(relativeFilePath, &fileSize);
+
+    if (p == NULL)
+    {
+        p = pCommonLocalizedResourcesSource->LoadFileToMemory(relativeFilePath, &fileSize);
+    }
 
     if (p == NULL && pCaseResourcesSource != NULL)
     {
@@ -467,7 +557,7 @@ void ResourceLoader::RemoveImage(Image *pImage)
 {
     SDL_SemWait(pQueueSemaphore);
 
-    for (int i = (int)(smartSpriteQueue.size() - 1); i >= 0; i--)
+    for (int i = static_cast<int>(smartSpriteQueue.size()) - 1; i >= 0; i--)
     {
         if (smartSpriteQueue[i] == pImage)
         {
@@ -649,22 +739,36 @@ void ResourceLoader::TryRunOneLoadStep()
         delete pStep;
     }
 }
+#endif
 
 ResourceLoader::ResourceLoader()
 {
+#ifdef GAME_EXECUTABLE
     pCommonResourcesSource = NULL;
+#endif
+    pCommonLocalizedResourcesSource = NULL;
+    pCachedCommonLocalizedResourcesSource = NULL;
+#ifdef GAME_EXECUTABLE
     pCaseResourcesSource = NULL;
     pCachedCaseResourcesSource = NULL;
 
     pLoadingSemaphore = SDL_CreateSemaphore(1);
     pQueueSemaphore = SDL_CreateSemaphore(1);
     pLoadQueueSemaphore = SDL_CreateSemaphore(1);
+#endif
 }
 
 ResourceLoader::~ResourceLoader()
 {
+#ifdef GAME_EXECUTABLE
     delete pCommonResourcesSource;
     pCommonResourcesSource = NULL;
+#endif
+    delete pCommonLocalizedResourcesSource;
+    pCommonLocalizedResourcesSource = NULL;
+    delete pCachedCommonLocalizedResourcesSource;
+    pCachedCommonLocalizedResourcesSource = NULL;
+#ifdef GAME_EXECUTABLE
     delete pCaseResourcesSource;
     pCaseResourcesSource = NULL;
 
@@ -677,6 +781,7 @@ ResourceLoader::~ResourceLoader()
 
     smartSpriteQueue.clear();
     deleteTextureQueue.clear();
+#endif
 }
 
 ResourceLoader::ArchiveSource::~ArchiveSource()
@@ -698,6 +803,7 @@ bool ResourceLoader::ArchiveSource::CreateAndInit(const string &archiveFilePath,
     return true;
 }
 
+#if defined(GAME_EXECUTABLE) || defined(UPDATER)
 SDL_RWops * ResourceLoader::ArchiveSource::LoadFile(const string &relativeFilePath, void **ppMemToFree)
 {
     size_t uncomp_size = 0;
@@ -711,6 +817,25 @@ SDL_RWops * ResourceLoader::ArchiveSource::LoadFile(const string &relativeFilePa
     *ppMemToFree = p;
     return SDL_RWFromMem(p, (unsigned int)uncomp_size);
 }
+#endif
+
+#ifdef LAUNCHER
+void ResourceLoader::ArchiveSource::LoadFile(const string &relativeFilePath, stringstream &ss)
+{
+    size_t uncomp_size = 0;
+    void *p = mz_zip_reader_extract_file_to_heap(&zip_archive, relativeFilePath.c_str(), &uncomp_size, 0);
+
+    if (p == NULL)
+    {
+        return;
+    }
+
+    string s(reinterpret_cast<char *>(p), uncomp_size);
+    free(p);
+
+    ss.str(s);
+}
+#endif
 
 void * ResourceLoader::ArchiveSource::LoadFileToMemory(const string &relativeFilePath, unsigned int *pSize)
 {

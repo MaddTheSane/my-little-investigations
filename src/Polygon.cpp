@@ -42,37 +42,37 @@ typedef unsigned int PointsIntType;
 typedef int PointsIntType;
 #endif
 
-GeometricPolygon::GeometricPolygon(XmlReader *pReader)
+GeometricPolygon::GeometricPolygon(const GeometricPolygon &other)
 {
-    pReader->StartElement("Polygon");
-    pReader->StartList("Vertex");
-
-    while (pReader->MoveToNextListItem())
+    for (PointsIntType i = 0; i < other.points.size(); i++)
     {
-        points.push_back(Vector2(pReader->ReadDoubleElement("X"), pReader->ReadDoubleElement("Y")));
+        points.push_back(other.points[i]);
     }
-
-    pReader->EndElement();
 }
 
-#ifdef CASE_CREATOR
-void GeometricPolygon::SaveToProjectFile(XmlWriter *pWriter)
+void GeometricPolygon::LoadElementsFromXml(XmlReader *pReader)
 {
-    pWriter->StartElement("Polygon");
-
-    for (Vector2 point : points)
+    switch (pReader->GetFormattingVersion())
     {
-        pWriter->StartElement("Vertex");
-        pWriter->WriteDoubleElement("X", point.GetX());
-        pWriter->WriteDoubleElement("Y", point.GetY());
-        pWriter->EndElement();
+    case 1:
+        pReader->StartList("Vertex");
+
+        while (pReader->MoveToNextListItem())
+        {
+            points.push_back(Vector2(pReader->ReadDoubleElement("X"), pReader->ReadDoubleElement("Y")));
+        }
+        break;
+
+    case 2:
+        XmlStorableObject::LoadElementsFromXml(pReader);
+        break;
+
+    default:
+        ThrowException("Unknown XML formatting version.");
     }
-
-    pWriter->EndElement();
 }
-#endif
 
-RectangleWH GeometricPolygon::GetBoundingBox()
+RectangleWH GeometricPolygon::GetBoundingBox() const
 {
     if (points.empty())
     {
@@ -117,7 +117,7 @@ bool GeometricPolygon::Contains(Vector2 point)
     // If it passes through an odd number of edges, then the point
     // is inside the polygon; otherwise, it's outside.
     bool oddNumberOfCrossings = false;
-    int lastIndex = int(points.size() - 1);
+    int lastIndex = static_cast<int>(points.size()) - 1;
 
     for (PointsIntType index = 0; index < points.size(); index++)
     {
@@ -152,14 +152,42 @@ bool GeometricPolygon::Contains(Vector2 point)
     return oddNumberOfCrossings;
 }
 
-const GeometricPolygon GeometricPolygon::operator-(const Vector2 &other) const
+GeometricPolygon & GeometricPolygon::operator=(const GeometricPolygon &rhs)
 {
-    GeometricPolygon newPolygon = *this;
-
-    for (PointsIntType i = 0; i < newPolygon.points.size(); i++)
+    for (PointsIntType i = 0; i < rhs.points.size(); i++)
     {
-        newPolygon.points[i] -= other;
+        points.push_back(rhs.points[i]);
     }
 
-    return newPolygon;
+    return *this;
+}
+
+GeometricPolygon & GeometricPolygon::operator+=(const Vector2 &rhs)
+{
+    for (PointsIntType i = 0; i < points.size(); i++)
+    {
+        points[i] += rhs;
+    }
+
+    return *this;
+}
+
+GeometricPolygon & GeometricPolygon::operator-=(const Vector2 &rhs)
+{
+    for (PointsIntType i = 0; i < points.size(); i++)
+    {
+        points[i] -= rhs;
+    }
+
+    return *this;
+}
+
+const GeometricPolygon GeometricPolygon::operator+(const Vector2 &rhs) const
+{
+    return GeometricPolygon(*this) += rhs;
+}
+
+const GeometricPolygon GeometricPolygon::operator-(const Vector2 &rhs) const
+{
+    return GeometricPolygon(*this) -= rhs;
 }
