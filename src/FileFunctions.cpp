@@ -262,7 +262,7 @@ void LoadFilePathsAndCaseUuids(string executableFilePath)
     executableFilePath = "C:\\Program Files (x86)\\My Little Investigations\\MyLittleInvestigations.exe";
 #endif
 #ifdef __OSX
-    executableFilePath = "/Applications/MyLittleInvestigations.app/Contents/MacOS/MyLittleInvestigations";
+    executableFilePath = "/Applications/My Little Investigations.app/Contents/MacOS/MyLittleInvestigations";
 #endif
 
 #else
@@ -344,42 +344,7 @@ bool IsCaseCorrectlySigned(const string &caseFilePath, bool useLookupTable)
         return gCaseIsSignedByFilePathMap[caseFilePath];
     }
 
-    bool isCaseCorrectlySigned = false;
-    ResourceLoader::GetInstance()->LoadTemporaryCase(caseFilePath);
-
-    try
-    {
-        XmlReader caseMetadataReader("caseMetadata.xml");
-        caseMetadataReader.StartElement("CaseMetadata");
-
-        if (caseMetadataReader.ElementExists("Signatures"))
-        {
-            caseMetadataReader.StartElement("Signatures");
-
-            string caseSignature = caseMetadataReader.ReadTextElement("CaseFile");
-
-            caseMetadataReader.EndElement();
-
-            caseMetadataReader.EndElement();
-
-            if (caseSignature.length() > 0)
-            {
-                unsigned int fileSize = 0;
-                void *pFileData = ResourceLoader::GetInstance()->LoadFileToMemory("case.xml", &fileSize);
-                isCaseCorrectlySigned = SignatureIsValid((const byte *)pFileData, fileSize, caseSignature);
-                free(pFileData);
-            }
-        }
-    }
-    catch (MLIException e)
-    {
-        // Nothing to do if we catch an exception - that just means
-        // that the case was not correctly signed.
-        isCaseCorrectlySigned = false;
-    }
-
-    ResourceLoader::GetInstance()->UnloadTemporaryCase();
-
+    bool isCaseCorrectlySigned = ResourceLoader::GetInstance()->IsCaseCorrectlySigned(caseFilePath);
     gCaseIsSignedByFilePathMap[caseFilePath] = isCaseCorrectlySigned;
     return isCaseCorrectlySigned;
 }
@@ -508,6 +473,8 @@ vector<string> GetLanguageResourcesFilePaths()
 }
 #endif
 
+const string & GetPathSeparator() { return pathSeparator; }
+
 string ConvertSeparatorsInPath(string &path)
 {
     while (path.find_first_of(otherPathSeparator) != string::npos)
@@ -530,7 +497,7 @@ string GetCommonResourcesFilePath()
 
 string GetLocalizedCommonResourcesDirectoryPath()
 {
-    return commonAppDataPath + pathSeparator + "Languages" + pathSeparator;
+    return commonAppDataPath + "Languages" + pathSeparator;
 }
 
 #ifdef __OSX
@@ -1040,89 +1007,6 @@ string GetTempDirectoryPath()
     return tempDirectoryPath;
 }
 
-#ifdef __OSX
-string GetUpdaterHelperFilePath()
-{
-    return executionPath + "UpdaterHelper";
-}
-
-AuthorizationRef authorizationRef = NULL;
-
-bool TryAcquireUpdateAdministratorRightsOSX()
-{
-    bool success = false;
-
-    OSStatus status =
-        AuthorizationCreate(
-            NULL,
-            kAuthorizationEmptyEnvironment,
-            kAuthorizationFlagDefaults,
-            &authorizationRef);
-
-    if (status == errAuthorizationSuccess)
-    {
-        string adminPrompt = "An update is available for My Little Investigations.";
-        string iconPath = executionPath + "../Resources/LockIcon.icns";
-
-        AuthorizationItem kAuthEnv[2];
-
-        kAuthEnv[0].name = kAuthorizationEnvironmentPrompt;
-        kAuthEnv[0].valueLength = adminPrompt.length();
-        kAuthEnv[0].value = (void *)adminPrompt.c_str();
-        kAuthEnv[0].flags = 0;
-
-        kAuthEnv[1].name = kAuthorizationEnvironmentIcon;
-        kAuthEnv[1].valueLength = iconPath.length();
-        kAuthEnv[1].value = (void *)iconPath.c_str();
-        kAuthEnv[1].flags = 0;
-
-        AuthorizationEnvironment authorizationEnvironment;
-        authorizationEnvironment.items = kAuthEnv;
-        authorizationEnvironment.count = 2;
-
-        string updaterHelperFilePath = GetUpdaterHelperFilePath();
-
-        AuthorizationItem executeRights[1] =
-        {
-            {
-                kAuthorizationRightExecute,
-                updaterHelperFilePath.length(),
-                (void *)updaterHelperFilePath.c_str(),
-                0
-            },
-        };
-
-        AuthorizationRights rightsSet = {1, executeRights};
-
-        AuthorizationFlags flags =
-            kAuthorizationFlagDefaults |
-            kAuthorizationFlagInteractionAllowed |
-            kAuthorizationFlagPreAuthorize |
-            kAuthorizationFlagExtendRights;
-
-        OSStatus status =
-            AuthorizationCopyRights(
-                authorizationRef,
-                &rightsSet,
-                &authorizationEnvironment,
-                flags,
-                NULL);
-
-        if (status == errAuthorizationSuccess)
-        {
-            success = true;
-        }
-    }
-
-    return success;
-}
-
-void FreeAdministratorRights()
-{
-    AuthorizationFree(authorizationRef, kAuthorizationFlagDefaults | kAuthorizationFlagDestroyRights);
-}
-#endif
-
 #ifdef __WINDOWS
 BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam)
 {
@@ -1249,44 +1133,7 @@ bool LaunchExecutable(const char *pExecutablePath, vector<string> commandLineArg
 #elif __OSX
     if (asAdmin)
     {
-        if (authorizationRef != NULL)
-        {
-            char **ppArgv = new char*[commandLineArguments.size() + 1];
-
-            for (unsigned int i = 0; i < commandLineArguments.size(); i++)
-            {
-                ppArgv[i] = new char[commandLineArguments[i].length() + 1];
-                strcpy(ppArgv[i], commandLineArguments[i].c_str());
-            }
-
-            ppArgv[commandLineArguments.size()] = NULL;
-
-            FILE *fpStdout = NULL;
-
-            OSStatus status =
-                AuthorizationExecuteWithPrivileges(
-                    authorizationRef,
-                    pExecutablePath,
-                    kAuthorizationFlagDefaults,
-                    ppArgv,
-                    &fpStdout);
-
-            success = status == errAuthorizationSuccess;
-
-            if (success && waitForCompletion)
-            {
-                char currentLine[1024] = { '\0' };
-                int returnValue = 0;
-
-                while (fgets(currentLine, sizeof(currentLine), fpStdout) != NULL)
-                {
-                    if (sscanf(currentLine, "Return value: %d", &returnValue) == 1)
-                    {
-                        success = returnValue == 0;
-                    }
-                }
-            }
-        }
+        ThrowException("We should never need to execute anything as admin on OS X.");
     }
     else
     {
@@ -1374,6 +1221,7 @@ bool LaunchExecutable(const char *pExecutablePath, vector<string> commandLineArg
 bool LaunchUpdaterScript(const string &scriptFilePath)
 {
     string executablePath;
+    vector<string> commandLineArguments;
 
 #ifdef __WINDOWS
     TCHAR szPath[MAX_PATH] = { 0 };
@@ -1381,24 +1229,22 @@ bool LaunchUpdaterScript(const string &scriptFilePath)
     {
         PathAppend(szPath, TEXT("cmd.exe"));
         executablePath = TStringToString(tstring(szPath));
+        commandLineArguments.push_back(string("/C ") + scriptFilePath);
     }
     else
     {
         return false;
     }
-#elif defined(__OSX) || defined(__unix)
-    executablePath = "/bin/sh";
-#else
-#error NOT IMPLEMENTED
-#endif
-
-    vector<string> commandLineArguments;
-    commandLineArguments.push_back(string("/C ") + scriptFilePath);
 
     if (!LaunchExecutable(executablePath.c_str(), commandLineArguments, false /* waitForCompletion */, true /* asAdmin */))
     {
         return false;
     }
+#elif defined(__OSX)
+    system((string("osascript -e 'tell app \"Terminal\"' -e 'activate' -e 'do script \"") + scriptFilePath.c_str() + " \"' -e 'end tell'").c_str());
+#else
+#error NOT IMPLEMENTED
+#endif
 
     return true;
 }
@@ -1417,101 +1263,6 @@ void LaunchGameExecutable()
 #endif
 
 #ifdef UPDATER
-bool ApplyDeltaFile(const string &oldFilePath, const string &deltaFilePath, const string &newFilePath)
-{
-#ifdef __WINDOWS
-    string executablePath = executionPath + "deltatool" + pathSeparator + "xdelta3.exe";
-
-    vector<string> commandLineArguments;
-
-    commandLineArguments.push_back("-f");
-    commandLineArguments.push_back("-d");
-    commandLineArguments.push_back("-s");
-    commandLineArguments.push_back(oldFilePath);
-    commandLineArguments.push_back(deltaFilePath);
-    commandLineArguments.push_back(newFilePath);
-#elif __OSX
-    string executablePath = GetUpdaterHelperFilePath();
-
-    vector<string> commandLineArguments;
-
-    commandLineArguments.push_back("update");
-    commandLineArguments.push_back(oldFilePath);
-    commandLineArguments.push_back(deltaFilePath);
-    commandLineArguments.push_back(newFilePath);
-#elif __unix
-    string executablePath = "xdelta3";
-
-    vector<string> commandLineArguments;
-
-    commandLineArguments.push_back("-f");
-    commandLineArguments.push_back("-d");
-    commandLineArguments.push_back("-s");
-    commandLineArguments.push_back(oldFilePath);
-    commandLineArguments.push_back(deltaFilePath);
-    commandLineArguments.push_back(newFilePath);
-#else
-#error NOT IMPLEMENTED
-#endif
-
-    // On Windows, we can launch the entire update application in admin mode, so we don't need to run the update executable in admin mode.
-    // On OS X, however, we do need to run the update helper in admin mode.
-    // On Unix, we can launch the entire update application in admin mode, so we don't need to run the update executable in admin mode.
-    bool success =
-        LaunchExecutable(
-            executablePath.c_str(),
-            commandLineArguments,
-            true /* waitForCompletion */,
-#if defined(__WINDOWS) || defined(__unix)
-            false /* asAdmin */
-#elif __OSX
-            true /* asAdmin */
-#else
-#warning Unknown or unsupported architecture
-			false
-#endif
-            );
-
-    return success;
-}
-
-bool RemoveFile(const string &filePath)
-{
-#if defined(__WINDOWS) || defined(__unix)
-    return remove(filePath.c_str()) == 0;
-#elif defined(__OSX)
-    string executablePath = GetUpdaterHelperFilePath();
-
-    vector<string> commandLineArguments;
-
-    commandLineArguments.push_back("remove");
-    commandLineArguments.push_back(filePath);
-
-    return LaunchExecutable(executablePath.c_str(), commandLineArguments, true /* waitForCompletion */, true /* asAdmin */);
-#else
-#error NOT IMPLEMENTED
-#endif
-}
-
-bool RenameFile(const string &oldFilePath, const string &newFilePath)
-{
-#if defined(__WINDOWS) || defined(__unix)
-    return rename(oldFilePath.c_str(), newFilePath.c_str()) == 0;
-#elif __OSX
-    string executablePath = GetUpdaterHelperFilePath();
-
-    vector<string> commandLineArguments;
-
-    commandLineArguments.push_back("rename");
-    commandLineArguments.push_back(oldFilePath);
-    commandLineArguments.push_back(newFilePath);
-
-    return LaunchExecutable(executablePath.c_str(), commandLineArguments, true /* waitForCompletion */, true /* asAdmin */);
-#else
-#error NOT IMPLEMENTED
-#endif
-}
-
 string GetNewlineString()
 {
     return "\n";
@@ -1579,6 +1330,23 @@ string GetPrintEmptyLineScriptInstructions()
     return scriptInstructions + GetNewlineString() + GetNewlineString();
 }
 
+string GetMakeExecutableScriptInstructions(const string &filePath)
+{
+    string scriptInstructions;
+
+#ifdef __WINDOWS
+    // Nothing to do on Windows - there, executability is a matter of file extension, not permissions.
+#elif __OSX
+    scriptInstructions += "chmod 755 \"" + filePath + "\"" + GetNullRedirectionString() + GetNewlineString();
+#elif __unix
+    scriptInstructions += "chmod 755 \"" + filePath + "\"" + GetNullRedirectionString() + GetNewlineString();
+#else
+#error NOT IMPLEMENTED
+#endif
+
+    return scriptInstructions;
+}
+
 string GetApplyDeltaFileScriptInstructions(const string &oldFilePath, const string &deltaFilePath, const string &newFilePath)
 {
     string scriptInstructions;
@@ -1586,7 +1354,7 @@ string GetApplyDeltaFileScriptInstructions(const string &oldFilePath, const stri
 #ifdef __WINDOWS
     scriptInstructions = "\"" + executionPath + "deltatool" + pathSeparator + "xdelta3.exe\" -f -d -s \"" + oldFilePath + "\" \"" + deltaFilePath + "\" \"" + newFilePath + "\"";
 #elif __OSX
-    scriptInstructions = "\"" + GetUpdaterHelperFilePath() + "\" update \"" + oldFilePath + "\" \"" + deltaFilePath + "\" \"" + newFilePath + "\"";
+    scriptInstructions = "\"" + executionPath + "deltatool" + pathSeparator + "xdelta3\" -f -d -s \"" + oldFilePath + "\" \"" + deltaFilePath + "\" \"" + newFilePath + "\"";
 #elif __unix
     scriptInstructions = "xdelta3 -f -d -s \"" + oldFilePath + "\" \"" + deltaFilePath + "\" \"" + newFilePath + "\"";
 #else
@@ -1601,14 +1369,14 @@ string GetRemoveFileScriptInstructions(const string &filePath)
     string scriptInstructions;
 
 #ifdef __WINDOWS
-    scriptInstructions = string("if exist \"") + filePath + "\" del \"" + filePath + "\"";
+    scriptInstructions = string("if exist \"") + filePath + "\" del \"" + filePath + "\"" + GetNullRedirectionString();
 #elif defined(__OSX) || defined(__unix)
-    scriptInstructions = string("if [ -f \"") + filePath + "\" ] then rm \"" + filePath + "\" fi";
+    scriptInstructions = string("if [ -f \"") + filePath + "\" ]; then rm -f \"" + filePath + "\"" + GetNullRedirectionString() + "; fi";
 #else
 #error NOT IMPLEMENTED
 #endif
 
-    return scriptInstructions + GetNullRedirectionString() + GetNewlineString();
+    return scriptInstructions + GetNewlineString();
 }
 
 string GetRenameFileScriptInstructions(const string &oldFilePath, const string &newFilePath)
@@ -1616,14 +1384,14 @@ string GetRenameFileScriptInstructions(const string &oldFilePath, const string &
     string scriptInstructions;
 
 #ifdef __WINDOWS
-    scriptInstructions = string("if exist \"") + oldFilePath + "\" move \"" + oldFilePath + "\" \"" + newFilePath + "\"";
+    scriptInstructions = string("if exist \"") + oldFilePath + "\" move \"" + oldFilePath + "\" \"" + newFilePath + "\"" + GetNullRedirectionString();
 #elif defined(__OSX) || defined(__unix)
-    scriptInstructions = string("if [ -f \"") + oldFilePath + "\" ] then mv \"" + oldFilePath + "\" \"" + newFilePath + "\" fi";
+    scriptInstructions = string("if [ -f \"") + oldFilePath + "\" ]; then mv -f \"" + oldFilePath + "\" \"" + newFilePath + "\"" + GetNullRedirectionString() + "; fi";
 #else
 #error NOT IMPLEMENTED
 #endif
 
-    return scriptInstructions + GetNullRedirectionString() + GetNewlineString();
+    return scriptInstructions + GetNewlineString();
 }
 
 string GetCheckReturnValueScriptInstructions(unsigned int versionUpdateIndex, unsigned int versionUpdateSubIndex)
@@ -1635,8 +1403,8 @@ string GetCheckReturnValueScriptInstructions(unsigned int versionUpdateIndex, un
 
     scriptInstructions += "if %ERRORLEVEL% neq 0 (" + GetNewlineString();
     scriptInstructions += "call " + errorLabelNameToCall + GetNewlineString();
-    scriptInstructions += GetPrintStringScriptInstructions("Update failed! Sorry about that. Try again later.");
-    scriptInstructions += GetPrintStringScriptInstructions("Press enter to continue...");
+    scriptInstructions += GetPrintStringScriptInstructions(gpLocalizableContent->GetText("Updater/UpdateFailedText"));
+    scriptInstructions += GetPrintStringScriptInstructions(gpLocalizableContent->GetText("Updater/PressEnterToContinueText"));
     scriptInstructions += "pause" + GetNullRedirectionString() + GetNewlineString();
     scriptInstructions += GetStartGameScriptInstructions();
     scriptInstructions += "goto :eof" + GetNewlineString();
@@ -1644,10 +1412,11 @@ string GetCheckReturnValueScriptInstructions(unsigned int versionUpdateIndex, un
 #elif defined(__OSX) || defined(__unix)
     string errorFunctionNameToCall = "HandleError" + IntegerToString(versionUpdateIndex) + IntegerToString(versionUpdateSubIndex);
 
-    scriptInstructions += "if [ $? -eq 0 ] then" + GetNewlineString();
+    scriptInstructions += "if [ $? -ne 0 ]" + GetNewlineString();
+    scriptInstructions += "then" + GetNewlineString();
     scriptInstructions += errorFunctionNameToCall + GetNewlineString();
-    scriptInstructions += GetPrintStringScriptInstructions("Update failed!  Sorry about that.  Try again later.");
-    scriptInstructions += "read -p \"Press enter to continue...\"" + GetNewlineString();
+    scriptInstructions += GetPrintStringScriptInstructions(gpLocalizableContent->GetText("Updater/UpdateFailedText"));
+    scriptInstructions += "read -p \"" + gpLocalizableContent->GetText("Updater/PressEnterToContinueText") + "\"" + GetNewlineString();
     scriptInstructions += GetStartGameScriptInstructions();
     scriptInstructions += "exit" + GetNewlineString();
     scriptInstructions += "fi" + GetNewlineString();
@@ -1696,19 +1465,25 @@ string GetStartGameScriptInstructions()
     string scriptInstructions;
 
 #ifdef __WINDOWS
-    scriptInstructions = "start \"\" \"" + GetGameExecutablePath() + "\"";
+    scriptInstructions += GetPrintEmptyLineScriptInstructions();
+    scriptInstructions += GetPrintStringScriptInstructions(gpLocalizableContent->GetText("Updater/StartingExecutableText"));
+    scriptInstructions += "start \"\" \"" + GetGameExecutablePath() + "\"" + GetNullRedirectionString() + GetNewlineString();
 #elif defined(__OSX) || defined(__unix)
-    scriptInstructions = "\"" + GetGameExecutablePath() + "\"";
+    // We won't do anything here - we start the game through the update applier.
+    scriptInstructions += GetPrintEmptyLineScriptInstructions();
+    scriptInstructions += GetPrintStringScriptInstructions(gpLocalizableContent->GetText("Updater/StartingExecutableText"));
+    scriptInstructions += "sudo -u#" + IntegerToString(getuid()) + " \"" + GetGameExecutablePath() + "\" &>/dev/null &" + GetNewlineString();
 #else
 #error NOT IMPLEMENTED
 #endif
 
-    return scriptInstructions + GetNullRedirectionString() + GetNewlineString();
+    return scriptInstructions;
 }
 
 string CreateUpdateScript(const string &scriptContents)
 {
     string updateScriptFilePath = GetTempDirectoryPath();
+    string finalScriptContents = scriptContents;
 
 #ifdef __WINDOWS
     updateScriptFilePath += "update.cmd";
@@ -1718,20 +1493,28 @@ string CreateUpdateScript(const string &scriptContents)
 #error NOT IMPLEMENTED
 #endif
 
+#ifdef __WINDOWS
+    finalScriptContents += GetRemoveFileScriptInstructions(updateScriptFilePath);
+#endif
+
     ofstream scriptFileStream(updateScriptFilePath, ios_base::out | ios_base::trunc);
 
     if (scriptFileStream)
     {
         // We'll add on an instruction to make the script delete itself right at the end,
         // in order to ensure that that's the last thing it does, always.
-        scriptFileStream.write((scriptContents + GetRemoveFileScriptInstructions(updateScriptFilePath)).c_str(), scriptContents.length());
+        scriptFileStream.write(finalScriptContents.c_str(), finalScriptContents.length());
         scriptFileStream.close();
     }
 
+#if defined(__OSX) || defined(__unix)
+    chmod(updateScriptFilePath.c_str(), S_IRUSR | S_IWUSR | S_IXUSR);
+#endif
+
     return updateScriptFilePath;
 }
-
 #endif
+
 #ifdef LAUNCHER
 bool LaunchUpdater(const string &versionsXmlFilePath)
 {

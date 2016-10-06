@@ -21,6 +21,6 @@ char * GetPropertyListXMLForVersionStringOSX(const string &pPropertyListFilePath
 string GetGameExecutable();
 bool CopyCaseUserOSX(const string &caseFilePath, const string &caseUuid);
 
-void BeginOSX();
+void BeginOSX(string executionPath);
 
 #endif

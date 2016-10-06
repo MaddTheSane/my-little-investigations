@@ -49,7 +49,7 @@ Autorelease_Pool_Wrapper POOL_NAME2(pool, __LINE__) = Autorelease_Pool_Wrapper()
 #define AUTORELEASE_POOL_STOP }
 
 /* Main entry point to executable - should *not* be SDL_main! */
-void BeginOSX()
+void BeginOSX(string executionPath)
 {
     AUTORELEASE_POOL_START
     NSFileManager *defaultManager = [NSFileManager defaultManager];
@@ -90,11 +90,11 @@ void BeginOSX()
         error:&error];
 
     pLocalApplicationSupportPath = [localGameAppSupportPath fileSystemRepresentation];
+    pLocalizedCommonResourcesPath = [pStrLocalizedCommonResourcesPath fileSystemRepresentation];
     pCasesPath = [NSCasesPath fileSystemRepresentation];
     pUserApplicationSupportPath = [userGameAppSupportPath fileSystemRepresentation];
     pDialogSeenListsPath = [dialogSeenPath fileSystemRepresentation];
     pSavesPath = [NSSavesPath fileSystemRepresentation];
-    pLocalizedCommonResourcesPath = [pStrLocalizedCommonResourcesPath fileSystemRepresentation];
 
     AUTORELEASE_POOL_STOP
 }
@@ -250,20 +250,20 @@ char *GetPropertyListXMLForVersionStringOSX(const string &pPropertyListFilePath,
     *pVersionStringLength = 0;
 
     NSFileManager *defaultManager = [NSFileManager defaultManager];
-    NSString *pErrorDesc = nil;
+    NSError *pError = nil;
     //TODO: Save the NSString as, say, a static pointer.
-    NSString *pProperyListPath = [defaultManager
+    NSString *pPropertyListPath = [defaultManager
 								  stringWithFileSystemRepresentation:pPropertyListFilePath.c_str()
 								  length: pPropertyListFilePath.size()];
-	pProperyListPath = [pProperyListPath stringByStandardizingPath];
+	pPropertyListPath = [pPropertyListPath stringByStandardizingPath];
 
-    if (![defaultManager fileExistsAtPath:pProperyListPath])
+    if (![defaultManager fileExistsAtPath:pPropertyListPath])
     {
         return NULL;
     }
 
     NSMutableDictionary *plistDict =
-        [[NSMutableDictionary alloc] initWithContentsOfFile:pProperyListPath];
+        [[NSMutableDictionary alloc] initWithContentsOfFile:pPropertyListPath];
 
     if (plistDict == NULL)
     {
@@ -271,13 +271,14 @@ char *GetPropertyListXMLForVersionStringOSX(const string &pPropertyListFilePath,
     }
 
     NSString *newStringValue = @(pVersionString.c_str());
-    plistDict[@"CFBundleShortVersionString"] = newStringValue;
     plistDict[@"CFBundleVersion"] = newStringValue;
+    plistDict[@"CFBundleShortVersionString"] = newStringValue;
 
     NSData *pData = [NSPropertyListSerialization
-        dataFromPropertyList:plistDict
+        dataWithPropertyList:plistDict
         format:NSPropertyListXMLFormat_v1_0
-        errorDescription:&pErrorDesc];
+        options:0
+        error:&pError];
     [plistDict release];
 
     if (pData == NULL)
