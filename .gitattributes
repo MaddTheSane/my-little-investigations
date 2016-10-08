@@ -1,3 +1,4 @@
 *.h text=auto
 *.c text=auto
 *.cpp text=auto
+*.plist text=lf
