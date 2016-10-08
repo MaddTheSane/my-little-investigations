@@ -244,6 +244,14 @@
 		5562B31518FC4FC300373B26 /* common.dat in Resources */ = {isa = PBXBuildFile; fileRef = 5562B31218FC4FC300373B26 /* common.dat */; };
 		5562B31718FC4FD200373B26 /* Cases in Resources */ = {isa = PBXBuildFile; fileRef = 5562B31618FC4FD200373B26 /* Cases */; };
 		5562B31818FC545E00373B26 /* MyLittleInvestigations.plist in Resources */ = {isa = PBXBuildFile; fileRef = 551D57DF18F9B5250087AAA0 /* MyLittleInvestigations.plist */; };
+		55802EB51DA8978F00956281 /* ResourceLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F8018F7413900DEB259 /* ResourceLoader.cpp */; };
+		55802EB61DA897CB00956281 /* XmlStorableObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55A7D8B71C96426D00839A80 /* XmlStorableObject.cpp */; };
+		55802EB71DA897CC00956281 /* XmlStorableObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55A7D8B71C96426D00839A80 /* XmlStorableObject.cpp */; };
+		55802EB81DA897CF00956281 /* XmlStorableObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55A7D8B71C96426D00839A80 /* XmlStorableObject.cpp */; };
+		55802EB91DA8980700956281 /* SharedUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55A7D8B21C96422C00839A80 /* SharedUtils.cpp */; };
+		55802EBA1DA8980900956281 /* SharedUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55A7D8B21C96422C00839A80 /* SharedUtils.cpp */; };
+		55802EBB1DA8982D00956281 /* LanguageScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55A7D8AD1C9641FF00839A80 /* LanguageScreen.cpp */; };
+		55802EBC1DA8985E00956281 /* miniz.c in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F7318F7413900DEB259 /* miniz.c */; };
 		558C3ED218F73F7200DEB259 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558C3ED118F73F7200DEB259 /* Cocoa.framework */; };
 		558C3F0E18F7407500DEB259 /* NSFileManagerDirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0918F7407500DEB259 /* NSFileManagerDirectoryLocations.m */; };
 		558C3F0F18F7407500DEB259 /* OSXMain.mm in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F0B18F7407500DEB259 /* OSXMain.mm */; };
@@ -1429,7 +1437,9 @@
 			files = (
 				55244AD01AA258DE00E6099D /* XmlReader.cpp in Sources */,
 				55244AD11AA258DE00E6099D /* XmlWriter.cpp in Sources */,
+				55802EB51DA8978F00956281 /* ResourceLoader.cpp in Sources */,
 				55244AD21AA258DE00E6099D /* MLIException.cpp in Sources */,
+				55802EB61DA897CB00956281 /* XmlStorableObject.cpp in Sources */,
 				55244AD31AA258DE00E6099D /* OSXMain.mm in Sources */,
 				55244AD41AA258DE00E6099D /* tinyxml2.cpp in Sources */,
 				55244AD51AA258DE00E6099D /* FileFunctions.cpp in Sources */,
@@ -1440,6 +1450,7 @@
 				55244ADA1AA258DE00E6099D /* Utils.cpp in Sources */,
 				55244ADB1AA258DE00E6099D /* Version.cpp in Sources */,
 				55244ADC1AA258DE00E6099D /* main.cpp in Sources */,
+				55802EBC1DA8985E00956281 /* miniz.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1488,8 +1499,10 @@
 				55244B231AA2594000E6099D /* Selector.cpp in Sources */,
 				55244B241AA2594000E6099D /* ImageButton.cpp in Sources */,
 				55244B251AA2594000E6099D /* Case.cpp in Sources */,
+				55802EB71DA897CC00956281 /* XmlStorableObject.cpp in Sources */,
 				55244B261AA2594000E6099D /* Line.cpp in Sources */,
 				55244B271AA2594000E6099D /* Sprite.cpp in Sources */,
+				55802EB91DA8980700956281 /* SharedUtils.cpp in Sources */,
 				55244B281AA2594000E6099D /* ButtonArray.cpp in Sources */,
 				55244B291AA2594000E6099D /* KeyboardHelper.cpp in Sources */,
 				55244B2A1AA2594000E6099D /* Encounter.cpp in Sources */,
@@ -1503,6 +1516,7 @@
 				55244B321AA2594000E6099D /* enums.cpp in Sources */,
 				55244B331AA2594000E6099D /* Polygon.cpp in Sources */,
 				55244B341AA2594000E6099D /* SkipArrow.cpp in Sources */,
+				55802EBB1DA8982D00956281 /* LanguageScreen.cpp in Sources */,
 				55244B351AA2594000E6099D /* Slider.cpp in Sources */,
 				55244B361AA2594000E6099D /* Video.cpp in Sources */,
 				55244B371AA2594000E6099D /* MLIFont.cpp in Sources */,
@@ -1552,9 +1566,11 @@
 				55244B721AA2597B00E6099D /* globals.cpp in Sources */,
 				55244B731AA2597B00E6099D /* Rectangle.cpp in Sources */,
 				55244B741AA2597B00E6099D /* LocalizableContent.cpp in Sources */,
+				55802EBA1DA8980900956281 /* SharedUtils.cpp in Sources */,
 				55244B751AA2597B00E6099D /* CheckForUpdatesScreen.cpp in Sources */,
 				55244B761AA2597B00E6099D /* Utils.cpp in Sources */,
 				55244B771AA2597B00E6099D /* Image.cpp in Sources */,
+				55802EB81DA897CF00956281 /* XmlStorableObject.cpp in Sources */,
 				55244B781AA2597B00E6099D /* Version.cpp in Sources */,
 				55244B791AA2597B00E6099D /* Vector2.cpp in Sources */,
 				55244B7A1AA2597B00E6099D /* main.cpp in Sources */,
