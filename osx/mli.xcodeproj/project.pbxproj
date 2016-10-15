@@ -353,6 +353,8 @@
 		55A7D8C01C9644C100839A80 /* miniz.c in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F7318F7413900DEB259 /* miniz.c */; };
 		55A7D8C11C9644C600839A80 /* ResourceLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F8018F7413900DEB259 /* ResourceLoader.cpp */; };
 		55A7D8C21C9644E700839A80 /* Rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558C3F7C18F7413900DEB259 /* Rectangle.cpp */; };
+		55AFB57D1DB1F886009255F3 /* Languages in Resources */ = {isa = PBXBuildFile; fileRef = 55AFB57C1DB1F886009255F3 /* Languages */; };
+		55AFB57E1DB1F886009255F3 /* Languages in Resources */ = {isa = PBXBuildFile; fileRef = 55AFB57C1DB1F886009255F3 /* Languages */; };
 		55FC88CD18F75543009BED51 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CC18F75543009BED51 /* SDL2_mixer.framework */; };
 		55FC88D018F75D71009BED51 /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; };
 		55FC88D418F76443009BED51 /* SDL2_ttf.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -714,6 +716,7 @@
 		55A7D8B31C96422C00839A80 /* SharedUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedUtils.h; sourceTree = "<group>"; };
 		55A7D8B71C96426D00839A80 /* XmlStorableObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XmlStorableObject.cpp; sourceTree = "<group>"; };
 		55A7D8B81C96426D00839A80 /* XmlStorableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XmlStorableObject.h; sourceTree = "<group>"; };
+		55AFB57C1DB1F886009255F3 /* Languages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Languages; sourceTree = "<group>"; };
 		55FC88CC18F75543009BED51 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = /Library/Frameworks/SDL2_mixer.framework; sourceTree = "<absolute>"; };
 		55FC88CF18F75D71009BED51 /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = /Library/Frameworks/SDL2_ttf.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -853,6 +856,7 @@
 		5562B30E18FC4FC300373B26 /* data */ = {
 			isa = PBXGroup;
 			children = (
+				55AFB57C1DB1F886009255F3 /* Languages */,
 				5562B31618FC4FD200373B26 /* Cases */,
 				5562B31118FC4FC300373B26 /* CelestiaMediumRedux1.5.ttf */,
 				5562B31218FC4FC300373B26 /* common.dat */,
@@ -1352,6 +1356,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55AFB57E1DB1F886009255F3 /* Languages in Resources */,
 				55A21E8D1AA3AEE600791D43 /* AppIcon.icns in Resources */,
 				55244AE61AA258DE00E6099D /* Cases in Resources */,
 				55A21E911AA3AEE600791D43 /* LockIcon.icns in Resources */,
@@ -1378,6 +1383,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55AFB57D1DB1F886009255F3 /* Languages in Resources */,
 				55A21E8B1AA3AEE600791D43 /* AppIcon.icns in Resources */,
 				5562B31718FC4FD200373B26 /* Cases in Resources */,
 				55A21E8F1AA3AEE600791D43 /* LockIcon.icns in Resources */,
